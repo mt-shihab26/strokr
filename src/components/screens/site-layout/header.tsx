@@ -50,15 +50,15 @@ export const Header = () => {
                                     height="23"
                                     rx="7"
                                     fill="#fff"
-                                    fill-opacity="0.18"
+                                    fillOpacity="0.18"
                                 />
-                                <g stroke="var(--ink-950)" stroke-linecap="round">
-                                    <path d="M7.5 11.5h7" stroke-width="2.4" />
-                                    <path d="M9.5 16h5" stroke-width="2.4" stroke-opacity="0.75" />
+                                <g stroke="var(--ink-950)" strokeLinecap="round">
+                                    <path d="M7.5 11.5h7" strokeWidth="2.4" />
+                                    <path d="M9.5 16h5" strokeWidth="2.4" strokeOpacity="0.75" />
                                     <path
                                         d="M11.5 20.5h3"
-                                        stroke-width="2.4"
-                                        stroke-opacity="0.5"
+                                        strokeWidth="2.4"
+                                        strokeOpacity="0.5"
                                     />
                                 </g>
                                 <rect

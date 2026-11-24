@@ -1,10 +1,11 @@
 import type { TIcon } from "@/types/utils";
+import { cn } from "@/lib/utils";
 
-export const LogoWideIcon: TIcon = (props) => {
+export const LogoWideIcon: TIcon = ({ className, ...props }) => {
     return (
         <svg
             viewBox="0 0 120 32"
-            className="<%= locals.size ?? 'h-8 w-auto' %>"
+            className={cn("h-8 w-auto", className)}
             role="img"
             aria-label="strokr"
             {...props}
