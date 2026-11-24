@@ -27,7 +27,7 @@ export const sitemap = () => {
     const today = new Date().toISOString().slice(0, 10);
     const urls = pages()
         .filter((page) => !unlisted.has(page))
-        .sort()
+        .sort((a, b) => a.localeCompare(b))
         .map((page) => {
             const loc = page === "index" ? `${siteUrl}/` : `${siteUrl}/${page}.html`;
             const priority = page === "index" ? "1.0" : "0.7";

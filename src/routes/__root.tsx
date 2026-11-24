@@ -1,9 +1,9 @@
+import mainCss from "@/main.css?url";
+
 import { createRootRoute } from "@tanstack/react-router";
 
-import { HeadContent, Scripts } from "@tanstack/react-router";
-import { TooltipProvider } from "@/components/ui/tooltip";
-
-import mainCss from "@/main.css?url";
+import { ShellLayout } from "@/components/layouts/shell-layout";
+import { NotFound } from "@/components/screens/errors/not-found";
 
 export const Route = createRootRoute({
     head: () => ({
@@ -16,20 +16,6 @@ export const Route = createRootRoute({
             { rel: "stylesheet", href: mainCss }, //
         ],
     }),
-    shellComponent: ({ children }) => (
-        <html lang="en">
-            <head>
-                <HeadContent />
-            </head>
-            <body>
-                <TooltipProvider>{children}</TooltipProvider>
-                <Scripts />
-            </body>
-        </html>
-    ),
-    notFoundComponent: () => (
-        <main className="grid min-h-screen place-items-center">
-            <h1 className="text-4xl font-bold">Page not found</h1>
-        </main>
-    ),
+    shellComponent: ShellLayout,
+    notFoundComponent: NotFound,
 });
