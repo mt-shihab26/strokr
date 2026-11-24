@@ -1,51 +1,89 @@
 <%
+// Icon paths (Lucide, 24x24, stroke). Each nav link shows only its icon; the label appears as a tooltip on hover/focus.
+const icons = {
+    trophy: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
+    keyboard: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M7 16h10"/>',
+    target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+    text: '<path d="M17 6.1H3M21 12.1H3M15.1 18H3"/>',
+    history: '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/>',
+    settings: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+    palette: '<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.55-2.5 5.55-5.55C21.97 6.01 17.46 2 12 2z"/>',
+};
+const icon = (name, size = "size-[18px]") =>
+    `<svg viewBox="0 0 24 24" class="${size}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`;
+
 const links = [
-    { href: "leaderboard.html", label: "Leaderboard", page: "leaderboard" },
-    { href: "index.html", label: "Test", page: "index" },
-    { href: "practice.html", label: "Practice", page: "practice" },
-    { href: "custom.html", label: "Custom", page: "custom" },
-    { href: "history.html", label: "History", page: "history" },
-    { href: "settings.html", label: "Settings", page: "settings" },
+    { href: "leaderboard.html", label: "Leaderboard", page: "leaderboard", icon: "trophy" },
+    { href: "index.html", label: "Typing test", page: "index", icon: "keyboard" },
+    { href: "practice.html", label: "Practice", page: "practice", icon: "target" },
+    { href: "custom.html", label: "Custom text", page: "custom", icon: "text" },
+    { href: "history.html", label: "History", page: "history", icon: "history" },
+    { href: "settings.html", label: "Settings", page: "settings", icon: "settings" },
 ];
+
+// Tooltip shown under an icon button on hover or keyboard focus.
+const tip = (label) =>
+    `<span role="tooltip" class="pointer-events-none absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 translate-y-1 rounded-md border border-ink-800 bg-ink-900 px-2 py-1 text-xs whitespace-nowrap text-ink-100 opacity-0 shadow-lg transition group-hover/tip:translate-y-0 group-hover/tip:opacity-100 group-focus-visible/tip:translate-y-0 group-focus-visible/tip:opacity-100">${label}</span>`;
 %>
-<header class="flex flex-wrap items-center justify-between gap-4 py-8">
-    <a href="index.html" class="flex items-center gap-2 font-mono text-xl font-bold text-ink-100">
-        <span class="grid size-8 place-items-center rounded-md bg-accent text-sm text-ink-950">s</span>
-        strokr
-    </a>
-    <nav class="flex flex-wrap items-center gap-1 text-sm">
-        <% for (const link of links) { %>
-        <a
-            href="<%= link.href %>"
-            class="rounded-md px-3 py-1.5 <%= link.page === page ? 'bg-ink-900 text-ink-100' : 'text-ink-500 hover:bg-ink-900 hover:text-ink-200' %>"
-        ><%= link.label %></a>
-        <% } %>
-    </nav>
-    <div class="flex items-center gap-2">
-        <!-- Theme selector -->
-        <details class="group relative">
-            <summary class="flex cursor-pointer list-none items-center gap-2 rounded-md border border-ink-800 px-2.5 py-1.5 text-xs text-ink-500 hover:text-ink-200">
-                <span class="size-3 rounded-full bg-accent"></span>
-                Theme
-                <svg viewBox="0 0 24 24" class="size-3 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6" /></svg>
-            </summary>
-            <div class="absolute right-0 z-40 mt-2 w-44 rounded-lg border border-ink-800 bg-ink-900 p-1 shadow-xl">
-                <% for (const name of ["system", "dark", "light", "nord", "sepia", "matrix"]) { %>
-                <button data-set-theme="<%= name %>" class="flex w-full items-center gap-2 rounded-md border border-transparent px-2 py-1.5 text-left text-sm text-ink-300 hover:bg-ink-800">
-                    <span data-theme="<%= name === 'system' ? 'dark' : name %>" class="flex gap-0.5 rounded bg-ink-950 p-1">
-                        <span class="size-2 rounded-full bg-accent"></span>
-                        <span class="size-2 rounded-full bg-ink-100"></span>
-                        <span class="size-2 rounded-full bg-ink-600"></span>
-                    </span>
-                    <%= name %>
-                </button>
-                <% } %>
-            </div>
-        </details>
-        <a href="#command" class="flex items-center gap-2 rounded-md border border-ink-800 px-2.5 py-1.5 text-xs text-ink-500 hover:text-ink-200">
-            Search <%- include("kbd", { key: "esc" }) %>
+<header class="sticky top-0 z-30 -mx-6 mb-4 px-6 py-4 backdrop-blur-md">
+    <div class="flex items-center justify-between gap-4 rounded-2xl border border-ink-900 bg-ink-950/70 px-3 py-2 shadow-lg shadow-black/5">
+        <!-- Logo -->
+        <a href="index.html" class="group flex items-center gap-2.5 rounded-lg px-1.5 py-1 font-mono text-lg font-bold text-ink-100">
+            <span class="grid size-8 place-items-center rounded-lg bg-accent text-sm text-ink-950 shadow-md shadow-accent/30 transition group-hover:rotate-[-8deg]">s</span>
+            <span class="hidden sm:inline">strokr</span>
         </a>
-        <a href="profile.html" class="grid size-8 place-items-center rounded-full bg-ink-800 font-mono text-xs text-ink-200 <%= page === 'profile' ? 'ring-2 ring-accent' : '' %>" aria-label="Profile">SM</a>
+
+        <!-- Icon nav -->
+        <nav class="flex items-center gap-0.5 rounded-xl bg-ink-900/60 p-1" aria-label="Main">
+            <% for (const link of links) { const active = link.page === page; %>
+            <a
+                href="<%= link.href %>"
+                aria-label="<%= link.label %>"
+                <% if (active) { %>aria-current="page"<% } %>
+                class="group/tip relative grid size-9 place-items-center rounded-lg <%= active ? 'bg-ink-800 text-accent shadow-sm' : 'text-ink-500 hover:bg-ink-800/60 hover:text-ink-100' %>"
+            >
+                <%- icon(link.icon) %>
+                <% if (active) { %><span class="absolute -bottom-0.5 h-0.5 w-4 rounded-full bg-accent"></span><% } %>
+                <%- tip(link.label) %>
+            </a>
+            <% } %>
+        </nav>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-1">
+            <a href="#command" aria-label="Search" class="group/tip relative grid size-9 place-items-center rounded-lg text-ink-500 hover:bg-ink-900 hover:text-ink-100">
+                <%- icon("search") %>
+                <%- tip("Search · esc") %>
+            </a>
+
+            <!-- Theme selector -->
+            <details class="group relative">
+                <summary aria-label="Theme" class="group/tip relative grid size-9 cursor-pointer list-none place-items-center rounded-lg text-ink-500 hover:bg-ink-900 hover:text-ink-100 group-open:bg-ink-900 group-open:text-accent">
+                    <%- icon("palette") %>
+                    <%- tip("Theme") %>
+                </summary>
+                <div class="absolute right-0 z-40 mt-2 w-44 rounded-xl border border-ink-800 bg-ink-900 p-1 shadow-xl">
+                    <% for (const name of ["system", "dark", "light", "nord", "sepia", "matrix"]) { %>
+                    <button data-set-theme="<%= name %>" class="flex w-full items-center gap-2 rounded-lg border border-transparent px-2 py-1.5 text-left text-sm text-ink-300 hover:bg-ink-800">
+                        <span data-theme="<%= name === 'system' ? 'dark' : name %>" class="flex gap-0.5 rounded bg-ink-950 p-1">
+                            <span class="size-2 rounded-full bg-accent"></span>
+                            <span class="size-2 rounded-full bg-ink-100"></span>
+                            <span class="size-2 rounded-full bg-ink-600"></span>
+                        </span>
+                        <%= name %>
+                    </button>
+                    <% } %>
+                </div>
+            </details>
+
+            <span class="mx-1 h-6 w-px bg-ink-800"></span>
+
+            <a href="profile.html" aria-label="Profile" class="group/tip relative grid size-9 place-items-center rounded-full bg-gradient-to-br from-accent/80 to-ink-700 font-mono text-xs font-bold text-ink-950 ring-2 ring-offset-2 ring-offset-ink-950 <%= page === 'profile' ? 'ring-accent' : 'ring-transparent hover:ring-ink-700' %>">
+                SM
+                <%- tip("Profile") %>
+            </a>
+        </div>
     </div>
 </header>
 <%- include("command-menu") %>
