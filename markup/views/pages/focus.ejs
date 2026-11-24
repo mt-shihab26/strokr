@@ -1,0 +1,56 @@
+<%- include("../partials/head", { title: "Focus" }) %>
+
+<%#
+    Focus mode: the test with nothing else on screen. No header, footer or mode bar.
+    Stats are dim until you stop typing; the exit hint fades in on mouse move.
+%>
+
+<a href="#main" class="fixed top-3 left-3 z-[60] -translate-y-20 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink-950 shadow-lg focus:translate-y-0">Skip to content</a>
+
+<!-- Exit -->
+<div class="group fixed inset-x-0 top-0 z-20 flex justify-between p-6">
+    <a href="index.html" class="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-ink-600 opacity-40 transition hover:bg-ink-900 hover:text-ink-200 hover:opacity-100">
+        ← Exit focus <%- include("../partials/kbd", { key: "f" }) %>
+    </a>
+    <span class="font-mono text-xs text-ink-700 opacity-40">time 30 · english</span>
+</div>
+
+<!-- Progress across the very top -->
+<div class="fixed inset-x-0 top-0 h-0.5 bg-ink-900"><div class="h-full w-[30%] bg-accent transition-[width] duration-1000 ease-linear"></div></div>
+
+<main id="main" class="mx-auto flex w-full max-w-4xl flex-1 flex-col justify-center gap-10 py-24">
+    <!-- Quiet stats -->
+    <div class="flex items-baseline gap-8 font-mono text-ink-600">
+        <span class="text-5xl font-bold text-accent tabular-nums">21</span>
+        <span class="text-lg tabular-nums"><span class="text-ink-400">68</span> wpm</span>
+        <span class="text-lg tabular-nums"><span class="text-ink-400">96%</span> acc</span>
+    </div>
+
+    <div class="group relative" tabindex="0" aria-label="Typing area">
+        <%- include("../partials/typing-text", { size: "text-[2rem]" }) %>
+    </div>
+
+    <p class="flex items-center justify-center gap-1.5 text-xs text-ink-700">
+        <%- include("../partials/kbd", { key: "tab" }) %><%- include("../partials/kbd", { key: "enter" }) %> restart
+        <span class="mx-2">·</span>
+        <%- include("../partials/kbd", { key: "esc" }) %> exit
+    </p>
+</main>
+
+<script>
+    // f or esc leaves focus mode. Runs in the capture phase so the global shortcuts in head.ejs don't fire.
+    addEventListener(
+        "keydown",
+        (event) => {
+            if (event.key === "Escape" || (event.key.toLowerCase() === "f" && !event.ctrlKey && !event.metaKey)) {
+                event.stopImmediatePropagation();
+                location.href = "index.html";
+            }
+        },
+        true,
+    );
+</script>
+
+        </div>
+    </body>
+</html>

@@ -18,6 +18,7 @@ const unlisted = new Set([
     "share",
     "loading-states",
     "test-finished",
+    "focus",
 ]);
 
 export const pages = () =>

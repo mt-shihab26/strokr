@@ -2,20 +2,6 @@
 <%- include("../partials/header") %>
 
 <%
-// Sample state: words already typed (with per-letter result), the current word, and words still to come.
-// Letter states: "ok" correct, "bad" wrong, "extra" typed past the end of a word.
-const typed = [
-    [["the", "ok"]],
-    [["quick", "ok"]],
-    [["br", "ok"], ["i", "bad"], ["wn", "ok"]],
-    [["fox", "ok"]],
-    [["jumps", "ok"], ["s", "extra"]],
-    [["over", "ok"]],
-];
-const current = { done: "th", rest: "e" };
-const upcoming = "lazy dog while every keystroke is checked one character at a time so you can see exactly where your fingers slip and how your speed holds up over the full test".split(" ");
-const letterClass = { ok: "text-ink-100", bad: "text-rose-500 underline decoration-rose-500/60 underline-offset-[6px]", extra: "text-rose-500/60" };
-
 const modes = [
     { label: "time", icon: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>', active: true },
     { label: "words", icon: '<path d="M4 7h16M4 12h10M4 17h13"/>' },
@@ -110,9 +96,7 @@ const icon = (d, size = "size-3.5") => `<svg viewBox="0 0 24 24" class="${size}"
                         Click or press any key to start
                     </span>
                 </p>
-                <div class="max-h-[7.5rem] overflow-hidden font-mono text-[1.75rem] leading-[2.5rem] text-ink-600 transition select-none [mask-image:linear-gradient(to_bottom,black_70%,transparent)] group-[.unfocused]:opacity-30 group-[.unfocused]:blur-[3px]">
-                    <% for (const word of typed) { %><span class="mr-[0.6ch] inline-block"><% for (const [text, state] of word) { %><span class="<%= letterClass[state] %>"><%= text %></span><% } %></span><% } %><span class="relative mr-[0.6ch] inline-block rounded-md bg-ink-800/50 px-0.5 -mx-0.5"><span class="text-ink-100"><%= current.done %></span><span class="caret absolute top-1 h-[1.15em] w-0.5 rounded-full bg-accent" style="left: calc(<%= current.done.length %>ch + 0.125rem)"></span><%= current.rest %></span><% for (const w of upcoming) { %><span class="mr-[0.6ch] inline-block"><%= w %></span><% } %>
-                </div>
+                <%- include("../partials/typing-text") %>
             </div>
         </div>
     </section>
@@ -126,9 +110,9 @@ const icon = (d, size = "size-3.5") => `<svg viewBox="0 0 24 24" class="${size}"
             <button class="grid size-11 place-items-center rounded-xl border border-ink-900 text-ink-400 hover:border-ink-700 hover:bg-ink-900 hover:text-ink-100" aria-label="Next test">
                 <%- icon('<path d="m9 18 6-6-6-6"/>', "size-5") %>
             </button>
-            <button class="grid size-11 place-items-center rounded-xl border border-ink-900 text-ink-400 hover:border-ink-700 hover:bg-ink-900 hover:text-ink-100" aria-label="Focus mode (f)">
+            <a href="focus.html" class="grid size-11 place-items-center rounded-xl border border-ink-900 text-ink-400 hover:border-ink-700 hover:bg-ink-900 hover:text-ink-100" aria-label="Focus mode (f)">
                 <%- icon('<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>', "size-5") %>
-            </button>
+            </a>
         </div>
         <p class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-ink-600">
             <span class="flex items-center gap-1.5"><%- include("../partials/kbd", { key: "tab" }) %><%- include("../partials/kbd", { key: "enter" }) %> restart</span>
