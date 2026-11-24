@@ -66,8 +66,8 @@ const groups = [
     <!-- Theme picker. Each card sets its own data-theme, so it previews that theme's colours. -->
     <section>
         <h2 class="mb-3 text-xs font-medium tracking-wider text-ink-500 uppercase">Theme</h2>
-        <div class="stagger grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            <% for (const name of ["system", "dark", "light", "nord", "sepia", "matrix"]) { %>
+        <div class="stagger grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+            <% for (const name of ["system", "dark", "light", "nord", "sepia", "tokyo-night", "matrix"]) { %>
             <button data-set-theme="<%= name %>" class="flex flex-col gap-2 rounded-xl border-2 border-ink-900 p-1.5 text-left text-sm text-ink-400 hover:border-ink-700">
                 <% if (name === "system") { %>
                 <span class="grid h-16 grid-cols-2 overflow-hidden rounded-lg">

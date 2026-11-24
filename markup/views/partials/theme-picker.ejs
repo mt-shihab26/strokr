@@ -5,7 +5,7 @@
         <span role="tooltip" class="pointer-events-none absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 translate-y-1 rounded-md border border-ink-800 bg-ink-900 px-2 py-1 text-xs whitespace-nowrap text-ink-100 opacity-0 shadow-lg transition group-hover/tip:translate-y-0 group-hover/tip:opacity-100 group-open:hidden">Theme</span>
     </summary>
     <div class="absolute right-0 z-40 mt-2 w-44 rounded-xl border border-ink-800 bg-ink-900 p-1 shadow-xl">
-        <% for (const name of ["system", "dark", "light", "nord", "sepia", "matrix"]) { %>
+        <% for (const name of ["system", "dark", "light", "nord", "sepia", "tokyo-night", "matrix"]) { %>
         <button data-set-theme="<%= name %>" class="flex w-full items-center gap-2 rounded-lg border border-transparent px-2 py-1.5 text-left text-sm text-ink-300 hover:bg-ink-800">
             <span data-theme="<%= name === 'system' ? 'dark' : name %>" class="flex gap-0.5 rounded bg-ink-950 p-1">
                 <span class="size-2 rounded-full bg-accent"></span>

@@ -22,6 +22,11 @@ const themes = {
         ink: [0.22, 0.28, 0.34, 0.4, 0.48, 0.58, 0.68, 0.8, 0.88, 0.93, 0.96],
         hue: 75, chroma: 0.03,
     },
+    "tokyo-night": {
+        accent: "oklch(0.72 0.13 265)",
+        ink: [0.94, 0.89, 0.84, 0.78, 0.67, 0.55, 0.45, 0.37, 0.3, 0.25, 0.2],
+        hue: 275, chroma: 0.035,
+    },
     matrix: {
         accent: "oklch(0.85 0.22 145)",
         ink: [0.95, 0.9, 0.85, 0.78, 0.66, 0.54, 0.43, 0.34, 0.26, 0.2, 0.14],
@@ -57,7 +62,7 @@ const vars = (t) => [`--accent: ${t.accent};`, ...t.ink.map((l, i) => `--ink-${s
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700;800&display=swap"
             rel="stylesheet"
         />
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
