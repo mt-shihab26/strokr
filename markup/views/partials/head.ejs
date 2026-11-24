@@ -96,6 +96,24 @@ const vars = (t) => [
             applyTheme(localStorage.getItem("theme") ?? "dark");
             // Theme colours are defined further down the head, so draw the favicon again once they exist.
             document.addEventListener("DOMContentLoaded", updateFavicon);
+            // Command menu: ctrl/⌘ + k, "/" or esc opens it; esc closes it.
+            document.addEventListener("keydown", (event) => {
+                const open = location.hash === "#command";
+                const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName) && !open;
+                if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+                    event.preventDefault();
+                    location.hash = open ? "" : "command";
+                } else if (event.key === "Escape") {
+                    location.hash = open ? "" : "command";
+                } else if (event.key === "/" && !typing && !open) {
+                    event.preventDefault();
+                    location.hash = "command";
+                }
+            });
+            // Focus the search field whenever the menu opens.
+            addEventListener("hashchange", () => {
+                if (location.hash === "#command") document.querySelector("#command input")?.focus();
+            });
             document.addEventListener("click", (event) => {
                 const button = event.target.closest("[data-set-theme]");
                 if (!button) return;

@@ -52,9 +52,9 @@ const tip = (label) =>
 
         <!-- Actions -->
         <div class="flex items-center gap-1">
-            <a href="#command" aria-label="Search" class="group/tip relative grid size-9 place-items-center rounded-lg text-ink-500 hover:bg-ink-900 hover:text-ink-100">
+            <a href="#command" aria-label="Search (ctrl + k)" aria-keyshortcuts="Control+K" class="group/tip relative grid size-9 place-items-center rounded-lg text-ink-500 hover:bg-ink-900 hover:text-ink-100">
                 <%- icon("search") %>
-                <%- tip("Search · esc") %>
+                <%- tip(`<span class="flex items-center gap-2">Search <span class="flex gap-0.5 font-mono text-[10px]"><kbd class="rounded border border-ink-700 bg-ink-800 px-1 text-ink-300">ctrl</kbd><kbd class="rounded border border-ink-700 bg-ink-800 px-1 text-ink-300">k</kbd></span></span>`) %>
             </a>
 
             <%- include("theme-picker") %>
