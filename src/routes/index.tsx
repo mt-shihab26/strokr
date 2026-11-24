@@ -75,7 +75,7 @@ function App() {
                     </li>
                     <li>
                         Add routes in <code>src/routes</code> and tweak visual tokens in{" "}
-                        <code>src/styles.css</code>.
+                        <code>src/main.css</code>.
                     </li>
                 </ul>
             </section>

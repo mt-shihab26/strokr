@@ -98,7 +98,7 @@ function DemoDrizzle() {
                         <p className="font-medium">Setup Instructions:</p>
                         <ol className="demo-muted list-inside list-decimal space-y-2">
                             <li>
-                                Configure your <code>DATABASE_URL</code> in .env.local
+                                Configure your <code>DATABASE_URL</code> in .env
                             </li>
                             <li>
                                 Run: <code>bunx --bun drizzle-kit generate</code>

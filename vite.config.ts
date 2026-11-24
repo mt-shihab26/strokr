@@ -14,7 +14,11 @@ export default defineConfig({
         devtools(),
         nitro({ rollupConfig: { external: [/^@sentry\//] } }),
         tailwindcss(),
-        tanstackStart(),
+        tanstackStart({
+            router: {
+                generatedRouteTree: "tree.gen.ts",
+            },
+        }),
         react(),
         babel({
             presets: [reactCompilerPreset()],
@@ -33,7 +37,7 @@ export default defineConfig({
             ".nitro/**",
             ".tanstack/**",
             "drizzle/**",
-            "src/routeTree.gen.ts",
+            "src/tree.gen.ts",
             "src/components/ui/*",
         ],
         options: {
@@ -48,10 +52,10 @@ export default defineConfig({
         semi: true,
         singleAttributePerLine: false,
         htmlWhitespaceSensitivity: "css",
-        ignorePatterns: [".github/**", "src/routeTree.gen.ts", "src/components/ui/*"],
+        ignorePatterns: [".github/**", "src/tree.gen.ts", "src/components/ui/*"],
         sortTailwindcss: {
             functions: ["clsx", "cn", "cva"],
-            stylesheet: "src/styles.css",
+            stylesheet: "src/main.css",
         },
     },
 });
