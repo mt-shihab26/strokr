@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { FlagIcon } from "@/components/icons/flag-icon";
 import { HistoryIcon } from "@/components/icons/history-icon";
 import { KeyboardIcon } from "@/components/icons/keyboard-icon";
+import { LogoIcon } from "@/components/icons/logo-icon";
 import { LogoWideIcon } from "@/components/icons/logo-wide-icon";
 import { SettingsIcon } from "@/components/icons/settings-icon";
 import { TargetIcon } from "@/components/icons/target-icon";
@@ -36,40 +37,7 @@ export const Header = () => {
                         className="group flex items-center rounded-lg px-1.5 py-1"
                     >
                         <span className="sm:hidden">
-                            <svg
-                                viewBox="0 0 32 32"
-                                className="size-8"
-                                role="img"
-                                aria-label="strokr"
-                            >
-                                <rect width="32" height="32" rx="9" fill="var(--primary)" />
-                                <rect
-                                    x="3"
-                                    y="3"
-                                    width="26"
-                                    height="23"
-                                    rx="7"
-                                    fill="#fff"
-                                    fillOpacity="0.18"
-                                />
-                                <g stroke="var(--ink-950)" strokeLinecap="round">
-                                    <path d="M7.5 11.5h7" strokeWidth="2.4" />
-                                    <path d="M9.5 16h5" strokeWidth="2.4" strokeOpacity="0.75" />
-                                    <path
-                                        d="M11.5 20.5h3"
-                                        strokeWidth="2.4"
-                                        strokeOpacity="0.5"
-                                    />
-                                </g>
-                                <rect
-                                    x="18.5"
-                                    y="8.5"
-                                    width="3"
-                                    height="15"
-                                    rx="1.5"
-                                    fill="var(--ink-950)"
-                                />
-                            </svg>
+                            <LogoIcon className="size-8" role="img" aria-label="strokr" />
                         </span>
                         <span className="hidden sm:block">
                             <LogoWideIcon />
