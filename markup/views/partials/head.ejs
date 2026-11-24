@@ -23,9 +23,10 @@ const themes = {
         hue: 75, chroma: 0.03,
     },
     "tokyo-night": {
-        // Colours from Omarchy's tokyo-night theme (colors.toml).
+        // Colours from Omarchy's tokyo-night theme (colors.toml) and the Tokyo Night palette.
         accent: "#7aa2f7",
-        colors: ["#c0caf5", "#c0caf5", "#b4bee6", "#a9b1d6", "#7f88b0", "#565f89", "#414868", "#353b54", "#292e42", "#24283b", "#1a1b26"],
+        colors: ["#c0caf5", "#c0caf5", "#b4bee6", "#a9b1d6", "#737aa2", "#565f89", "#414868", "#3b4261", "#292e42", "#24283b", "#1a1b26"],
+        palette: { red: "#f7768e", green: "#9ece6a", yellow: "#e0af68", blue: "#7aa2f7", magenta: "#bb9af7", orange: "#ff9e64", cyan: "#7dcfff" },
     },
     matrix: {
         accent: "oklch(0.85 0.22 145)",
@@ -34,7 +35,38 @@ const themes = {
     },
 };
 const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-const vars = (t) => [`--accent: ${t.accent};`, ...steps.map((step, i) => `--ink-${step}: ${t.colors ? t.colors[i] : `oklch(${t.ink[i]} ${t.chroma} ${t.hue})`};`)].join(" ");
+
+// Status colours. A theme can override any of these with `palette`; the rest use these defaults.
+const defaultPalette = {
+    red: "oklch(0.645 0.246 16.4)",
+    green: "oklch(0.696 0.17 162.5)",
+    yellow: "oklch(0.769 0.188 70.1)",
+    blue: "oklch(0.685 0.169 237.3)",
+    magenta: "oklch(0.606 0.25 292.7)",
+    orange: "oklch(0.705 0.213 47.6)",
+    cyan: "oklch(0.715 0.143 215.2)",
+};
+
+// Tailwind colour families used in the markup, mapped onto the theme palette.
+// Lighter shades mix in white, darker shades mix in black, so `text-rose-300` or `bg-rose-950/20` still work.
+const families = {
+    rose: "red", pink: "red",
+    emerald: "green", lime: "green",
+    amber: "yellow",
+    sky: "blue",
+    violet: "magenta", fuchsia: "magenta",
+    orange: "orange",
+};
+const shade = (name, step) =>
+    step <= 400 ? `color-mix(in oklab, var(--${name}) ${step === 300 ? 70 : 85}%, white)`
+    : step <= 600 ? `var(--${name})`
+    : `color-mix(in oklab, var(--${name}) ${{ 700: 75, 800: 55, 900: 35, 950: 20 }[step]}%, black)`;
+
+const vars = (t) => [
+    `--accent: ${t.accent};`,
+    ...steps.map((step, i) => `--ink-${step}: ${t.colors ? t.colors[i] : `oklch(${t.ink[i]} ${t.chroma} ${t.hue})`};`),
+    ...Object.entries({ ...defaultPalette, ...t.palette }).map(([name, value]) => `--${name}: ${value};`),
+].join(" ");
 %>
 <!doctype html>
 <html lang="en" data-theme="dark">
@@ -42,16 +74,28 @@ const vars = (t) => [`--accent: ${t.accent};`, ...steps.map((step, i) => `--ink-
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title><%= title %> — strokr</title>
-        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <link id="favicon" rel="icon" type="image/svg+xml" href="favicon.svg" />
         <link rel="sitemap" type="application/xml" href="sitemap.xml" />
         <script>
             // Apply the saved theme before the page paints, and wire up every [data-set-theme] button.
+            // Redraw the favicon in the current theme's accent and background colours.
+            const updateFavicon = () => {
+                const style = getComputedStyle(document.documentElement);
+                const accent = style.getPropertyValue("--accent").trim();
+                const ink = style.getPropertyValue("--ink-950").trim();
+                if (!accent) return;
+                const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="${accent}"/><g stroke="${ink}" stroke-linecap="round" stroke-width="3"><path d="M6.5 11h8"/><path d="M9 16.5h5.5" stroke-opacity="0.7"/></g><rect x="18.5" y="7" width="3.5" height="18" rx="1.75" fill="${ink}"/></svg>`;
+                document.getElementById("favicon").href = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+            };
             const applyTheme = (name) => {
                 const resolved = name === "system" ? (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark") : name;
                 document.documentElement.dataset.theme = resolved;
                 document.documentElement.dataset.themeChoice = name;
+                updateFavicon();
             };
             applyTheme(localStorage.getItem("theme") ?? "dark");
+            // Theme colours are defined further down the head, so draw the favicon again once they exist.
+            document.addEventListener("DOMContentLoaded", updateFavicon);
             document.addEventListener("click", (event) => {
                 const button = event.target.closest("[data-set-theme]");
                 if (!button) return;
@@ -78,6 +122,8 @@ const vars = (t) => [`--accent: ${t.accent};`, ...steps.map((step, i) => `--ink-
                 --color-accent: var(--accent);
                 <% for (const step of steps) { %>--color-ink-<%= step %>: var(--ink-<%= step %>);
                 <% } %>
+                <% for (const [family, name] of Object.entries(families)) { for (const step of [300, 400, 500, 600, 700, 800, 900, 950]) { %>--color-<%= family %>-<%= step %>: <%- shade(name, step) %>;
+                <% } } %>
             }
             /* Highlight the active option in any theme picker. */
             <% for (const name of [...Object.keys(themes), "system"]) { %>
