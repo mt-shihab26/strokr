@@ -28,7 +28,7 @@ const tests = [
     </div>
 
     <!-- Summary -->
-    <section class="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <section class="stagger grid grid-cols-2 gap-4 md:grid-cols-4">
         <% for (const [label, value, hint] of [
             ["tests taken", "128", "4h 12m typing"],
             ["best wpm", "81", "time 15"],
@@ -70,7 +70,7 @@ const tests = [
                     <th class="px-4 py-3"></th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-ink-900 font-mono">
+            <tbody class="stagger divide-y divide-ink-900 font-mono">
                 <% for (const [date, mode, wpm, acc, raw, cons] of tests) { %>
                 <tr class="hover:bg-ink-900/50">
                     <td class="px-4 py-3 text-ink-400"><%= date %></td>

@@ -19,7 +19,7 @@ const level = (n) => ["bg-ink-900", "bg-accent/25", "bg-accent/50", "bg-accent/7
     </section>
 
     <!-- Summary -->
-    <section class="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <section class="stagger grid grid-cols-2 gap-4 md:grid-cols-4">
         <%- include("../partials/stat", { label: "tests completed", value: "128", hint: "143 started" }) %>
         <%- include("../partials/stat", { label: "time typing", value: "4h 12m" }) %>
         <%- include("../partials/stat", { label: "average wpm", value: "67", hint: "last 10: 72" }) %>

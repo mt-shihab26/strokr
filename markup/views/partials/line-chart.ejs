@@ -14,6 +14,8 @@ const y = (v) => h - (v / maxY) * h;
         <% } %>
         <% for (const s of series) { %>
         <polyline
+            class="draw"
+            pathLength="1"
             fill="none"
             stroke="<%= s.color %>"
             stroke-width="2.5"

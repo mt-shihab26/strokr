@@ -36,6 +36,12 @@ const groups = [
         <p class="mt-1 text-sm text-ink-500">Saved in your browser. Changes apply to the next test.</p>
     </div>
 
+    <!-- Toast shown for ~2s after any change. -->
+    <div class="fixed right-6 bottom-6 z-40 flex items-center gap-2 rounded-lg border border-ink-800 bg-ink-900 px-4 py-2.5 text-sm text-ink-200 shadow-xl" role="status">
+        <span class="grid size-4 place-items-center rounded-full bg-emerald-500 text-[10px] text-ink-950">✓</span>
+        Settings saved
+    </div>
+
     <% for (const group of groups) { %>
     <section>
         <h2 class="mb-3 text-xs font-medium tracking-wider text-ink-500 uppercase"><%= group.title %></h2>
@@ -60,7 +66,7 @@ const groups = [
     <!-- Theme picker. Each card sets its own data-theme, so it previews that theme's colours. -->
     <section>
         <h2 class="mb-3 text-xs font-medium tracking-wider text-ink-500 uppercase">Theme</h2>
-        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        <div class="stagger grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             <% for (const name of ["system", "dark", "light", "nord", "sepia", "matrix"]) { %>
             <button data-set-theme="<%= name %>" class="flex flex-col gap-2 rounded-xl border-2 border-ink-900 p-1.5 text-left text-sm text-ink-400 hover:border-ink-700">
                 <% if (name === "system") { %>

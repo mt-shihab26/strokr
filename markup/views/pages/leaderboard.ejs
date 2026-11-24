@@ -38,15 +38,35 @@ const medal = ["text-amber-300", "text-ink-300", "text-orange-400"];
     </div>
 
     <!-- Podium -->
-    <section class="grid gap-4 sm:grid-cols-3">
+    <section class="stagger grid items-end gap-4 sm:grid-cols-3">
         <% players.slice(0, 3).forEach(([name, wpm, acc], i) => { %>
-        <div class="rounded-xl border border-ink-900 bg-ink-900/40 p-5 <%= i === 0 ? 'sm:order-2 border-amber-400/40' : i === 1 ? 'sm:order-1' : 'sm:order-3' %>">
-            <p class="font-mono text-sm <%= medal[i] %>">#<%= i + 1 %></p>
-            <p class="mt-2 text-lg font-medium text-ink-100"><%= name %></p>
-            <p class="mt-3 font-mono text-4xl font-bold text-accent"><%= wpm %></p>
+        <div class="lift relative flex flex-col items-center rounded-2xl border bg-ink-900/40 p-6 text-center <%= i === 0 ? 'sm:order-2 border-amber-400/40 bg-gradient-to-b from-amber-400/10 to-transparent sm:pb-10' : i === 1 ? 'sm:order-1 border-ink-900' : 'sm:order-3 border-ink-900' %>">
+            <% if (i === 0) { %><span class="absolute -top-3 text-xl">👑</span><% } %>
+            <span class="grid size-14 place-items-center rounded-full bg-ink-800 font-mono text-lg text-ink-100 ring-2 <%= ['ring-amber-300', 'ring-ink-400', 'ring-orange-400'][i] %>"><%= name.slice(0, 2).toUpperCase() %></span>
+            <p class="mt-3 font-medium text-ink-100"><%= name %></p>
+            <p class="mt-2 font-mono text-4xl font-bold text-accent"><%= wpm %></p>
             <p class="text-xs text-ink-500">wpm · <%= acc %>% acc</p>
+            <span class="mt-3 font-mono text-xs <%= medal[i] %>">#<%= i + 1 %></span>
         </div>
         <% }) %>
+    </section>
+
+    <!-- Your standing -->
+    <section class="flex flex-wrap items-center gap-6 rounded-2xl border border-accent/30 bg-accent/5 p-5">
+        <div>
+            <p class="text-xs text-ink-500">Your rank</p>
+            <p class="font-mono text-3xl font-bold text-ink-100">#214</p>
+        </div>
+        <div class="min-w-48 flex-1">
+            <div class="mb-1.5 flex justify-between text-xs text-ink-500">
+                <span>81 wpm</span>
+                <span>Top 100 at 112 wpm</span>
+            </div>
+            <div class="h-2 overflow-hidden rounded-full bg-ink-900">
+                <div class="bar h-full w-[72%] rounded-full bg-accent"></div>
+            </div>
+        </div>
+        <a href="index.html" class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Climb the board</a>
     </section>
 
     <!-- Table -->
@@ -61,7 +81,7 @@ const medal = ["text-amber-300", "text-ink-300", "text-orange-400"];
                     <th class="px-4 py-3 text-right font-medium">tests</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-ink-900 font-mono">
+            <tbody class="stagger divide-y divide-ink-900 font-mono">
                 <% players.forEach(([name, wpm, acc, tests], i) => { const me = name === "shihab"; %>
                 <% if (me) { %><tr><td colspan="5" class="px-4 py-1 text-center text-xs text-ink-700">⋯</td></tr><% } %>
                 <tr class="<%= me ? 'bg-accent/10' : 'hover:bg-ink-900/50' %>">
