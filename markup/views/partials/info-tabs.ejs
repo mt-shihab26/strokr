@@ -1,0 +1,10 @@
+<%# Tabs shared by the about, privacy and terms pages. The active tab follows `page`. %>
+<nav class="flex w-fit gap-1 rounded-xl bg-ink-900/60 p-1 text-sm" aria-label="Info pages">
+    <% for (const [href, label, id] of [["about.html", "About", "about"], ["privacy.html", "Privacy", "privacy"], ["terms.html", "Terms", "terms"]]) { %>
+    <a
+        href="<%= href %>"
+        <% if (id === page) { %>aria-current="page"<% } %>
+        class="rounded-lg px-4 py-1.5 <%= id === page ? 'bg-ink-800 text-ink-100 shadow-sm' : 'text-ink-500 hover:text-ink-200' %>"
+    ><%= label %></a>
+    <% } %>
+</nav>

@@ -1,9 +1,13 @@
-import { pages, render } from "./render";
+import { pages, render, sitemap } from "./render";
 
 const server = Bun.serve({
     port: 4000,
     async fetch(request) {
         const path = new URL(request.url).pathname.replace(/^\/|\.html$/g, "") || "index";
+
+        if (path === "sitemap.xml") {
+            return new Response(sitemap(), { headers: { "Content-Type": "application/xml" } });
+        }
 
         if (!pages().includes(path)) {
             return new Response(await render("404"), {

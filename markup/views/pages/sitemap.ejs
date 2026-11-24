@@ -1,0 +1,80 @@
+<%- include("../partials/head", { title: "Sitemap" }) %>
+<%- include("../partials/header") %>
+
+<%
+const groups = [
+    {
+        title: "Train",
+        links: [
+            ["index.html", "Typing test", "Timed and word-count tests with live feedback."],
+            ["practice.html", "Practice", "Drills for one group of keys at a time."],
+            ["custom.html", "Custom text", "Type your own text, code or lyrics."],
+            ["results.html", "Results", "Charts and stats after a test."],
+        ],
+    },
+    {
+        title: "Compete",
+        links: [
+            ["leaderboard.html", "Leaderboard", "Fastest typists this week."],
+            ["history.html", "History", "Every test you've finished."],
+            ["profile.html", "Profile", "Personal bests, activity and weak keys."],
+        ],
+    },
+    {
+        title: "Account",
+        links: [
+            ["login.html", "Sign in", "Sync your history across devices."],
+            ["signup.html", "Sign up", "Create a free account."],
+            ["forgot-password.html", "Forgot password", "Get a reset link by email."],
+            ["profile-edit.html", "Edit profile", "Name, account, privacy and connections."],
+            ["settings.html", "Settings", "Test, behaviour, theme and shortcuts."],
+        ],
+    },
+    {
+        title: "Info",
+        links: [
+            ["about.html", "About", "What strokr is and how it works."],
+            ["privacy.html", "Privacy", "What we store and why."],
+            ["terms.html", "Terms", "The rules for using strokr."],
+            ["sitemap.xml", "sitemap.xml", "Machine-readable sitemap for search engines."],
+        ],
+    },
+];
+%>
+
+<main class="flex flex-1 flex-col gap-10 pb-16">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <p class="font-mono text-xs text-accent">sitemap</p>
+            <h1 class="mt-2 text-3xl font-semibold text-ink-100">Every page on strokr</h1>
+            <p class="mt-2 text-sm text-ink-500">Lost? Everything is one click away.</p>
+        </div>
+        <a href="sitemap.xml" class="flex items-center gap-2 rounded-lg border border-ink-800 px-3 py-2 font-mono text-sm text-ink-300 hover:border-accent hover:text-accent">
+            <span class="rounded bg-ink-900 px-1.5 text-xs">XML</span>
+            sitemap.xml
+        </a>
+    </div>
+
+    <div class="stagger grid gap-4 sm:grid-cols-2">
+        <% for (const group of groups) { %>
+        <section class="rounded-2xl border border-ink-900 bg-ink-900/30 p-5">
+            <h2 class="mb-3 text-xs font-medium tracking-wider text-ink-500 uppercase"><%= group.title %></h2>
+            <ul class="flex flex-col">
+                <% for (const [href, label, hint] of group.links) { %>
+                <li>
+                    <a href="<%= href %>" class="group flex items-center justify-between gap-4 rounded-lg px-3 py-2.5 hover:bg-ink-900">
+                        <span>
+                            <span class="block text-sm text-ink-100 group-hover:text-accent"><%= label %></span>
+                            <span class="block text-xs text-ink-500"><%= hint %></span>
+                        </span>
+                        <span class="text-ink-700 transition group-hover:translate-x-0.5 group-hover:text-accent">→</span>
+                    </a>
+                </li>
+                <% } %>
+            </ul>
+        </section>
+        <% } %>
+    </div>
+</main>
+
+<%- include("../partials/footer") %>
