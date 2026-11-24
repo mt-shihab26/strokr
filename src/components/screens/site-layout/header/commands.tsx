@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { focusTip } from "./tip";
 import { themes } from "@/lib/themes";
+import { setTheme } from "./theme-picker";
 
 import { SearchIcon } from "@/components/icons/search-icon";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -117,7 +118,7 @@ export const Commands = () => {
                                         key={item.label}
                                         value={`${group.title} ${item.label}`}
                                         data-set-theme={item.theme}
-                                        onSelect={() => item.theme && window.setTheme(item.theme)}
+                                        onSelect={() => item.theme && setTheme(item.theme)}
                                         className="cursor-pointer justify-between rounded-md px-2 py-2 text-left text-ink-300 in-data-[slot=dialog-content]:rounded-md data-selected:bg-ink-800 data-selected:text-ink-100"
                                     >
                                         {item.label}

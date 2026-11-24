@@ -2,10 +2,18 @@ import mainCss from "@/styles/main.css?url";
 
 import type { ReactNode } from "react";
 
-import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
+import { createRootRoute } from "@tanstack/react-router";
 
+import { HeadContent, Scripts } from "@tanstack/react-router";
 import { NotFound } from "@/components/screens/errors/not-found";
 import { TooltipProvider } from "@/components/ui/tooltip";
+
+const themeScript = `(() => {
+    const choice = localStorage.getItem("theme") ?? "system";
+    const light = matchMedia("(prefers-color-scheme: light)").matches;
+    document.documentElement.dataset.theme = choice === "system" ? (light ? "light" : "dark") : choice;
+    document.documentElement.dataset.themeChoice = choice;
+})();`;
 
 const site = {
     name: "strokr",
@@ -13,37 +21,6 @@ const site = {
         "A keyboard-first typing speed trainer with per-character feedback, charts and history.",
     image: "https://strokr.app/og.png",
 };
-
-const themeScript = `(() => {
-    const root = document.documentElement;
-    const updateFavicon = () => {
-        const style = getComputedStyle(root);
-        const brand = style.getPropertyValue("--primary").trim();
-        const ink = style.getPropertyValue("--background").trim();
-        const link = document.getElementById("favicon");
-        if (!brand || !link) return;
-        const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="' + brand + '"/><g stroke="' + ink + '" stroke-linecap="round" stroke-width="3"><path d="M6.5 11h8"/><path d="M9 16.5h5.5" stroke-opacity="0.7"/></g><rect x="18.5" y="7" width="3.5" height="18" rx="1.75" fill="' + ink + '"/></svg>';
-        link.href = "data:image/svg+xml," + encodeURIComponent(svg);
-    };
-    const applyTheme = (choice) => {
-        const light = matchMedia("(prefers-color-scheme: light)").matches;
-        root.dataset.theme = choice === "system" ? (light ? "light" : "dark") : choice;
-        root.dataset.themeChoice = choice;
-        updateFavicon();
-    };
-    applyTheme(localStorage.getItem("theme") ?? "dark");
-    // Theme CSS loads after this script, so redraw the favicon once it has.
-    addEventListener("DOMContentLoaded", updateFavicon);
-    window.setTheme = (choice) => {
-        localStorage.setItem("theme", choice);
-        applyTheme(choice);
-    };
-    document.addEventListener("click", (event) => {
-        const button = event.target.closest("[data-set-theme]");
-        if (!button) return;
-        window.setTheme(button.dataset.setTheme);
-    });
-})();`;
 
 export const Route = createRootRoute({
     head: () => ({

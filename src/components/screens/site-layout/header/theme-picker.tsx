@@ -5,12 +5,44 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { useEffect } from "react";
+import { flushSync } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { themes } from "@/lib/themes";
 
+import { FaviconIcon } from "@/components/icons/favicon-icon";
 import { PaletteIcon } from "@/components/icons/palette-icon";
 import { Tip } from "./tip";
 
+const applyTheme = (choice: string) => {
+    const root = document.documentElement;
+    const light = matchMedia("(prefers-color-scheme: light)").matches;
+    root.dataset.theme = choice === "system" ? (light ? "light" : "dark") : choice;
+    root.dataset.themeChoice = choice;
+
+    const style = getComputedStyle(root);
+    const brand = style.getPropertyValue("--primary").trim();
+    const ink = style.getPropertyValue("--background").trim();
+    const link = document.getElementById("favicon") as HTMLLinkElement | null;
+    if (!brand || !link) return;
+    const container = document.createElement("div");
+    const favicon = createRoot(container);
+    flushSync(() => favicon.render(<FaviconIcon brand={brand} ink={ink} />));
+    link.href = `data:image/svg+xml,${encodeURIComponent(container.innerHTML)}`;
+    favicon.unmount();
+};
+
+export const setTheme = (choice: string) => {
+    localStorage.setItem("theme", choice);
+    applyTheme(choice);
+};
+
 export const ThemePicker = () => {
+    useEffect(() => {
+        const id = setTimeout(() => applyTheme(localStorage.getItem("theme") ?? "system"));
+        return () => clearTimeout(id);
+    }, []);
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger
@@ -29,6 +61,7 @@ export const ThemePicker = () => {
                     <DropdownMenuItem
                         key={theme.key}
                         data-set-theme={theme.key}
+                        onClick={() => setTheme(theme.key)}
                         className="flex w-full cursor-pointer items-center gap-2 rounded-lg border border-transparent px-2 py-1.5 text-left text-sm font-normal tracking-normal text-ink-300 normal-case hover:bg-ink-800 focus:bg-ink-800 focus:text-ink-300"
                     >
                         <span
