@@ -1,33 +1,16 @@
 import { useLocation } from "@tanstack/react-router";
 import { focusTip } from "./tip";
 import { cn } from "@/lib/utils";
-
-import { FlagIcon } from "@/components/icons/flag-icon";
-import { HistoryIcon } from "@/components/icons/history-icon";
-import { KeyboardIcon } from "@/components/icons/keyboard-icon";
-import { SettingsIcon } from "@/components/icons/settings-icon";
-import { TargetIcon } from "@/components/icons/target-icon";
-import { TextIcon } from "@/components/icons/text-icon";
-import { TrophyIcon } from "@/components/icons/trophy-icon";
+import { headerLinks } from "@/lib/links";
 
 import { Tip } from "./tip";
-
-const links = [
-    { href: "/leaderboard", label: "Leaderboard", icon: TrophyIcon },
-    { href: "/", label: "Typing test", icon: KeyboardIcon },
-    { href: "/practice", label: "Practice", icon: TargetIcon },
-    { href: "/custom", label: "Custom text", icon: TextIcon },
-    { href: "/race", label: "Race", icon: FlagIcon },
-    { href: "/history", label: "History", icon: HistoryIcon },
-    { href: "/settings", label: "Settings", icon: SettingsIcon },
-];
 
 export const Links = () => {
     const { pathname } = useLocation();
 
     return (
         <nav className="flex items-center gap-0.5 rounded-xl bg-ink-900/60 p-1" aria-label="Main">
-            {links.map((link) => {
+            {headerLinks.map((link) => {
                 const active = link.href === pathname;
                 return (
                     <a

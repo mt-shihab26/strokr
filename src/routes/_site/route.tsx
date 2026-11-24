@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { Outlet } from "@tanstack/react-router";
 import { Header } from "@/components/screens/site-layout/header";
+import { Footer } from "@/components/screens/site-layout/footer";
 
 const SiteLayout = () => {
     return (
@@ -10,6 +11,7 @@ const SiteLayout = () => {
             <main id="main" className="flex flex-1 flex-col justify-center gap-8 pb-16">
                 <Outlet />
             </main>
+            <Footer />
         </>
     );
 };

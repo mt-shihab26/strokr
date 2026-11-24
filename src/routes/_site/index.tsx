@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 
 const App = () => {
     return (
-        <main className="grid min-h-screen place-items-center p-4">
+        <main className="grid place-items-center p-4">
             <Card className="w-full max-w-sm">
                 <CardHeader>
                     <Badge variant="secondary">strokr</Badge>
