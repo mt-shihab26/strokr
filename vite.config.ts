@@ -38,7 +38,6 @@ export default defineConfig({
             ".tanstack/**",
             "drizzle/**",
             "src/tree.gen.ts",
-            "src/components/ui/*",
         ],
         options: {
             denyWarnings: true,
@@ -52,9 +51,9 @@ export default defineConfig({
         semi: true,
         singleAttributePerLine: false,
         htmlWhitespaceSensitivity: "css",
-        ignorePatterns: [".github/**", "src/tree.gen.ts", "src/components/ui/*"],
+        ignorePatterns: [".github/**", "src/tree.gen.ts"],
         sortTailwindcss: {
-            functions: ["clsx", "cn", "cva"],
+            functions: ["clsx"],
             stylesheet: "src/main.css",
         },
     },
