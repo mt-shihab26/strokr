@@ -1,4 +1,3 @@
-import { devtools } from "@tanstack/devtools-vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { nitro } from "nitro/vite";
 import { defineConfig, lazyPlugins } from "vite-plus";
@@ -11,8 +10,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
     resolve: { tsconfigPaths: true },
     plugins: lazyPlugins(() => [
-        devtools(),
-        nitro({ rollupConfig: { external: [/^@sentry\//] } }),
+        nitro(),
         tailwindcss(),
         tanstackStart({
             router: {
@@ -36,7 +34,6 @@ export default defineConfig({
             ".output/**",
             ".nitro/**",
             ".tanstack/**",
-            "drizzle/**",
             "src/tree.gen.ts",
         ],
         options: {
