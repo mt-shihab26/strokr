@@ -34,7 +34,7 @@ const aliases: Record<string, keyof typeof languages> = {
 
 let highlighter: Promise<HighlighterCore> | undefined;
 
-function getHighlighter() {
+const getHighlighter = () => {
     highlighter ??= createHighlighterCore({
         themes: [import("shiki/themes/github-light.mjs"), import("shiki/themes/github-dark.mjs")],
         langs: [],
@@ -42,9 +42,9 @@ function getHighlighter() {
     });
 
     return highlighter;
-}
+};
 
-function getLanguage(language: string) {
+const getLanguage = (language: string) => {
     const name = language.toLowerCase();
 
     if (name === "ansi") {
@@ -56,11 +56,11 @@ function getLanguage(language: string) {
     }
 
     return aliases[name] ?? null;
-}
+};
 
 // Loads a language and returns a highlighter for it, or null for a language
 // that is not listed.
-export async function loadHighlighter(language: string) {
+export const loadHighlighter = async (language: string) => {
     const lang = getLanguage(language);
 
     if (!lang) {
@@ -108,11 +108,11 @@ export async function loadHighlighter(language: string) {
             };
         },
     };
-}
+};
 
 // Returns one React node per line, or null for a language that is not listed.
-export async function highlightCode(code: string, language: string) {
+export const highlightCode = async (code: string, language: string) => {
     const highlighter = await loadHighlighter(language);
 
     return highlighter ? highlighter.highlight(code).lines : null;
-}
+};
