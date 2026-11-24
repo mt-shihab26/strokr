@@ -1,0 +1,99 @@
+<%- include("../partials/head", { title: "History" }) %>
+<%- include("../partials/header") %>
+
+<%
+const tests = [
+    ["Nov 24, 21:42", "time 30", 74, 97, 79, 86],
+    ["Nov 24, 21:38", "time 30", 71, 95, 77, 82],
+    ["Nov 24, 21:31", "words 50", 68, 98, 70, 88],
+    ["Nov 23, 19:05", "time 60", 66, 94, 72, 79],
+    ["Nov 23, 18:57", "time 15", 81, 96, 85, 84],
+    ["Nov 22, 22:14", "time 30", 63, 92, 70, 75],
+    ["Nov 22, 22:09", "words 25", 60, 97, 62, 90],
+    ["Nov 21, 08:30", "time 30", 58, 93, 64, 77],
+];
+%>
+
+<main class="flex flex-1 flex-col gap-8 pb-16">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-semibold text-zinc-100">History</h1>
+            <p class="mt-1 text-sm text-zinc-500">Every test you have finished, newest first.</p>
+        </div>
+        <div class="flex items-center gap-1 rounded-lg bg-zinc-900 p-1 font-mono text-sm">
+            <% for (const [label, active] of [["7d", false], ["30d", true], ["all", false]]) { %>
+            <button class="rounded-md px-3 py-1 <%= active ? 'bg-zinc-800 text-zinc-100' : 'text-zinc-500 hover:text-zinc-200' %>"><%= label %></button>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Summary -->
+    <section class="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <% for (const [label, value, hint] of [
+            ["tests taken", "128", "4h 12m typing"],
+            ["best wpm", "81", "time 15"],
+            ["average wpm", "67", "+9 this month"],
+            ["average accuracy", "95%", "+2% this month"],
+        ]) { %>
+        <div class="rounded-xl border border-zinc-900 bg-zinc-900/40 p-4">
+            <p class="text-xs text-zinc-500"><%= label %></p>
+            <p class="mt-1 font-mono text-3xl font-bold text-zinc-100"><%= value %></p>
+            <p class="mt-1 text-xs text-zinc-600"><%= hint %></p>
+        </div>
+        <% } %>
+    </section>
+
+    <!-- Trend -->
+    <section class="rounded-xl border border-zinc-900 bg-zinc-900/40 p-5">
+        <h2 class="mb-4 text-sm font-medium text-zinc-200">Progress</h2>
+        <%- include("../partials/line-chart", {
+            height: 160,
+            max: 100,
+            series: [
+                { label: "wpm", color: "oklch(0.82 0.16 80)", values: tests.map((t) => t[2]).reverse() },
+                { label: "accuracy", color: "#38bdf8", values: tests.map((t) => t[3]).reverse() },
+            ],
+        }) %>
+    </section>
+
+    <!-- Table -->
+    <section class="overflow-x-auto rounded-xl border border-zinc-900">
+        <table class="w-full text-left text-sm">
+            <thead class="border-b border-zinc-900 text-xs text-zinc-500">
+                <tr>
+                    <th class="px-4 py-3 font-medium">date</th>
+                    <th class="px-4 py-3 font-medium">mode</th>
+                    <th class="px-4 py-3 text-right font-medium">wpm</th>
+                    <th class="px-4 py-3 text-right font-medium">accuracy</th>
+                    <th class="px-4 py-3 text-right font-medium">raw</th>
+                    <th class="px-4 py-3 text-right font-medium">consistency</th>
+                    <th class="px-4 py-3"></th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-900 font-mono">
+                <% for (const [date, mode, wpm, acc, raw, cons] of tests) { %>
+                <tr class="hover:bg-zinc-900/50">
+                    <td class="px-4 py-3 text-zinc-400"><%= date %></td>
+                    <td class="px-4 py-3 text-zinc-400"><%= mode %></td>
+                    <td class="px-4 py-3 text-right text-zinc-100"><%= wpm %><% if (wpm === 81) { %> <span class="text-accent">★</span><% } %></td>
+                    <td class="px-4 py-3 text-right <%= acc < 95 ? 'text-rose-400' : 'text-zinc-300' %>"><%= acc %>%</td>
+                    <td class="px-4 py-3 text-right text-zinc-500"><%= raw %></td>
+                    <td class="px-4 py-3 text-right text-zinc-500"><%= cons %>%</td>
+                    <td class="px-4 py-3 text-right"><a href="results.html" class="font-sans text-xs text-zinc-500 hover:text-accent">details →</a></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Pagination -->
+    <div class="flex items-center justify-between text-sm text-zinc-500">
+        <span>Showing 1–8 of 128</span>
+        <div class="flex gap-2">
+            <button class="rounded-md border border-zinc-800 px-3 py-1.5 opacity-50" disabled>Previous</button>
+            <button class="rounded-md border border-zinc-800 px-3 py-1.5 hover:bg-zinc-900 hover:text-zinc-200">Next</button>
+        </div>
+    </div>
+</main>
+
+<%- include("../partials/footer") %>

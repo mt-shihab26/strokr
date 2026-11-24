@@ -1,0 +1,12 @@
+{
+    "name": "markup",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "bun --watch server.ts",
+        "build": "bun build.ts"
+    },
+    "dependencies": {
+        "ejs": "^7.0.2"
+    }
+}

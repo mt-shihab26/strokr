@@ -1,0 +1,93 @@
+<%- include("../partials/head", { title: "Settings" }) %>
+<%- include("../partials/header") %>
+
+<%
+const groups = [
+    {
+        title: "Test",
+        rows: [
+            { label: "Default mode", hint: "What a new test starts with.", options: ["time", "words"], active: "time" },
+            { label: "Duration", hint: "Seconds for time mode.", options: ["15", "30", "60", "120"], active: "30" },
+            { label: "Word count", hint: "Words for words mode.", options: ["10", "25", "50", "100"], active: "50" },
+            { label: "Language", hint: "Word list to draw from.", options: ["english", "english 1k", "code"], active: "english" },
+        ],
+    },
+    {
+        title: "Behaviour",
+        rows: [
+            { label: "Stop on error", hint: "Block the next character until a mistake is fixed.", options: ["off", "letter", "word"], active: "off" },
+            { label: "Quick restart", hint: "Key that restarts the test.", options: ["tab", "esc", "off"], active: "tab" },
+            { label: "Live stats", hint: "Show wpm and accuracy while typing.", options: ["on", "off"], active: "on" },
+        ],
+    },
+    {
+        title: "Appearance",
+        rows: [
+            { label: "Theme", hint: "Colour scheme.", options: ["dark", "light", "system"], active: "dark" },
+            { label: "Font size", hint: "Size of the typing text.", options: ["small", "medium", "large"], active: "medium" },
+            { label: "Caret", hint: "Shape of the cursor.", options: ["line", "block", "underline"], active: "line" },
+        ],
+    },
+];
+%>
+
+<main class="flex flex-1 flex-col gap-10 pb-16">
+    <div>
+        <h1 class="text-2xl font-semibold text-zinc-100">Settings</h1>
+        <p class="mt-1 text-sm text-zinc-500">Saved in your browser. Changes apply to the next test.</p>
+    </div>
+
+    <% for (const group of groups) { %>
+    <section>
+        <h2 class="mb-3 text-xs font-medium tracking-wider text-zinc-500 uppercase"><%= group.title %></h2>
+        <div class="divide-y divide-zinc-900 rounded-xl border border-zinc-900">
+            <% for (const row of group.rows) { %>
+            <div class="flex flex-wrap items-center justify-between gap-4 p-4">
+                <div>
+                    <p class="text-sm text-zinc-100"><%= row.label %></p>
+                    <p class="text-xs text-zinc-500"><%= row.hint %></p>
+                </div>
+                <div class="flex gap-1 rounded-lg bg-zinc-900 p-1 font-mono text-sm">
+                    <% for (const option of row.options) { %>
+                    <button class="rounded-md px-3 py-1 <%= option === row.active ? 'bg-zinc-800 text-accent' : 'text-zinc-500 hover:text-zinc-200' %>"><%= option %></button>
+                    <% } %>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </section>
+    <% } %>
+
+    <!-- Keyboard shortcuts -->
+    <section>
+        <h2 class="mb-3 text-xs font-medium tracking-wider text-zinc-500 uppercase">Keyboard shortcuts</h2>
+        <div class="grid gap-px overflow-hidden rounded-xl border border-zinc-900 bg-zinc-900 sm:grid-cols-2">
+            <% for (const [keys, action] of [
+                [["tab", "enter"], "Restart test"],
+                [["esc"], "Open command menu"],
+                [["ctrl", "shift", "p"], "Change mode"],
+                [["ctrl", "h"], "Go to history"],
+                [["ctrl", ","], "Open settings"],
+                [["?"], "Show all shortcuts"],
+            ]) { %>
+            <div class="flex items-center justify-between bg-zinc-950 px-4 py-3 text-sm">
+                <span class="text-zinc-300"><%= action %></span>
+                <span class="flex items-center gap-1">
+                    <% for (const key of keys) { %><%- include("../partials/kbd", { key }) %><% } %>
+                </span>
+            </div>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Danger zone -->
+    <section class="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-rose-950 bg-rose-950/20 p-4">
+        <div>
+            <p class="text-sm text-zinc-100">Clear history</p>
+            <p class="text-xs text-zinc-500">Deletes every saved test. This can't be undone.</p>
+        </div>
+        <button class="rounded-md border border-rose-900 px-4 py-2 text-sm text-rose-400 hover:bg-rose-950">Clear history</button>
+    </section>
+</main>
+
+<%- include("../partials/footer") %>
