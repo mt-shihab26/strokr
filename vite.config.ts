@@ -23,6 +23,11 @@ export default defineConfig({
             ],
         },
     },
+    test: {
+        include: ["tests/**/*.test.ts"],
+        environment: "node",
+        passWithNoTests: true,
+    },
     lint: {
         ignorePatterns: [
             "node_modules/**",

@@ -1,5 +1,5 @@
 {
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "scripts/**/*.ts", "*.config.ts"],
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "scripts/**/*.ts", "tests/**/*.ts", "*.config.ts"],
     "compilerOptions": {
         "target": "ESNext",
         "module": "ESNext",
