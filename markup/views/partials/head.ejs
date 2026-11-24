@@ -79,20 +79,8 @@
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700;800&display=swap"
             rel="stylesheet"
         />
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-        <!-- Shared with the app (src/styles): themes.css for the theme colours, motion.css for animations. -->
-        <link rel="stylesheet" href="themes.css" />
-        <style type="text/tailwindcss">
-            /* In the markup, "accent" means the brand colour (--primary). The app keeps shadcn's meaning. */
-            @theme inline {
-                --color-accent: var(--primary);
-            }
-            /* `dark:` applies to every theme except the light ones, same as the app. */
-            @custom-variant dark (&:where([data-theme]:not([data-theme="light"], [data-theme="sepia"]) *));
-            <%# Tailwind colour mapping from the shared themes file. Its @import lines are loaded by the <link> above. %>
-            <%- include("../../../src/styles/themes.css").replace(/^@import .*$/gm, "") %>
-            <%- include("../../../src/styles/motion.css") %>
-        </style>
+        <!-- Built locally with the Tailwind CLI from markup/main.css (themes and motion shared with the app). -->
+        <link rel="stylesheet" href="main.css" />
     </head>
     <body class="min-h-screen bg-ink-950 font-sans text-ink-300 antialiased transition-colors">
         <div class="mx-auto flex min-h-screen max-w-5xl flex-col px-6">

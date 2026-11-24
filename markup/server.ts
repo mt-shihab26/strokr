@@ -1,7 +1,15 @@
 import { pages, render, sitemap } from "./render";
 
+// Compile main.css with the Tailwind CLI on each request, so view and style changes show on reload.
+const css = `${import.meta.dir}/.cache/main.css`;
+const compileCss = () =>
+    Bun.spawnSync(["./node_modules/.bin/tailwindcss", "-i", "main.css", "-o", css], {
+        cwd: import.meta.dir,
+        stderr: "inherit",
+    });
+
 const server = Bun.serve({
-    port: 4000,
+    port: Number(process.env.PORT ?? 4000),
     async fetch(request) {
         const path = new URL(request.url).pathname.replace(/^\/|\.html$/g, "") || "index";
 
@@ -10,10 +18,9 @@ const server = Bun.serve({
             return new Response(asset);
         }
 
-        // Theme CSS is shared with the app and served straight from src/styles.
-        const style = Bun.file(`${import.meta.dir}/../src/styles/${path}`);
-        if (path.endsWith(".css") && (await style.exists())) {
-            return new Response(style);
+        if (path === "main.css") {
+            compileCss();
+            return new Response(Bun.file(css), { headers: { "Content-Type": "text/css" } });
         }
 
         if (path === "sitemap.xml") {

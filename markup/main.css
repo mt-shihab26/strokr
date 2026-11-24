@@ -1,0 +1,15 @@
+/*
+ * Markup stylesheet. Same setup as the app (src/styles/main.css), built locally with the Tailwind CLI.
+ * Themes and motion are shared with the app from src/styles.
+ */
+@import "tailwindcss" source(none);
+@import "../src/styles/themes.css";
+@import "../src/styles/motion.css";
+
+/* Scan the EJS views for class names. */
+@source "./views";
+
+/* In the markup, "accent" means the brand colour (--primary). The app keeps shadcn's meaning (hover background). */
+@theme inline {
+    --color-accent: var(--primary);
+}
