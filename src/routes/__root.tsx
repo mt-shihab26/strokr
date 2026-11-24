@@ -2,7 +2,7 @@ import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-import appCss from "@/main.css?url";
+import mainCss from "@/main.css?url";
 
 const RootDocument = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -33,7 +33,9 @@ export const Route = createRootRoute({
             { name: "viewport", content: "width=device-width, initial-scale=1" },
             { title: "strokr" },
         ],
-        links: [{ rel: "stylesheet", href: appCss }],
+        links: [
+            { rel: "stylesheet", href: mainCss }, //
+        ],
     }),
     shellComponent: RootDocument,
     notFoundComponent: NotFound,
