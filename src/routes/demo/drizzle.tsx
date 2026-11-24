@@ -1,8 +1,8 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { db } from "#/db/index";
+import { db } from "@/db/index";
 import { desc } from "drizzle-orm";
-import { todos } from "#/db/schema";
+import { todos } from "@/db/schema";
 
 const getTodos = createServerFn({
     method: "GET",
@@ -21,12 +21,7 @@ const createTodo = createServerFn({
         return { success: true };
     });
 
-export const Route = createFileRoute("/demo/drizzle")({
-    component: DemoDrizzle,
-    loader: async () => await getTodos(),
-});
-
-function DemoDrizzle() {
+const DemoDrizzle = () => {
     const router = useRouter();
     const todos = Route.useLoaderData();
 
@@ -115,4 +110,9 @@ function DemoDrizzle() {
             </section>
         </main>
     );
-}
+};
+
+export const Route = createFileRoute("/demo/drizzle")({
+    component: DemoDrizzle,
+    loader: async () => await getTodos(),
+});

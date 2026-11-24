@@ -1,12 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { authClient } from "#/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 
-export const Route = createFileRoute("/demo/better-auth")({
-    component: BetterAuthDemo,
-});
-
-function BetterAuthDemo() {
+const BetterAuthDemo = () => {
     const { data: session, isPending } = authClient.useSession();
     const [isSignUp, setIsSignUp] = useState(false);
     const [email, setEmail] = useState("");
@@ -217,4 +213,8 @@ function BetterAuthDemo() {
             </section>
         </main>
     );
-}
+};
+
+export const Route = createFileRoute("/demo/better-auth")({
+    component: BetterAuthDemo,
+});

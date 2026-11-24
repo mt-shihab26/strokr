@@ -2,9 +2,6 @@
     "name": "strokr",
     "private": true,
     "type": "module",
-    "imports": {
-        "#/*": "./src/*"
-    },
     "scripts": {
         "setup": "bun scripts/setup.ts",
         "dev": "vp dev --port 3000",

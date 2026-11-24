@@ -3,12 +3,13 @@ import { $ } from "bun";
 const ENV_FILE = ".env";
 const ENV_EXAMPLE_FILE = ".env.example";
 
-async function installDependencies() {
+const installDependencies = async () => {
     console.log("Installing dependencies...");
     await $`bun install`;
-}
+    console.log("Dependencies installed.");
+};
 
-async function createEnvFile() {
+const createEnvFile = async () => {
     const env = Bun.file(ENV_FILE);
 
     if (await env.exists()) {
@@ -24,9 +25,9 @@ async function createEnvFile() {
 
     await Bun.write(ENV_FILE, await example.text());
     console.log(`Created ${ENV_FILE} from ${ENV_EXAMPLE_FILE}.`);
-}
+};
 
-async function generateAuthSecret() {
+const generateAuthSecret = async () => {
     const env = Bun.file(ENV_FILE);
     const content = await env.text();
     const line = /^BETTER_AUTH_SECRET=(.*)$/m;
@@ -40,13 +41,11 @@ async function generateAuthSecret() {
 
     const secret = Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString("hex");
     const entry = `BETTER_AUTH_SECRET=${secret}`;
-    const updated = match
-        ? content.replace(line, entry)
-        : `${content.trimEnd()}\n${entry}\n`;
+    const updated = match ? content.replace(line, entry) : `${content.trimEnd()}\n${entry}\n`;
 
     await Bun.write(env, updated);
     console.log("Generated BETTER_AUTH_SECRET.");
-}
+};
 
 await installDependencies();
 await createEnvFile();
