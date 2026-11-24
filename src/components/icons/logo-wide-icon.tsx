@@ -1,6 +1,8 @@
 import type { TIcon } from "@/types/utils";
+
 import { cn } from "@/lib/utils";
-import { LogoIcon } from "@/components/icons/logo-icon";
+
+import { LogoMarkIcon } from "./logo-mark-icon";
 
 export const LogoWideIcon: TIcon = ({ className, ...props }) => {
     return (
@@ -12,7 +14,7 @@ export const LogoWideIcon: TIcon = ({ className, ...props }) => {
             {...props}
         >
             <g className="origin-[16px_16px] transition group-hover:rotate-[-8deg]">
-                <LogoIcon width={32} height={32} aria-hidden="true" />
+                <LogoMarkIcon width={32} height={32} aria-hidden="true" />
             </g>
             <text
                 x={41}

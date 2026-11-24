@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { FlagIcon } from "@/components/icons/flag-icon";
 import { HistoryIcon } from "@/components/icons/history-icon";
 import { KeyboardIcon } from "@/components/icons/keyboard-icon";
-import { LogoIcon } from "@/components/icons/logo-icon";
+import { LogoMarkIcon } from "@/components/icons/logo-mark-icon";
 import { LogoWideIcon } from "@/components/icons/logo-wide-icon";
 import { SettingsIcon } from "@/components/icons/settings-icon";
 import { TargetIcon } from "@/components/icons/target-icon";
@@ -37,7 +37,7 @@ export const Header = () => {
                         className="group flex items-center rounded-lg px-1.5 py-1"
                     >
                         <span className="sm:hidden">
-                            <LogoIcon className="size-8" role="img" aria-label="strokr" />
+                            <LogoMarkIcon className="size-8" role="img" aria-label="strokr" />
                         </span>
                         <span className="hidden sm:block">
                             <LogoWideIcon />
