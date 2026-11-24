@@ -53,7 +53,6 @@ export default defineConfig({
         htmlWhitespaceSensitivity: "css",
         ignorePatterns: [".github/**", "src/tree.gen.ts"],
         sortTailwindcss: {
-            functions: ["clsx"],
             stylesheet: "src/main.css",
         },
     },
