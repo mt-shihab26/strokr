@@ -1,0 +1,19 @@
+import type { TIcon } from "@/types/utils";
+
+export const PointerIcon: TIcon = (props) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="black"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            {...props}
+        >
+            <path d="M9 9l5 12 1.8-5.2L21 14z" />
+            <path d="M7.2 2.2 8 5.1M5.1 8l-2.9-.8M14 4.1 12 6M6 12l-1.9 2" />
+        </svg>
+    );
+};

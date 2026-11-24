@@ -1,0 +1,19 @@
+import type { TIcon } from "@/types/utils";
+
+export const KeyboardIcon: TIcon = (props) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="black"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            {...props}
+        >
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M7 16h10" />
+        </svg>
+    );
+};
