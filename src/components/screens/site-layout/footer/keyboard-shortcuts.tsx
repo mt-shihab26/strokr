@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from "react";
-
 import {
     Dialog,
     DialogClose,
@@ -7,6 +5,9 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+
+import { useEffect, useRef, useState } from "react";
+
 import { Kbd } from "@/components/ui/kbd";
 import { Keys } from "./keys";
 
