@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Dialog, DialogClose, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Kbd } from "./kbd";
@@ -49,6 +49,8 @@ const shortcutGroups: {
 export const KeyboardShortcuts = () => {
     const [open, setOpen] = useState<boolean>(false);
 
+    const popupRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
         const onKeyDown = (event: KeyboardEvent) => {
             const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((event.target as HTMLElement).tagName);
@@ -63,6 +65,8 @@ export const KeyboardShortcuts = () => {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent
+                ref={popupRef}
+                initialFocus={popupRef}
                 showCloseButton={false}
                 overlayClassName="bg-ink-950/80 backdrop-blur-sm data-open:animate-none! data-closed:animate-none!"
                 className="block w-[calc(100%-2rem)] max-w-2xl gap-0 rounded-2xl border border-ink-800 bg-ink-900 p-6 text-ink-300 shadow-2xl ring-0 sm:max-w-2xl data-open:animate-none! data-closed:animate-none!"
