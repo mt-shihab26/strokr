@@ -1,8 +1,3 @@
-/*
- * Polish and motion. CSS only: no JS, no extra requests.
- * Shared by the app (src/styles/main.css) and the markup (markup/views/partials/head.ejs).
- */
-
 @layer base {
     html {
         scroll-behavior: smooth;
