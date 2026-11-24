@@ -1,73 +1,3 @@
-<%
-// Themes. Each one sets the 11-step "ink" scale (950 = page background, 100 = brightest text)
-// and the accent colour. Add a theme by adding an entry here; every page picks it up.
-const themes = {
-    dark: {
-        accent: "oklch(0.82 0.16 80)",
-        ink: [0.985, 0.967, 0.92, 0.871, 0.705, 0.552, 0.442, 0.37, 0.274, 0.21, 0.141],
-        hue: 286, chroma: 0.008,
-    },
-    light: {
-        accent: "oklch(0.66 0.17 65)",
-        ink: [0.141, 0.21, 0.274, 0.37, 0.442, 0.552, 0.705, 0.871, 0.92, 0.967, 0.995],
-        hue: 286, chroma: 0.008,
-    },
-    nord: {
-        accent: "oklch(0.78 0.1 210)",
-        ink: [0.97, 0.94, 0.9, 0.85, 0.74, 0.62, 0.5, 0.42, 0.36, 0.31, 0.26],
-        hue: 255, chroma: 0.03,
-    },
-    sepia: {
-        accent: "oklch(0.58 0.14 40)",
-        ink: [0.22, 0.28, 0.34, 0.4, 0.48, 0.58, 0.68, 0.8, 0.88, 0.93, 0.96],
-        hue: 75, chroma: 0.03,
-    },
-    "tokyo-night": {
-        // Colours from Omarchy's tokyo-night theme (colors.toml) and the Tokyo Night palette.
-        accent: "#7aa2f7",
-        colors: ["#c0caf5", "#c0caf5", "#b4bee6", "#a9b1d6", "#737aa2", "#565f89", "#414868", "#3b4261", "#292e42", "#24283b", "#1a1b26"],
-        palette: { red: "#f7768e", green: "#9ece6a", yellow: "#e0af68", blue: "#7aa2f7", magenta: "#bb9af7", orange: "#ff9e64", cyan: "#7dcfff" },
-    },
-    matrix: {
-        accent: "oklch(0.85 0.22 145)",
-        ink: [0.95, 0.9, 0.85, 0.78, 0.66, 0.54, 0.43, 0.34, 0.26, 0.2, 0.14],
-        hue: 150, chroma: 0.05,
-    },
-};
-const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-
-// Status colours. A theme can override any of these with `palette`; the rest use these defaults.
-const defaultPalette = {
-    red: "oklch(0.645 0.246 16.4)",
-    green: "oklch(0.696 0.17 162.5)",
-    yellow: "oklch(0.769 0.188 70.1)",
-    blue: "oklch(0.685 0.169 237.3)",
-    magenta: "oklch(0.606 0.25 292.7)",
-    orange: "oklch(0.705 0.213 47.6)",
-    cyan: "oklch(0.715 0.143 215.2)",
-};
-
-// Tailwind colour families used in the markup, mapped onto the theme palette.
-// Lighter shades mix in white, darker shades mix in black, so `text-rose-300` or `bg-rose-950/20` still work.
-const families = {
-    rose: "red", pink: "red",
-    emerald: "green", lime: "green",
-    amber: "yellow",
-    sky: "blue",
-    violet: "magenta", fuchsia: "magenta",
-    orange: "orange",
-};
-const shade = (name, step) =>
-    step <= 400 ? `color-mix(in oklab, var(--${name}) ${step === 300 ? 70 : 85}%, white)`
-    : step <= 600 ? `var(--${name})`
-    : `color-mix(in oklab, var(--${name}) ${{ 700: 75, 800: 55, 900: 35, 950: 20 }[step]}%, black)`;
-
-const vars = (t) => [
-    `--accent: ${t.accent};`,
-    ...steps.map((step, i) => `--ink-${step}: ${t.colors ? t.colors[i] : `oklch(${t.ink[i]} ${t.chroma} ${t.hue})`};`),
-    ...Object.entries({ ...defaultPalette, ...t.palette }).map(([name, value]) => `--${name}: ${value};`),
-].join(" ");
-%>
 <!doctype html>
 <html lang="en" data-theme="dark">
     <head>
@@ -97,7 +27,7 @@ const vars = (t) => [
             // Redraw the favicon in the current theme's accent and background colours.
             const updateFavicon = () => {
                 const style = getComputedStyle(document.documentElement);
-                const accent = style.getPropertyValue("--accent").trim();
+                const accent = style.getPropertyValue("--primary").trim();
                 const ink = style.getPropertyValue("--ink-950").trim();
                 if (!accent) return;
                 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="${accent}"/><g stroke="${ink}" stroke-linecap="round" stroke-width="3"><path d="M6.5 11h8"/><path d="M9 16.5h5.5" stroke-opacity="0.7"/></g><rect x="18.5" y="7" width="3.5" height="18" rx="1.75" fill="${ink}"/></svg>`;
@@ -150,149 +80,18 @@ const vars = (t) => [
             rel="stylesheet"
         />
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-        <style>
-            <% for (const [name, theme] of Object.entries(themes)) { %>
-            [data-theme="<%= name %>"] { <%= vars(theme) %> }
-            <% } %>
-        </style>
+        <!-- Shared with the app (src/styles): themes.css for the theme colours, motion.css for animations. -->
+        <link rel="stylesheet" href="themes.css" />
         <style type="text/tailwindcss">
+            /* In the markup, "accent" means the brand colour (--primary). The app keeps shadcn's meaning. */
             @theme inline {
-                --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-                --font-mono: "JetBrains Mono", ui-monospace, monospace;
-                --color-accent: var(--accent);
-                <% for (const step of steps) { %>--color-ink-<%= step %>: var(--ink-<%= step %>);
-                <% } %>
-                <% for (const [family, name] of Object.entries(families)) { for (const step of [300, 400, 500, 600, 700, 800, 900, 950]) { %>--color-<%= family %>-<%= step %>: <%- shade(name, step) %>;
-                <% } } %>
+                --color-accent: var(--primary);
             }
-            /* Highlight the active option in any theme picker. */
-            <% for (const name of [...Object.keys(themes), "system"]) { %>
-            [data-theme-choice="<%= name %>"] [data-set-theme="<%= name %>"] {
-                @apply border-accent text-accent;
-            }
-            <% } %>
-            /* ---------- Polish ---------- */
-            @layer base {
-                html {
-                    scroll-behavior: smooth;
-                }
-                ::selection {
-                    background: color-mix(in oklab, var(--accent) 35%, transparent);
-                }
-                :focus-visible {
-                    outline: 2px solid var(--accent);
-                    outline-offset: 2px;
-                    border-radius: 0.375rem;
-                }
-                a,
-                button,
-                summary,
-                input,
-                textarea {
-                    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
-                    transition-duration: 150ms;
-                    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-                }
-                button:active,
-                a:active,
-                summary:active {
-                    transform: scale(0.97);
-                }
-            }
-
-            /* ---------- Motion (CSS only, no JS, no extra requests) ---------- */
-            @keyframes rise {
-                from {
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-            }
-            @keyframes pop {
-                from {
-                    opacity: 0;
-                    transform: translateY(-6px) scale(0.98);
-                }
-            }
-            @keyframes fade {
-                from {
-                    opacity: 0;
-                }
-            }
-            @keyframes grow {
-                from {
-                    transform: scaleX(0);
-                }
-            }
-            @keyframes draw {
-                from {
-                    stroke-dashoffset: 1;
-                }
-            }
-            @keyframes blink {
-                50% {
-                    opacity: 0;
-                }
-            }
-
-            /* Page sections rise in one after another. */
-            main > * {
-                animation: rise 450ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-            }
-            <% for (let i = 2; i <= 8; i++) { %>main > :nth-child(<%= i %>) { animation-delay: <%= (i - 1) * 50 %>ms; }
-            <% } %>
-
-            /* Items inside a grid or list ripple in. Add .stagger to the parent. */
-            .stagger > * {
-                animation: rise 400ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-            }
-            <% for (let i = 1; i <= 12; i++) { %>.stagger > :nth-child(<%= i %>) { animation-delay: <%= 150 + i * 35 %>ms; }
-            <% } %>
-
-            .lift {
-                @apply transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/10;
-            }
-            .bar {
-                transform-origin: left;
-                animation: grow 900ms 250ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-            }
-            .draw {
-                stroke-dasharray: 1;
-                animation: draw 1.2s 200ms cubic-bezier(0.4, 0, 0.2, 1) both;
-            }
-            .caret {
-                animation: blink 1s step-end infinite;
-            }
-            /* Focus mode: hide everything but the test. Toggle with "f", or add .focus-mode to <body> while a test runs. */
-            body.focus-mode header,
-            body.focus-mode footer,
-            body.focus-mode [data-hide-in-focus] {
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 300ms;
-            }
-            body.focus-mode header:hover {
-                opacity: 1;
-                pointer-events: auto;
-            }
-            #command:target {
-                animation: fade 150ms ease-out both;
-            }
-            #command:target > div {
-                animation: pop 180ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-            }
-            details[open] > div {
-                animation: pop 150ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-            }
-
-            @media (prefers-reduced-motion: reduce) {
-                *,
-                *::before,
-                *::after {
-                    animation: none !important;
-                    transition: none !important;
-                    scroll-behavior: auto !important;
-                }
-            }
+            /* `dark:` applies to every theme except the light ones, same as the app. */
+            @custom-variant dark (&:where([data-theme]:not([data-theme="light"], [data-theme="sepia"]) *));
+            <%# Tailwind colour mapping from the shared themes file. Its @import lines are loaded by the <link> above. %>
+            <%- include("../../../src/styles/themes.css").replace(/^@import .*$/gm, "") %>
+            <%- include("../../../src/styles/motion.css") %>
         </style>
     </head>
     <body class="min-h-screen bg-ink-950 font-sans text-ink-300 antialiased transition-colors">

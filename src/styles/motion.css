@@ -1,0 +1,181 @@
+/*
+ * Polish and motion. CSS only: no JS, no extra requests.
+ * Shared by the app (src/styles/main.css) and the markup (markup/views/partials/head.ejs).
+ */
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+    ::selection {
+        background: color-mix(in oklab, var(--primary) 35%, transparent);
+    }
+    :focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+        border-radius: 0.375rem;
+    }
+    a,
+    button,
+    summary,
+    input,
+    textarea {
+        transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+        transition-duration: 150ms;
+        transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    button:active,
+    a:active,
+    summary:active {
+        transform: scale(0.97);
+    }
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+@keyframes pop {
+    from {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.98);
+    }
+}
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+}
+@keyframes grow {
+    from {
+        transform: scaleX(0);
+    }
+}
+@keyframes draw {
+    from {
+        stroke-dashoffset: 1;
+    }
+}
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Page sections rise in one after another. */
+main > * {
+    animation: rise 450ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+main > :nth-child(2) {
+    animation-delay: 50ms;
+}
+main > :nth-child(3) {
+    animation-delay: 100ms;
+}
+main > :nth-child(4) {
+    animation-delay: 150ms;
+}
+main > :nth-child(5) {
+    animation-delay: 200ms;
+}
+main > :nth-child(6) {
+    animation-delay: 250ms;
+}
+main > :nth-child(7) {
+    animation-delay: 300ms;
+}
+main > :nth-child(8) {
+    animation-delay: 350ms;
+}
+
+/* Items inside a grid or list ripple in. Add .stagger to the parent. */
+.stagger > * {
+    animation: rise 400ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.stagger > :nth-child(1) {
+    animation-delay: 185ms;
+}
+.stagger > :nth-child(2) {
+    animation-delay: 220ms;
+}
+.stagger > :nth-child(3) {
+    animation-delay: 255ms;
+}
+.stagger > :nth-child(4) {
+    animation-delay: 290ms;
+}
+.stagger > :nth-child(5) {
+    animation-delay: 325ms;
+}
+.stagger > :nth-child(6) {
+    animation-delay: 360ms;
+}
+.stagger > :nth-child(7) {
+    animation-delay: 395ms;
+}
+.stagger > :nth-child(8) {
+    animation-delay: 430ms;
+}
+.stagger > :nth-child(9) {
+    animation-delay: 465ms;
+}
+.stagger > :nth-child(10) {
+    animation-delay: 500ms;
+}
+.stagger > :nth-child(11) {
+    animation-delay: 535ms;
+}
+.stagger > :nth-child(12) {
+    animation-delay: 570ms;
+}
+
+.lift {
+    @apply transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/10;
+}
+.bar {
+    transform-origin: left;
+    animation: grow 900ms 250ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.draw {
+    stroke-dasharray: 1;
+    animation: draw 1.2s 200ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+.caret {
+    animation: blink 1s step-end infinite;
+}
+
+/* Focus mode: hide everything but the test. Toggle with "f", or add .focus-mode to <body> while a test runs. */
+body.focus-mode header,
+body.focus-mode footer,
+body.focus-mode [data-hide-in-focus] {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms;
+}
+body.focus-mode header:hover {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Overlays opened with a URL hash (#command), and <details> dropdowns. */
+#command:target {
+    animation: fade 150ms ease-out both;
+}
+#command:target > div {
+    animation: pop 180ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+details[open] > div {
+    animation: pop 150ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}

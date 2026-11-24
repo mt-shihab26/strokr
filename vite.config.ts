@@ -56,6 +56,6 @@ export default defineConfig({
                 options: { tabWidth: 2 },
             },
         ],
-        sortTailwindcss: { stylesheet: "src/main.css" },
+        sortTailwindcss: { stylesheet: "src/styles/main.css" },
     },
 });

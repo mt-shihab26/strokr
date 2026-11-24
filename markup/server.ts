@@ -10,6 +10,12 @@ const server = Bun.serve({
             return new Response(asset);
         }
 
+        // Theme CSS is shared with the app and served straight from src/styles.
+        const style = Bun.file(`${import.meta.dir}/../src/styles/${path}`);
+        if (path.endsWith(".css") && (await style.exists())) {
+            return new Response(style);
+        }
+
         if (path === "sitemap.xml") {
             return new Response(sitemap(), { headers: { "Content-Type": "application/xml" } });
         }

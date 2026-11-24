@@ -1,0 +1,113 @@
+/*
+ * Themes, shadcn/ui style. Set on <html data-theme="…">.
+ * Each theme in ./themes/ defines the full set of shadcn tokens, --success, --warning, --info
+ * and the --ink-50 … --ink-950 neutral scale (950 = page background, 100 = brightest text).
+ * This file also maps them to Tailwind colours. It is plain CSS plus one @theme block, so the
+ * markup can load it with <link> (browsers skip @theme) and inline it into Tailwind.
+ * To add a theme: copy a file in ./themes/, change the values, import it here,
+ * and add its name to the theme picker.
+ */
+
+@import "./themes/dark.css";
+@import "./themes/light.css";
+@import "./themes/nord.css";
+@import "./themes/sepia.css";
+@import "./themes/tokyo-night.css";
+@import "./themes/matrix.css";
+
+:root {
+    --radius: 0.625rem;
+}
+
+@theme inline {
+    --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+
+    /* bg-ink-900, text-ink-500, … */
+    --color-ink-50: var(--ink-50);
+    --color-ink-100: var(--ink-100);
+    --color-ink-200: var(--ink-200);
+    --color-ink-300: var(--ink-300);
+    --color-ink-400: var(--ink-400);
+    --color-ink-500: var(--ink-500);
+    --color-ink-600: var(--ink-600);
+    --color-ink-700: var(--ink-700);
+    --color-ink-800: var(--ink-800);
+    --color-ink-900: var(--ink-900);
+    --color-ink-950: var(--ink-950);
+
+    /*
+     * Tailwind colour families mapped onto the theme, so `text-rose-500` or `bg-rose-950/20` follow it.
+     * 300–400 mix in white, 500–600 are the token, 700–950 mix in black.
+     *   rose, pink → destructive · emerald, lime → success · amber → warning · sky → info
+     *   violet, fuchsia → chart-4 · orange → chart-5
+     */
+    --color-rose-300: color-mix(in oklab, var(--destructive) 70%, white);
+    --color-rose-400: color-mix(in oklab, var(--destructive) 85%, white);
+    --color-rose-500: var(--destructive);
+    --color-rose-600: var(--destructive);
+    --color-rose-700: color-mix(in oklab, var(--destructive) 75%, black);
+    --color-rose-800: color-mix(in oklab, var(--destructive) 55%, black);
+    --color-rose-900: color-mix(in oklab, var(--destructive) 35%, black);
+    --color-rose-950: color-mix(in oklab, var(--destructive) 20%, black);
+    --color-pink-500: var(--destructive);
+
+    --color-emerald-300: color-mix(in oklab, var(--success) 70%, white);
+    --color-emerald-400: color-mix(in oklab, var(--success) 85%, white);
+    --color-emerald-500: var(--success);
+    --color-emerald-600: var(--success);
+    --color-emerald-700: color-mix(in oklab, var(--success) 75%, black);
+    --color-emerald-800: color-mix(in oklab, var(--success) 55%, black);
+    --color-emerald-900: color-mix(in oklab, var(--success) 35%, black);
+    --color-emerald-950: color-mix(in oklab, var(--success) 20%, black);
+    --color-lime-500: var(--success);
+
+    --color-amber-300: color-mix(in oklab, var(--warning) 70%, white);
+    --color-amber-400: color-mix(in oklab, var(--warning) 85%, white);
+    --color-amber-500: var(--warning);
+    --color-amber-600: var(--warning);
+    --color-amber-700: color-mix(in oklab, var(--warning) 75%, black);
+    --color-amber-800: color-mix(in oklab, var(--warning) 55%, black);
+    --color-amber-900: color-mix(in oklab, var(--warning) 35%, black);
+    --color-amber-950: color-mix(in oklab, var(--warning) 20%, black);
+
+    --color-sky-300: color-mix(in oklab, var(--info) 70%, white);
+    --color-sky-400: color-mix(in oklab, var(--info) 85%, white);
+    --color-sky-500: var(--info);
+    --color-sky-600: var(--info);
+    --color-sky-700: color-mix(in oklab, var(--info) 75%, black);
+    --color-sky-800: color-mix(in oklab, var(--info) 55%, black);
+    --color-sky-900: color-mix(in oklab, var(--info) 35%, black);
+    --color-sky-950: color-mix(in oklab, var(--info) 20%, black);
+
+    --color-violet-300: color-mix(in oklab, var(--chart-4) 70%, white);
+    --color-violet-400: color-mix(in oklab, var(--chart-4) 85%, white);
+    --color-violet-500: var(--chart-4);
+    --color-violet-600: var(--chart-4);
+    --color-violet-700: color-mix(in oklab, var(--chart-4) 75%, black);
+    --color-violet-800: color-mix(in oklab, var(--chart-4) 55%, black);
+    --color-violet-900: color-mix(in oklab, var(--chart-4) 35%, black);
+    --color-violet-950: color-mix(in oklab, var(--chart-4) 20%, black);
+    --color-fuchsia-500: var(--chart-4);
+
+    --color-orange-300: color-mix(in oklab, var(--chart-5) 70%, white);
+    --color-orange-400: color-mix(in oklab, var(--chart-5) 85%, white);
+    --color-orange-500: var(--chart-5);
+    --color-orange-600: var(--chart-5);
+    --color-orange-700: color-mix(in oklab, var(--chart-5) 75%, black);
+    --color-orange-800: color-mix(in oklab, var(--chart-5) 55%, black);
+    --color-orange-900: color-mix(in oklab, var(--chart-5) 35%, black);
+    --color-orange-950: color-mix(in oklab, var(--chart-5) 20%, black);
+}
+
+/* Highlight the active option in any theme picker: <html data-theme-choice="…"> + <button data-set-theme="…">. */
+[data-theme-choice="system"] [data-set-theme="system"],
+[data-theme-choice="dark"] [data-set-theme="dark"],
+[data-theme-choice="light"] [data-set-theme="light"],
+[data-theme-choice="nord"] [data-set-theme="nord"],
+[data-theme-choice="sepia"] [data-set-theme="sepia"],
+[data-theme-choice="tokyo-night"] [data-set-theme="tokyo-night"],
+[data-theme-choice="matrix"] [data-set-theme="matrix"] {
+    border-color: var(--primary);
+    color: var(--primary);
+}
