@@ -2,7 +2,8 @@
 <%- include("../partials/header") %>
 
 <%# Reference: skeletons shown while data loads, and every toast the app uses. %>
-<% const sk = (c) => include("../partials/skeleton", { class: c }); %>
+<%# Grey placeholder block shown while content loads. `c` sets its size/shape, e.g. "h-4 w-32". %>
+<% const sk = (c) => `<span class="block animate-pulse rounded-md bg-ink-900 ${c}" aria-hidden="true"></span>`; %>
 
 <main id="main" class="flex flex-1 flex-col gap-12 pb-16">
     <div>

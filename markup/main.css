@@ -13,3 +13,16 @@
 @theme inline {
     --color-accent: var(--primary);
 }
+
+/*
+ * Icons are SVG files in public/icons, shown through a mask so they take the text colour:
+ *   <span class="icon size-5" style="--icon: url(icons/search.svg)"></span>
+ */
+@layer components {
+    .icon {
+        display: inline-block;
+        flex-shrink: 0;
+        background-color: currentColor;
+        mask: var(--icon) center / contain no-repeat;
+    }
+}
