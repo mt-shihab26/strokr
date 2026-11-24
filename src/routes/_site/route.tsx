@@ -5,10 +5,12 @@ import { Header } from "@/components/screens/site-layout/header";
 
 const SiteLayout = () => {
     return (
-        <div className="flex min-h-screen flex-col">
+        <>
             <Header />
-            <Outlet />
-        </div>
+            <main id="main" className="flex flex-1 flex-col justify-center gap-8 pb-16">
+                <Outlet />
+            </main>
+        </>
     );
 };
 
