@@ -11,14 +11,11 @@ const unlisted = new Set([
     "500",
     "reset-password",
     "verify-email",
-    "profile-edit",
     "onboarding",
     "lesson-complete",
     "empty-states",
-    "share",
     "loading-states",
     "test-finished",
-    "focus",
 ]);
 
 export const pages = () =>
