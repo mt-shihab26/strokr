@@ -1,0 +1,21 @@
+<%#
+    Toast notification. Pass: type ("success" | "error" | "info"), title, body (optional), action ([label, href], optional).
+    In the app, stack them in a fixed container at bottom-right and remove after ~4s.
+%>
+<%
+const styles = {
+    success: { icon: "✓", ring: "border-emerald-500/30", dot: "bg-emerald-500 text-ink-950" },
+    error: { icon: "!", ring: "border-rose-500/30", dot: "bg-rose-500 text-white" },
+    info: { icon: "i", ring: "border-ink-800", dot: "bg-ink-700 text-ink-100" },
+};
+const s = styles[locals.type ?? "info"];
+%>
+<div role="status" class="flex w-80 items-start gap-3 rounded-xl border <%= s.ring %> bg-ink-900 p-3.5 shadow-xl">
+    <span class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full text-[11px] font-bold <%= s.dot %>"><%= s.icon %></span>
+    <div class="min-w-0 flex-1">
+        <p class="text-sm text-ink-100"><%= title %></p>
+        <% if (locals.body) { %><p class="mt-0.5 text-xs text-ink-500"><%= body %></p><% } %>
+        <% if (locals.action) { %><a href="<%= action[1] %>" class="mt-2 inline-block text-xs text-accent hover:underline"><%= action[0] %></a><% } %>
+    </div>
+    <button class="text-ink-600 hover:text-ink-200" aria-label="Dismiss">✕</button>
+</div>

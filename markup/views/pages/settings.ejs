@@ -48,17 +48,14 @@ const groups = [
 ];
 %>
 
-<main class="flex flex-1 flex-col gap-10 pb-16">
+<main id="main" class="flex flex-1 flex-col gap-10 pb-16">
     <div>
         <h1 class="text-2xl font-semibold text-ink-100">Settings</h1>
         <p class="mt-1 text-sm text-ink-500">Saved in your browser. Changes apply to the next test.</p>
     </div>
 
     <!-- Toast shown for ~2s after any change. -->
-    <div class="fixed right-6 bottom-6 z-40 flex items-center gap-2 rounded-lg border border-ink-800 bg-ink-900 px-4 py-2.5 text-sm text-ink-200 shadow-xl" role="status">
-        <span class="grid size-4 place-items-center rounded-full bg-emerald-500 text-[10px] text-ink-950">✓</span>
-        Settings saved
-    </div>
+    <div class="fixed right-6 bottom-6 z-40"><%- include("../partials/toast", { type: "success", title: "Settings saved" }) %></div>
 
     <% for (const group of groups) { %>
     <section>
@@ -132,7 +129,8 @@ const groups = [
             <p class="text-sm text-ink-100">Clear history</p>
             <p class="text-xs text-ink-500">Deletes every saved test. This can't be undone.</p>
         </div>
-        <button class="rounded-md border border-rose-900 px-4 py-2 text-sm text-rose-400 hover:bg-rose-950">Clear history</button>
+        <a href="#confirm-clear-history" class="rounded-md border border-rose-900 px-4 py-2 text-sm text-rose-400 hover:bg-rose-950">Clear history</a>
+        <%- include("../partials/confirm", { id: "confirm-clear-history", title: "Clear all history?", body: "This deletes all 128 saved tests and resets your personal bests. It can't be undone.", confirm: "Clear history" }) %>
     </section>
 </main>
 

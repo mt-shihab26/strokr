@@ -15,7 +15,7 @@ const card = "rounded-2xl border border-ink-900 bg-ink-900/30 p-6";
 const input = "h-10 rounded-lg border border-ink-800 bg-ink-950 px-3 text-sm text-ink-100 outline-none placeholder:text-ink-600 focus:border-accent";
 %>
 
-<main class="flex flex-1 flex-col gap-8 pb-16">
+<main id="main" class="flex flex-1 flex-col gap-8 pb-16">
     <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
             <a href="profile.html" class="text-sm text-ink-500 hover:text-ink-200">← Back to profile</a>
@@ -141,7 +141,8 @@ const input = "h-10 rounded-lg border border-ink-800 bg-ink-950 px-3 text-sm tex
                 <p class="mt-1 text-sm text-ink-400">Permanently deletes your profile, history and leaderboard entries. This can't be undone.</p>
                 <div class="mt-5 flex flex-wrap gap-2">
                     <button class="rounded-lg border border-ink-800 px-4 py-2 text-sm text-ink-300 hover:bg-ink-900">Export my data</button>
-                    <button class="rounded-lg bg-rose-600 px-4 py-2 text-sm font-medium text-white hover:bg-rose-500">Delete account</button>
+                    <a href="#confirm-delete-account" class="rounded-lg bg-rose-600 px-4 py-2 text-sm font-medium text-white hover:bg-rose-500">Delete account</a>
+                    <%- include("../partials/confirm", { id: "confirm-delete-account", title: "Delete your account?", body: "Your profile, 128 tests, achievements and leaderboard entries will be removed for good.", confirm: "Delete account", typeToConfirm: "shihab" }) %>
                 </div>
             </section>
         </div>

@@ -37,7 +37,7 @@ const toggle = (on) => `relative inline-flex h-5 w-9 shrink-0 rounded-full trans
 const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow transition ${on ? "left-[1.125rem]" : "left-0.5"}`;
 %>
 
-<main class="flex flex-1 flex-col gap-10 pb-16">
+<main id="main" class="flex flex-1 flex-col gap-10 pb-16">
     <!-- Title -->
     <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
@@ -196,7 +196,7 @@ const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow tra
                     <span class="flex gap-3 opacity-60 transition group-hover:opacity-100">
                         <button class="text-ink-300 hover:text-accent">Type</button>
                         <button class="text-ink-500 hover:text-ink-200">Edit</button>
-                        <button class="text-ink-600 hover:text-rose-400">Delete</button>
+                        <a href="#confirm-delete-text" class="text-ink-600 hover:text-rose-400">Delete</a>
                     </span>
                 </div>
             </article>
@@ -204,5 +204,7 @@ const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow tra
         </div>
     </section>
 </main>
+
+<%- include("../partials/confirm", { id: "confirm-delete-text", title: "Delete this text?", body: "It will be removed from your library along with its best score.", confirm: "Delete" }) %>
 
 <%- include("../partials/footer") %>

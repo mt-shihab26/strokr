@@ -11,6 +11,7 @@ const groups = [
             ["custom.html", "Custom text", "Type your own text, code or lyrics."],
             ["custom-import.html", "Import text", "Bring in a file, web page or gist."],
             ["lesson-complete.html", "Lesson complete", "What you see after passing a drill."],
+            ["test-finished.html", "Test finished", "The moment between the last keystroke and results."],
             ["results.html", "Results", "Charts and stats after a test."],
             ["share.html", "Share result", "A result card for social media."],
         ],
@@ -44,16 +45,22 @@ const groups = [
             ["privacy.html", "Privacy", "What we store and why."],
             ["terms.html", "Terms", "The rules for using strokr."],
             ["sitemap.html", "Sitemap", "Every page on strokr, grouped."],
+            ["sitemap.xml", "sitemap.xml", "Machine-readable sitemap for search engines."],
+        ],
+    },
+    {
+        title: "States and errors",
+        links: [
             ["empty-states.html", "Empty states", "What new users see before there's data."],
+            ["loading-states.html", "Loading and toasts", "Skeletons and notifications."],
             ["404.html", "Not found", "The 404 page."],
             ["500.html", "Server error", "The 500 page."],
-            ["sitemap.xml", "sitemap.xml", "Machine-readable sitemap for search engines."],
         ],
     },
 ];
 %>
 
-<main class="flex flex-1 flex-col gap-10 pb-16">
+<main id="main" class="flex flex-1 flex-col gap-10 pb-16">
     <%- include("../partials/info-tabs") %>
     <div class="flex flex-wrap items-end justify-between gap-4">
         <div>

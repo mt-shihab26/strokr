@@ -7,7 +7,8 @@ const current = 1;
 const card = "rounded-2xl border border-ink-900 bg-ink-900/40 p-6";
 %>
 
-<main class="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-10 py-12">
+<a href="#main" class="fixed top-3 left-3 z-[60] -translate-y-20 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink-950 shadow-lg focus:translate-y-0">Skip to content</a>
+<main id="main" class="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-10 py-12">
     <!-- Logo + skip -->
     <div class="flex items-center justify-between">
         <%- include("../partials/logo-wide") %>

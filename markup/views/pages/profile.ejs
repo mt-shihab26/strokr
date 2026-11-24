@@ -7,7 +7,7 @@ const activity = Array.from({ length: 26 * 7 }, (_, i) => Math.max(0, Math.round
 const level = (n) => ["bg-ink-900", "bg-accent/25", "bg-accent/50", "bg-accent/75", "bg-accent"][Math.min(n, 4)];
 %>
 
-<main class="flex flex-1 flex-col gap-10 pb-16">
+<main id="main" class="flex flex-1 flex-col gap-10 pb-16">
     <!-- Identity -->
     <section class="flex flex-wrap items-center gap-5">
         <div class="grid size-16 place-items-center rounded-full bg-ink-800 font-mono text-xl text-ink-100">SM</div>

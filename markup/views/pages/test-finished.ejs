@@ -1,0 +1,45 @@
+<%- include("../partials/head", { title: "Test complete" }) %>
+<%- include("../partials/header") %>
+
+<%#
+    The moment between the last keystroke and the results page (~1.2s).
+    The completed text fades back, a "done" badge pops in, and the final numbers settle. Then go to results.html.
+%>
+
+<style>
+    @keyframes settle { from { opacity: 0; transform: translateY(12px) scale(0.96); } }
+    @keyframes check { from { transform: scale(0); } 60% { transform: scale(1.15); } }
+    @keyframes progress { from { width: 0; } to { width: 100%; } }
+    .settle { animation: settle 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+    .check { animation: check 450ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+    .to-results { animation: progress 1.2s linear both; }
+</style>
+
+<main id="main" class="relative flex flex-1 flex-col justify-center gap-10 pb-16">
+    <!-- The finished text, faded back -->
+    <div class="font-mono text-2xl leading-relaxed tracking-wide text-ink-100 opacity-15 blur-[1px] transition select-none sm:text-3xl">
+        the quick brown fox jumps over the lazy dog while every keystroke is checked one character at a time so you can see exactly where your fingers slip
+    </div>
+
+    <!-- Done -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center gap-6 pb-16">
+        <span class="check grid size-16 place-items-center rounded-full bg-accent text-2xl font-bold text-ink-950 shadow-lg shadow-accent/30">✓</span>
+        <p class="settle text-sm text-ink-400" style="animation-delay: 150ms">Test complete</p>
+        <div class="flex items-end gap-10 font-mono">
+            <div class="settle text-center" style="animation-delay: 250ms">
+                <p class="text-6xl font-bold text-accent">74</p>
+                <p class="text-xs text-ink-500">wpm</p>
+            </div>
+            <div class="settle text-center" style="animation-delay: 350ms">
+                <p class="text-4xl font-bold text-ink-100">97%</p>
+                <p class="text-xs text-ink-500">accuracy</p>
+            </div>
+        </div>
+        <div class="settle flex w-48 flex-col items-center gap-2" style="animation-delay: 450ms">
+            <div class="h-0.5 w-full overflow-hidden rounded-full bg-ink-900"><div class="to-results h-full rounded-full bg-accent"></div></div>
+            <p class="flex items-center gap-1.5 text-xs text-ink-600">Opening results · <%- include("../partials/kbd", { key: "enter" }) %> skip</p>
+        </div>
+    </div>
+</main>
+
+<%- include("../partials/footer") %>

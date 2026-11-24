@@ -16,6 +16,8 @@ const unlisted = new Set([
     "lesson-complete",
     "empty-states",
     "share",
+    "loading-states",
+    "test-finished",
 ]);
 
 export const pages = () =>

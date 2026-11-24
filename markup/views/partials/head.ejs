@@ -120,7 +120,9 @@ const vars = (t) => [
                     event.preventDefault();
                     location.hash = open ? "" : "command";
                 } else if (event.key === "Escape") {
-                    location.hash = open ? "" : "command";
+                    // Close whatever overlay is open (shortcuts, confirm dialog, command menu); otherwise open the menu.
+                    const overlay = location.hash && document.querySelector(`${location.hash}.fixed`);
+                    location.hash = open || overlay ? "" : "command";
                 } else if (event.key === "/" && !typing && !open) {
                     event.preventDefault();
                     location.hash = "command";

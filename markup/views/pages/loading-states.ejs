@@ -1,0 +1,71 @@
+<%- include("../partials/head", { title: "Loading states and toasts" }) %>
+<%- include("../partials/header") %>
+
+<%# Reference: skeletons shown while data loads, and every toast the app uses. %>
+<% const sk = (c) => include("../partials/skeleton", { class: c }); %>
+
+<main id="main" class="flex flex-1 flex-col gap-12 pb-16">
+    <div>
+        <p class="font-mono text-xs text-accent">reference</p>
+        <h1 class="mt-2 text-2xl font-semibold text-ink-100">Loading states and toasts</h1>
+        <p class="mt-1 text-sm text-ink-500">Skeletons keep the layout steady while data loads, so nothing jumps when it arrives.</p>
+    </div>
+
+    <!-- History skeleton -->
+    <section class="flex flex-col gap-4" aria-busy="true" aria-label="Loading history">
+        <h2 class="text-xs font-medium tracking-wider text-ink-500 uppercase">History</h2>
+        <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <% for (let i = 0; i < 4; i++) { %>
+            <div class="flex flex-col gap-2 rounded-xl border border-ink-900 p-4"><%- sk("h-3 w-20") %><%- sk("h-8 w-16") %><%- sk("h-3 w-24") %></div>
+            <% } %>
+        </div>
+        <div class="rounded-xl border border-ink-900 p-5"><%- sk("h-40 w-full rounded-lg") %></div>
+        <div class="divide-y divide-ink-900 rounded-xl border border-ink-900">
+            <% for (let i = 0; i < 4; i++) { %>
+            <div class="flex items-center gap-6 px-4 py-3.5"><%- sk("h-3 w-28") %><%- sk("h-3 w-16") %><span class="flex-1"></span><%- sk("h-3 w-10") %><%- sk("h-3 w-10") %><%- sk("h-3 w-12") %></div>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Leaderboard skeleton -->
+    <section class="flex flex-col gap-4" aria-busy="true" aria-label="Loading leaderboard">
+        <h2 class="text-xs font-medium tracking-wider text-ink-500 uppercase">Leaderboard</h2>
+        <div class="grid items-end gap-4 sm:grid-cols-3">
+            <% for (const h of ["h-52", "h-60", "h-48"]) { %>
+            <div class="flex <%= h %> flex-col items-center justify-center gap-3 rounded-2xl border border-ink-900 p-6"><%- sk("size-14 rounded-full") %><%- sk("h-3 w-20") %><%- sk("h-9 w-16") %></div>
+            <% } %>
+        </div>
+        <div class="divide-y divide-ink-900 rounded-xl border border-ink-900">
+            <% for (let i = 0; i < 5; i++) { %>
+            <div class="flex items-center gap-4 px-4 py-3.5"><%- sk("h-3 w-6") %><%- sk("h-3 w-32") %><span class="flex-1"></span><%- sk("h-3 w-10") %><%- sk("h-3 w-12") %></div>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Profile skeleton -->
+    <section class="flex flex-col gap-4" aria-busy="true" aria-label="Loading profile">
+        <h2 class="text-xs font-medium tracking-wider text-ink-500 uppercase">Profile</h2>
+        <div class="flex items-center gap-5"><%- sk("size-16 rounded-full") %><div class="flex flex-col gap-2"><%- sk("h-6 w-40") %><%- sk("h-3 w-56") %></div></div>
+        <div class="grid grid-cols-2 gap-1 overflow-hidden rounded-xl md:grid-cols-4">
+            <% for (let i = 0; i < 8; i++) { %><div class="flex flex-col items-center gap-2 bg-ink-900/30 p-4"><%- sk("h-3 w-14") %><%- sk("h-8 w-12") %></div><% } %>
+        </div>
+        <div class="grid grid-flow-col grid-rows-7 gap-1 overflow-hidden">
+            <% for (let i = 0; i < 26 * 7; i++) { %><span class="size-3 animate-pulse rounded-sm bg-ink-900"></span><% } %>
+        </div>
+    </section>
+
+    <!-- Toasts -->
+    <section class="flex flex-col gap-4">
+        <h2 class="text-xs font-medium tracking-wider text-ink-500 uppercase">Toasts</h2>
+        <div class="flex flex-wrap gap-4">
+            <%- include("../partials/toast", { type: "success", title: "Test saved", body: "74 wpm · 97% — your 3rd best this week." , action: ["View result", "results.html"] }) %>
+            <%- include("../partials/toast", { type: "success", title: "Link copied" }) %>
+            <%- include("../partials/toast", { type: "success", title: "Settings saved" }) %>
+            <%- include("../partials/toast", { type: "info", title: "You're offline", body: "Tests are still saved in this browser and will sync when you're back." }) %>
+            <%- include("../partials/toast", { type: "error", title: "Couldn't save your result", body: "Check your connection.", action: ["Try again", "#"] }) %>
+            <%- include("../partials/toast", { type: "error", title: "History cleared", body: "128 tests deleted.", action: ["Undo", "#"] }) %>
+        </div>
+    </section>
+</main>
+
+<%- include("../partials/footer") %>
