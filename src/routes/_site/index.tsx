@@ -34,6 +34,6 @@ const App = () => {
     );
 };
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_site/")({
     component: App,
 });
