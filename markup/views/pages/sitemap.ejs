@@ -36,6 +36,7 @@ const groups = [
             ["about.html", "About", "What strokr is and how it works."],
             ["privacy.html", "Privacy", "What we store and why."],
             ["terms.html", "Terms", "The rules for using strokr."],
+            ["sitemap.html", "Sitemap", "Every page on strokr, grouped."],
             ["sitemap.xml", "sitemap.xml", "Machine-readable sitemap for search engines."],
         ],
     },
@@ -43,6 +44,7 @@ const groups = [
 %>
 
 <main class="flex flex-1 flex-col gap-10 pb-16">
+    <%- include("../partials/info-tabs") %>
     <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
             <p class="font-mono text-xs text-accent">sitemap</p>
