@@ -34,11 +34,14 @@ const themeScript = `(() => {
     applyTheme(localStorage.getItem("theme") ?? "dark");
     // Theme CSS loads after this script, so redraw the favicon once it has.
     addEventListener("DOMContentLoaded", updateFavicon);
+    window.setTheme = (choice) => {
+        localStorage.setItem("theme", choice);
+        applyTheme(choice);
+    };
     document.addEventListener("click", (event) => {
         const button = event.target.closest("[data-set-theme]");
         if (!button) return;
-        localStorage.setItem("theme", button.dataset.setTheme);
-        applyTheme(button.dataset.setTheme);
+        window.setTheme(button.dataset.setTheme);
     });
 })();`;
 

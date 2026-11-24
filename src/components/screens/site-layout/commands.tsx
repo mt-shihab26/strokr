@@ -1,12 +1,22 @@
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+    CommandShortcut,
+} from "@/components/ui/command";
+
+import { useEffect, useState } from "react";
 import { focusTip } from "./tip";
 import { themes } from "@/lib/themes";
-import { cn } from "@/lib/utils";
 
 import { SearchIcon } from "@/components/icons/search-icon";
-
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tip } from "./tip";
 import { Kbd } from "./kbd";
-import { Keys } from "./keys";
+import { TipKeys } from "./tip-keys";
 
 const commandGroups: {
     title: string;
@@ -31,8 +41,8 @@ const commandGroups: {
             { label: "Practice drills", keys: [] },
             { label: "Custom text", keys: [] },
             { label: "Leaderboard", keys: [] },
-            { label: "History", keys: ["ctrl", "h"] },
-            { label: "Settings", keys: ["ctrl", ","] },
+            { label: "History", keys: [] },
+            { label: "Settings", keys: [] },
         ],
     },
     {
@@ -46,67 +56,81 @@ const commandGroups: {
 ];
 
 export const Commands = () => {
+    const [open, setOpen] = useState<boolean>(false);
+
+    useEffect(() => {
+        const onKeyDown = (event: KeyboardEvent) => {
+            const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((event.target as HTMLElement).tagName);
+            if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+                event.preventDefault();
+                setOpen((value) => !value);
+            } else if (event.key === "/" && !typing) {
+                event.preventDefault();
+                setOpen(true);
+            }
+        };
+        document.addEventListener("keydown", onKeyDown);
+        return () => document.removeEventListener("keydown", onKeyDown);
+    }, []);
+
     return (
-        <>
-            <a
-                href="#command"
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger
                 aria-label="Search (ctrl + k)"
                 aria-keyshortcuts="Control+K"
-                className="group/tip relative grid size-9 place-items-center rounded-lg text-ink-500 hover:bg-ink-900 hover:text-ink-100"
+                className="group/tip relative grid size-9 cursor-pointer place-items-center rounded-lg text-ink-500 hover:bg-ink-900 hover:text-ink-100"
             >
                 <SearchIcon className="size-4.5" stroke="currentColor" />
                 <Tip className={focusTip}>
                     <span className="flex items-center gap-2">
                         Search
-                        <span className="flex gap-0.5 font-mono text-[10px]">
-                            <kbd className="rounded border border-ink-700 bg-ink-800 px-1 text-ink-300">
-                                ctrl
-                            </kbd>
-                            <kbd className="rounded border border-ink-700 bg-ink-800 px-1 text-ink-300">
-                                k
-                            </kbd>
-                        </span>
+                        <TipKeys keys={["ctrl", "k"]} />
                     </span>
                 </Tip>
-            </a>
-
-            <div
-                id="command"
-                className="fixed inset-0 z-50 hidden items-start justify-center bg-ink-950/80 p-4 pt-[15vh] backdrop-blur-sm target:flex"
+            </DialogTrigger>
+            <DialogContent
+                showCloseButton={false}
+                overlayClassName="bg-ink-950/80 backdrop-blur-sm duration-150 ease-out data-closed:animate-none!"
+                className="top-[15vh] block w-[calc(100%-2rem)] max-w-lg translate-y-0 gap-0 overflow-hidden rounded-xl border border-ink-800 bg-ink-900 p-0 text-ink-300 shadow-2xl ring-0 duration-180 ease-[cubic-bezier(0.2,0.8,0.2,1)] sm:max-w-lg data-open:slide-in-from-top-[6px]! data-open:zoom-in-98! data-closed:animate-none!"
             >
-                <a href="#" className="absolute inset-0" aria-label="Close command menu" />
-                <div className="relative w-full max-w-lg overflow-hidden rounded-xl border border-ink-800 bg-ink-900 shadow-2xl">
-                    <div className="flex items-center gap-3 border-b border-ink-800 px-4">
-                        <SearchIcon className="size-4 text-ink-500" stroke="currentColor" />
-                        <input
-                            className="h-12 flex-1 bg-transparent text-sm text-ink-100 outline-none placeholder:text-ink-600"
-                            placeholder="Type a command…"
-                        />
+                <DialogTitle className="sr-only">Command menu</DialogTitle>
+                <Command className="bg-transparent text-ink-300">
+                    <CommandInput
+                        placeholder="Type a command…"
+                        wrapperClassName="border-b border-ink-800 p-0"
+                        groupClassName="h-12 gap-3 border-0 px-4"
+                        className="h-12 flex-1 bg-transparent px-0 text-ink-100 placeholder:text-ink-600"
+                        icon={<SearchIcon className="size-4 text-ink-500" stroke="currentColor" />}
+                    >
                         <Kbd>esc</Kbd>
-                    </div>
-                    <div className="max-h-80 overflow-y-auto p-2">
-                        {commandGroups.map((group, g) => (
-                            <div key={group.title}>
-                                <p className="px-2 pt-2 pb-1 text-xs text-ink-500">{group.title}</p>
-                                {group.items.map((item, i) => (
-                                    <button
+                    </CommandInput>
+                    <CommandList className="max-h-80 p-2">
+                        <CommandEmpty className="text-ink-500">No results.</CommandEmpty>
+                        {commandGroups.map((group) => (
+                            <CommandGroup
+                                key={group.title}
+                                heading={group.title}
+                                className="p-0 text-ink-300 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:pt-2 **:[[cmdk-group-heading]]:pb-1 **:[[cmdk-group-heading]]:font-normal **:[[cmdk-group-heading]]:tracking-normal **:[[cmdk-group-heading]]:text-ink-500 **:[[cmdk-group-heading]]:normal-case"
+                            >
+                                {group.items.map((item) => (
+                                    <CommandItem
                                         key={item.label}
-                                        type="button"
+                                        value={`${group.title} ${item.label}`}
                                         data-set-theme={item.theme}
-                                        className={cn(
-                                            "flex w-full items-center justify-between rounded-md px-2 py-2 text-left text-sm",
-                                            g === 0 && i === 0
-                                                ? "bg-ink-800 text-ink-100"
-                                                : "text-ink-300 hover:bg-ink-800",
-                                        )}
+                                        onSelect={() => item.theme && window.setTheme(item.theme)}
+                                        className="cursor-pointer justify-between rounded-md px-2 py-2 text-left text-ink-300 in-data-[slot=dialog-content]:rounded-md data-selected:bg-ink-800 data-selected:text-ink-100"
                                     >
                                         {item.label}
-                                        <Keys keys={item.keys} />
-                                    </button>
+                                        <CommandShortcut className="ml-0 flex gap-1 tracking-normal">
+                                            {item.keys.map((key) => (
+                                                <Kbd key={key}>{key}</Kbd>
+                                            ))}
+                                        </CommandShortcut>
+                                    </CommandItem>
                                 ))}
-                            </div>
+                            </CommandGroup>
                         ))}
-                    </div>
+                    </CommandList>
                     <div className="flex gap-4 border-t border-ink-800 px-4 py-2 text-xs text-ink-500">
                         <span className="flex items-center gap-1">
                             <Kbd>↑</Kbd>
@@ -116,8 +140,8 @@ export const Commands = () => {
                             <Kbd>enter</Kbd> select
                         </span>
                     </div>
-                </div>
-            </div>
-        </>
+                </Command>
+            </DialogContent>
+        </Dialog>
     );
 };

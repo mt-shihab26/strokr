@@ -57,11 +57,24 @@ function CommandDialog({
 
 function CommandInput({
     className,
+    wrapperClassName,
+    groupClassName,
+    icon = <SearchIcon className="size-3.5 shrink-0 opacity-50" />,
+    children,
     ...props
-}: React.ComponentProps<typeof CommandPrimitive.Input>) {
+}: React.ComponentProps<typeof CommandPrimitive.Input> & {
+    wrapperClassName?: string;
+    groupClassName?: string;
+    icon?: React.ReactNode;
+}) {
     return (
-        <div data-slot="command-input-wrapper" className="p-1">
-            <InputGroup className="border-transparent border-b-input bg-transparent px-3">
+        <div data-slot="command-input-wrapper" className={cn("p-1", wrapperClassName)}>
+            <InputGroup
+                className={cn(
+                    "border-transparent border-b-input bg-transparent px-3",
+                    groupClassName,
+                )}
+            >
                 <CommandPrimitive.Input
                     data-slot="command-input"
                     className={cn(
@@ -70,9 +83,8 @@ function CommandInput({
                     )}
                     {...props}
                 />
-                <InputGroupAddon>
-                    <SearchIcon className="size-3.5 shrink-0 opacity-50" />
-                </InputGroupAddon>
+                <InputGroupAddon>{icon}</InputGroupAddon>
+                {children}
             </InputGroup>
         </div>
     );
@@ -83,7 +95,7 @@ function CommandList({ className, ...props }: React.ComponentProps<typeof Comman
         <CommandPrimitive.List
             data-slot="command-list"
             className={cn(
-                "no-scrollbar max-h-72 scroll-py-1 overflow-x-hidden overflow-y-auto outline-none",
+                "max-h-72 scroll-py-1 overflow-x-hidden overflow-y-auto outline-none",
                 className,
             )}
             {...props}
