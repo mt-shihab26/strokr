@@ -1,5 +1,5 @@
 import { focusTip } from "./tip";
-import { themeNames } from "@/lib/themes";
+import { themes } from "@/lib/themes";
 import { cn } from "@/lib/utils";
 
 import { SearchIcon } from "@/components/icons/search-icon";
@@ -8,9 +8,14 @@ import { Tip } from "./tip";
 import { Kbd } from "./kbd";
 import { Keys } from "./keys";
 
-type TCommandItem = { label: string; keys: string[]; theme?: string };
-
-const commandGroups: { title: string; items: TCommandItem[] }[] = [
+const commandGroups: {
+    title: string;
+    items: {
+        label: string;
+        keys: string[];
+        theme?: string;
+    }[];
+}[] = [
     {
         title: "Test",
         items: [
@@ -30,7 +35,14 @@ const commandGroups: { title: string; items: TCommandItem[] }[] = [
             { label: "Settings", keys: ["ctrl", ","] },
         ],
     },
-    { title: "Theme", items: themeNames.map((name) => ({ label: name, keys: [], theme: name })) },
+    {
+        title: "Theme",
+        items: themes.map((theme) => ({
+            label: theme.label,
+            keys: [],
+            theme: theme.key,
+        })),
+    },
 ];
 
 export const Commands = () => {
