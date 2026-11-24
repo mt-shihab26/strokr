@@ -1,9 +1,7 @@
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { nitro } from "nitro/vite";
 import { defineConfig, lazyPlugins } from "vite-plus";
-import { reactCompilerPreset } from "@vitejs/plugin-react";
 
-import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 
@@ -12,19 +10,17 @@ export default defineConfig({
     plugins: lazyPlugins(() => [
         nitro(),
         tailwindcss(),
-        tanstackStart({
-            router: {
-                generatedRouteTree: "tree.gen.ts",
-            },
-        }),
+        tanstackStart({ router: { generatedRouteTree: "tree.gen.ts" } }),
         react(),
-        babel({
-            presets: [reactCompilerPreset()],
-        }),
     ]),
     server: {
         watch: {
-            ignored: ["**/.agents/**", "**/.claude/**", "**/.cursor/**", "**/.junie/**"],
+            ignored: [
+                "**/.agents/**",
+                "**/.claude/**",
+                "**/.cursor/**",
+                "**/.junie/**", //
+            ],
         },
     },
     lint: {
@@ -48,9 +44,7 @@ export default defineConfig({
         semi: true,
         singleAttributePerLine: false,
         htmlWhitespaceSensitivity: "css",
-        ignorePatterns: [".github/**", "src/tree.gen.ts"],
-        sortTailwindcss: {
-            stylesheet: "src/main.css",
-        },
+        ignorePatterns: ["src/tree.gen.ts"],
+        sortTailwindcss: { stylesheet: "src/main.css" },
     },
 });
