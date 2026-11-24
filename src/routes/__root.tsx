@@ -1,30 +1,9 @@
-import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
+import { createRootRoute } from "@tanstack/react-router";
 
+import { HeadContent, Scripts } from "@tanstack/react-router";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 import mainCss from "@/main.css?url";
-
-const RootDocument = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <html lang="en">
-            <head>
-                <HeadContent />
-            </head>
-            <body>
-                <TooltipProvider>{children}</TooltipProvider>
-                <Scripts />
-            </body>
-        </html>
-    );
-};
-
-const NotFound = () => {
-    return (
-        <main className="grid min-h-screen place-items-center">
-            <h1 className="text-4xl font-bold">Page not found</h1>
-        </main>
-    );
-};
 
 export const Route = createRootRoute({
     head: () => ({
@@ -37,6 +16,20 @@ export const Route = createRootRoute({
             { rel: "stylesheet", href: mainCss }, //
         ],
     }),
-    shellComponent: RootDocument,
-    notFoundComponent: NotFound,
+    shellComponent: ({ children }) => (
+        <html lang="en">
+            <head>
+                <HeadContent />
+            </head>
+            <body>
+                <TooltipProvider>{children}</TooltipProvider>
+                <Scripts />
+            </body>
+        </html>
+    ),
+    notFoundComponent: () => (
+        <main className="grid min-h-screen place-items-center">
+            <h1 className="text-4xl font-bold">Page not found</h1>
+        </main>
+    ),
 });
