@@ -7,18 +7,14 @@ import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
 import { NotFound } from "@/components/screens/errors/not-found";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-const SITE = {
+const site = {
     name: "strokr",
     description:
         "A keyboard-first typing speed trainer with per-character feedback, charts and history.",
     image: "https://strokr.app/og.png",
 };
 
-// Runs before the page paints (no flash of the wrong theme):
-// - applies the saved theme ("system" follows the OS light/dark setting); themes live in src/styles/themes
-// - redraws the favicon in the theme's colours
-// - any element with data-set-theme="<name>" switches theme when clicked
-const THEME_SCRIPT = `(() => {
+const themeScript = `(() => {
     const root = document.documentElement;
     const updateFavicon = () => {
         const style = getComputedStyle(root);
@@ -46,32 +42,17 @@ const THEME_SCRIPT = `(() => {
     });
 })();`;
 
-const ShellLayout = ({ children }: { children: ReactNode }) => {
-    return (
-        <html lang="en" data-theme="dark" suppressHydrationWarning>
-            <head>
-                <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
-                <HeadContent />
-            </head>
-            <body className="min-h-screen">
-                <TooltipProvider>{children}</TooltipProvider>
-                <Scripts />
-            </body>
-        </html>
-    );
-};
-
 export const Route = createRootRoute({
     head: () => ({
         meta: [
             { charSet: "utf-8" },
             { name: "viewport", content: "width=device-width, initial-scale=1" },
-            { title: SITE.name },
-            { name: "description", content: SITE.description },
-            { property: "og:site_name", content: SITE.name },
-            { property: "og:title", content: SITE.name },
-            { property: "og:description", content: SITE.description },
-            { property: "og:image", content: SITE.image },
+            { title: site.name },
+            { name: "description", content: site.description },
+            { property: "og:site_name", content: site.name },
+            { property: "og:title", content: site.name },
+            { property: "og:description", content: site.description },
+            { property: "og:image", content: site.image },
             { property: "og:image:width", content: "1200" },
             { property: "og:image:height", content: "630" },
             { name: "twitter:card", content: "summary_large_image" },
@@ -81,6 +62,19 @@ export const Route = createRootRoute({
             { id: "favicon", rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
         ],
     }),
-    shellComponent: ShellLayout,
+    shellComponent: ({ children }: { children: ReactNode }) => {
+        return (
+            <html lang="en" data-theme="dark" suppressHydrationWarning>
+                <head>
+                    <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+                    <HeadContent />
+                </head>
+                <body className="min-h-screen">
+                    <TooltipProvider>{children}</TooltipProvider>
+                    <Scripts />
+                </body>
+            </html>
+        );
+    },
     notFoundComponent: NotFound,
 });
