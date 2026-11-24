@@ -1,9 +1,0 @@
-import type { ReactNode } from "react";
-
-export const Kbd = ({ children }: { children: ReactNode }) => {
-    return (
-        <kbd className="rounded border border-ink-800 bg-ink-900 px-1.5 py-0.5 font-mono text-xs text-ink-400">
-            {children}
-        </kbd>
-    );
-};

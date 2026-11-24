@@ -15,7 +15,7 @@ import { themes } from "@/lib/themes";
 import { SearchIcon } from "@/components/icons/search-icon";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tip } from "./tip";
-import { Kbd } from "./kbd";
+import { Kbd } from "@/components/ui/kbd";
 import { TipKeys } from "./tip-keys";
 
 const commandGroups: {
@@ -102,7 +102,7 @@ export const Commands = () => {
                         className="h-12 flex-1 bg-transparent px-0 text-ink-100 placeholder:text-ink-600"
                         icon={<SearchIcon className="size-4 text-ink-500" stroke="currentColor" />}
                     >
-                        <Kbd>esc</Kbd>
+                        <Kbd className="in-data-[slot=input-group]:bg-ink-900">esc</Kbd>
                     </CommandInput>
                     <CommandList className="max-h-80 p-2">
                         <CommandEmpty className="text-ink-500">No results.</CommandEmpty>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { Dialog, DialogClose, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Kbd } from "./kbd";
+import { Kbd } from "@/components/ui/kbd";
 import { Keys } from "./keys";
 
 const shortcutGroups: {
