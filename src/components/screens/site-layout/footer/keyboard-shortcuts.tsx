@@ -8,8 +8,18 @@ import {
 
 import { useEffect, useRef, useState } from "react";
 
+import { themes } from "@/lib/themes";
+
 import { Kbd } from "@/components/ui/kbd";
+import { setTheme } from "../header/theme-picker";
 import { Keys } from "./keys";
+
+const goToKeys: Record<string, string> = {
+    t: "/",
+    p: "/practice",
+    h: "/history",
+    l: "/leaderboard",
+};
 
 const shortcutGroups: {
     title: string;
@@ -59,14 +69,52 @@ export const KeyboardShortcuts = () => {
     const popupRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        let pendingG = false;
+        let pendingTimer: ReturnType<typeof setTimeout> | undefined;
+
         const onKeyDown = (event: KeyboardEvent) => {
             const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((event.target as HTMLElement).tagName);
-            if (event.key === "?" && !typing) {
+            if (typing || event.altKey) return;
+
+            if (event.ctrlKey || event.metaKey) {
+                if (event.key === ",") {
+                    event.preventDefault();
+                    window.location.assign("/settings");
+                }
+                return;
+            }
+
+            const key = event.key.toLowerCase();
+
+            if (pendingG) {
+                pendingG = false;
+                clearTimeout(pendingTimer);
+                const href = goToKeys[key];
+                if (href) {
+                    event.preventDefault();
+                    window.location.assign(href);
+                    return;
+                }
+            }
+
+            if (event.key === "?") {
                 setOpen((value) => !value);
+            } else if (key === "g") {
+                pendingG = true;
+                pendingTimer = setTimeout(() => (pendingG = false), 1000);
+            } else if (key === "f") {
+                document.body.classList.toggle("focus-mode");
+            } else if (key === "t") {
+                const current = document.documentElement.dataset.themeChoice ?? "system";
+                const index = themes.findIndex((theme) => theme.key === current);
+                setTheme(themes[(index + 1) % themes.length].key);
             }
         };
         document.addEventListener("keydown", onKeyDown);
-        return () => document.removeEventListener("keydown", onKeyDown);
+        return () => {
+            clearTimeout(pendingTimer);
+            document.removeEventListener("keydown", onKeyDown);
+        };
     }, []);
 
     return (

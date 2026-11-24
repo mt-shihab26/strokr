@@ -9,13 +9,12 @@ import {
 } from "@/components/ui/command";
 
 import { useEffect, useState } from "react";
-import { focusTip } from "./tip";
+import { Tip, focusTip } from "./tip";
 import { themes } from "@/lib/themes";
 import { setTheme } from "./theme-picker";
 
 import { SearchIcon } from "@/components/icons/search-icon";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Tip } from "./tip";
 import { Kbd } from "@/components/ui/kbd";
 import { TipKeys } from "./tip-keys";
 
@@ -25,6 +24,7 @@ const commandGroups: {
         label: string;
         keys: string[];
         theme?: string;
+        href?: string;
     }[];
 }[] = [
     {
@@ -39,11 +39,11 @@ const commandGroups: {
     {
         title: "Go to",
         items: [
-            { label: "Practice drills", keys: [] },
-            { label: "Custom text", keys: [] },
-            { label: "Leaderboard", keys: [] },
-            { label: "History", keys: [] },
-            { label: "Settings", keys: [] },
+            { label: "Practice drills", keys: [], href: "/practice" },
+            { label: "Custom text", keys: [], href: "/custom" },
+            { label: "Leaderboard", keys: [], href: "/leaderboard" },
+            { label: "History", keys: [], href: "/history" },
+            { label: "Settings", keys: [], href: "/settings" },
         ],
     },
     {
@@ -68,10 +68,15 @@ export const Commands = () => {
             } else if (event.key === "/" && !typing) {
                 event.preventDefault();
                 setOpen(true);
+            } else if (event.key === "Escape" && !typing) {
+                const overlayOpen = document.querySelector(
+                    '[data-slot="dialog-content"], [data-slot="dropdown-menu-content"]',
+                );
+                if (!overlayOpen) setTimeout(() => setOpen(true));
             }
         };
-        document.addEventListener("keydown", onKeyDown);
-        return () => document.removeEventListener("keydown", onKeyDown);
+        document.addEventListener("keydown", onKeyDown, true);
+        return () => document.removeEventListener("keydown", onKeyDown, true);
     }, []);
 
     return (
@@ -118,7 +123,10 @@ export const Commands = () => {
                                         key={item.label}
                                         value={`${group.title} ${item.label}`}
                                         data-set-theme={item.theme}
-                                        onSelect={() => item.theme && setTheme(item.theme)}
+                                        onSelect={() => {
+                                            if (item.theme) setTheme(item.theme);
+                                            if (item.href) window.location.assign(item.href);
+                                        }}
                                         className="cursor-pointer justify-between rounded-md px-2 py-2 text-left text-ink-300 in-data-[slot=dialog-content]:rounded-md data-selected:bg-ink-800 data-selected:text-ink-100"
                                     >
                                         {item.label}

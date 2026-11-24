@@ -40,7 +40,15 @@ export const setTheme = (choice: string) => {
 export const ThemePicker = () => {
     useEffect(() => {
         const id = setTimeout(() => applyTheme(localStorage.getItem("theme") ?? "system"));
-        return () => clearTimeout(id);
+        const media = matchMedia("(prefers-color-scheme: light)");
+        const onChange = () => {
+            if ((localStorage.getItem("theme") ?? "system") === "system") applyTheme("system");
+        };
+        media.addEventListener("change", onChange);
+        return () => {
+            clearTimeout(id);
+            media.removeEventListener("change", onChange);
+        };
     }, []);
 
     return (
