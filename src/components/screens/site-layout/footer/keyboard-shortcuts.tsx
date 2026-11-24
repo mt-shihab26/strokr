@@ -8,58 +8,24 @@ import {
 
 import { useEffect, useRef, useState } from "react";
 
-import { themes } from "@/lib/themes";
-
 import { Kbd } from "@/components/ui/kbd";
-import { setTheme } from "../header/theme-picker";
 import { Keys } from "./keys";
-
-const goToKeys: Record<string, string> = {
-    t: "/",
-    p: "/practice",
-    h: "/history",
-    l: "/leaderboard",
-};
 
 const shortcutGroups: {
     title: string;
     items: { keys: string[]; action: string }[];
 }[] = [
     {
-        title: "Test",
+        title: "Command menu",
         items: [
-            { keys: ["tab", "enter"], action: "Restart test" },
-            { keys: ["esc"], action: "Command menu" },
-            { keys: ["ctrl", "shift", "p"], action: "Change mode" },
-            { keys: ["ctrl", "backspace"], action: "Delete word" },
-        ],
-    },
-    {
-        title: "Navigate",
-        items: [
-            { keys: ["ctrl", "k"], action: "Search" },
-            { keys: ["g", "t"], action: "Typing test" },
-            { keys: ["g", "p"], action: "Practice" },
-            { keys: ["g", "h"], action: "History" },
-            { keys: ["g", "l"], action: "Leaderboard" },
-            { keys: ["ctrl", ","], action: "Settings" },
-        ],
-    },
-    {
-        title: "Results",
-        items: [
-            { keys: ["tab"], action: "Next test" },
-            { keys: ["r"], action: "Repeat test" },
-            { keys: ["s"], action: "Share result" },
+            { keys: ["ctrl", "k"], action: "Open or close" },
+            { keys: ["/"], action: "Open" },
+            { keys: ["esc"], action: "Open or close" },
         ],
     },
     {
         title: "General",
-        items: [
-            { keys: ["?"], action: "This list" },
-            { keys: ["f"], action: "Focus mode" },
-            { keys: ["t"], action: "Cycle theme" },
-        ],
+        items: [{ keys: ["?"], action: "This list" }],
     },
 ];
 
@@ -69,52 +35,14 @@ export const KeyboardShortcuts = () => {
     const popupRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        let pendingG = false;
-        let pendingTimer: ReturnType<typeof setTimeout> | undefined;
-
         const onKeyDown = (event: KeyboardEvent) => {
             const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((event.target as HTMLElement).tagName);
-            if (typing || event.altKey) return;
-
-            if (event.ctrlKey || event.metaKey) {
-                if (event.key === ",") {
-                    event.preventDefault();
-                    window.location.assign("/settings");
-                }
-                return;
-            }
-
-            const key = event.key.toLowerCase();
-
-            if (pendingG) {
-                pendingG = false;
-                clearTimeout(pendingTimer);
-                const href = goToKeys[key];
-                if (href) {
-                    event.preventDefault();
-                    window.location.assign(href);
-                    return;
-                }
-            }
-
-            if (event.key === "?") {
+            if (event.key === "?" && !typing) {
                 setOpen((value) => !value);
-            } else if (key === "g") {
-                pendingG = true;
-                pendingTimer = setTimeout(() => (pendingG = false), 1000);
-            } else if (key === "f") {
-                document.body.classList.toggle("focus-mode");
-            } else if (key === "t") {
-                const current = document.documentElement.dataset.themeChoice ?? "system";
-                const index = themes.findIndex((theme) => theme.key === current);
-                setTheme(themes[(index + 1) % themes.length].key);
             }
         };
         document.addEventListener("keydown", onKeyDown);
-        return () => {
-            clearTimeout(pendingTimer);
-            document.removeEventListener("keydown", onKeyDown);
-        };
+        return () => document.removeEventListener("keydown", onKeyDown);
     }, []);
 
     return (
