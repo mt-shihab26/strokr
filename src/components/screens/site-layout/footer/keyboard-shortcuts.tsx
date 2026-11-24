@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Dialog, DialogClose, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 import { Kbd } from "@/components/ui/kbd";
 import { Keys } from "./keys";
 
@@ -64,6 +70,13 @@ export const KeyboardShortcuts = () => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger
+                aria-keyshortcuts="?"
+                className="flex cursor-pointer items-center gap-1.5 hover:text-ink-300"
+            >
+                <Kbd>?</Kbd>
+                Shortcuts
+            </DialogTrigger>
             <DialogContent
                 ref={popupRef}
                 initialFocus={popupRef}

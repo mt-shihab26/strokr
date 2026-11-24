@@ -2,7 +2,6 @@ import { Logo } from "./logo";
 import { Links } from "./links";
 import { Commands } from "./commands";
 import { ThemePicker } from "./theme-picker";
-import { KeyboardShortcuts } from "./Keyboard-shortcuts";
 import { Profile } from "./profile";
 
 export const Header = () => {
@@ -26,7 +25,6 @@ export const Header = () => {
                     </div>
                 </div>
             </header>
-            <KeyboardShortcuts />
         </>
     );
 };
