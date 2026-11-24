@@ -57,25 +57,7 @@ const tip = (label) =>
                 <%- tip("Search · esc") %>
             </a>
 
-            <!-- Theme selector -->
-            <details class="group relative">
-                <summary aria-label="Theme" class="group/tip relative grid size-9 cursor-pointer list-none place-items-center rounded-lg text-ink-500 hover:bg-ink-900 hover:text-ink-100 group-open:bg-ink-900 group-open:text-accent">
-                    <%- icon("palette") %>
-                    <%- tip("Theme") %>
-                </summary>
-                <div class="absolute right-0 z-40 mt-2 w-44 rounded-xl border border-ink-800 bg-ink-900 p-1 shadow-xl">
-                    <% for (const name of ["system", "dark", "light", "nord", "sepia", "matrix"]) { %>
-                    <button data-set-theme="<%= name %>" class="flex w-full items-center gap-2 rounded-lg border border-transparent px-2 py-1.5 text-left text-sm text-ink-300 hover:bg-ink-800">
-                        <span data-theme="<%= name === 'system' ? 'dark' : name %>" class="flex gap-0.5 rounded bg-ink-950 p-1">
-                            <span class="size-2 rounded-full bg-accent"></span>
-                            <span class="size-2 rounded-full bg-ink-100"></span>
-                            <span class="size-2 rounded-full bg-ink-600"></span>
-                        </span>
-                        <%= name %>
-                    </button>
-                    <% } %>
-                </div>
-            </details>
+            <%- include("theme-picker") %>
 
             <span class="mx-1 h-6 w-px bg-ink-800"></span>
 

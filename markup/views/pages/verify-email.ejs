@@ -1,0 +1,21 @@
+<%- include("../partials/head", { title: "Verify email" }) %>
+<%- include("../partials/auth-top", { icon: "✉️", heading: "Check your inbox", subheading: "We sent a 6-digit code to <span class='text-ink-300'>shihab@example.com</span>" }) %>
+
+<form class="flex flex-col gap-5 rounded-2xl border border-ink-900 bg-ink-900/40 p-6 shadow-sm">
+    <div class="flex justify-center gap-2 font-mono text-xl">
+        <% "482".split("").concat(["", "", ""]).forEach((digit, i) => { %>
+        <input
+            maxlength="1"
+            value="<%= digit %>"
+            aria-label="Digit <%= i + 1 %>"
+            class="size-12 rounded-lg border bg-ink-950 text-center text-ink-100 outline-none focus:border-accent <%= i === 3 ? 'border-accent ring-2 ring-accent/20' : 'border-ink-800' %>"
+        />
+        <% if (i === 2) { %><span class="self-center text-ink-700">–</span><% } %>
+        <% }) %>
+    </div>
+    <button class="h-10 rounded-lg bg-accent text-sm font-medium text-ink-950 hover:opacity-90">Verify</button>
+    <p class="text-center text-xs text-ink-500">Didn't get it? <button type="button" class="text-ink-300 hover:text-accent">Resend</button> <span class="text-ink-700">in 0:42</span></p>
+</form>
+<p class="mt-6 text-center text-sm text-ink-500">Wrong email? <a href="signup.html" class="text-accent hover:underline">Change it</a></p>
+
+<%- include("../partials/auth-bottom") %>

@@ -1,0 +1,151 @@
+<%- include("../partials/head", { title: "Edit profile" }) %>
+<%- include("../partials/header", { page: "profile" }) %>
+
+<%
+const sections = [
+    ["profile", "Profile"],
+    ["account", "Account"],
+    ["privacy", "Privacy"],
+    ["connections", "Connections"],
+    ["danger", "Delete account"],
+];
+const toggle = (on) => `relative inline-flex h-5 w-9 shrink-0 rounded-full ${on ? "bg-accent" : "bg-ink-800"}`;
+const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow transition ${on ? "left-[1.125rem]" : "left-0.5"}`;
+const card = "rounded-2xl border border-ink-900 bg-ink-900/30 p-6";
+const input = "h-10 rounded-lg border border-ink-800 bg-ink-950 px-3 text-sm text-ink-100 outline-none placeholder:text-ink-600 focus:border-accent";
+%>
+
+<main class="flex flex-1 flex-col gap-8 pb-16">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <a href="profile.html" class="text-sm text-ink-500 hover:text-ink-200">← Back to profile</a>
+            <h1 class="mt-2 text-2xl font-semibold text-ink-100">Edit profile</h1>
+        </div>
+        <div class="flex gap-2">
+            <a href="profile.html" class="rounded-lg border border-ink-800 px-4 py-2 text-sm text-ink-300 hover:bg-ink-900">Cancel</a>
+            <button class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Save changes</button>
+        </div>
+    </div>
+
+    <div class="grid items-start gap-8 lg:grid-cols-[12rem_1fr]">
+        <!-- Section nav -->
+        <nav class="flex gap-1 overflow-x-auto lg:sticky lg:top-28 lg:flex-col">
+            <% sections.forEach(([id, label], i) => { %>
+            <a href="#<%= id %>" class="rounded-lg px-3 py-2 text-sm whitespace-nowrap <%= i === 0 ? 'bg-ink-900 text-ink-100' : id === 'danger' ? 'text-rose-400/80 hover:bg-rose-500/10' : 'text-ink-500 hover:bg-ink-900 hover:text-ink-200' %>"><%= label %></a>
+            <% }) %>
+        </nav>
+
+        <div class="flex flex-col gap-6">
+            <!-- Profile -->
+            <section id="profile" class="<%= card %> scroll-mt-28">
+                <h2 class="text-base font-medium text-ink-100">Profile</h2>
+                <p class="mt-1 text-sm text-ink-500">This is what other people see on the leaderboard.</p>
+                <div class="mt-6 flex flex-wrap items-center gap-5">
+                    <div class="group relative">
+                        <span class="grid size-20 place-items-center rounded-full bg-gradient-to-br from-accent/80 to-ink-700 font-mono text-2xl font-bold text-ink-950">SM</span>
+                        <button class="absolute inset-0 grid place-items-center rounded-full bg-ink-950/70 text-xs text-ink-100 opacity-0 group-hover:opacity-100">Change</button>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="rounded-lg border border-ink-800 px-3 py-1.5 text-sm text-ink-300 hover:bg-ink-900">Upload photo</button>
+                        <button class="rounded-lg px-3 py-1.5 text-sm text-ink-500 hover:text-rose-400">Remove</button>
+                    </div>
+                </div>
+                <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                    <label class="flex flex-col gap-1.5">
+                        <span class="text-sm text-ink-300">Display name</span>
+                        <input class="<%= input %>" value="Shihab" />
+                    </label>
+                    <label class="flex flex-col gap-1.5">
+                        <span class="text-sm text-ink-300">Username</span>
+                        <span class="flex items-center rounded-lg border border-ink-800 bg-ink-950 focus-within:border-accent">
+                            <span class="pl-3 text-sm text-ink-600">strokr.app/</span>
+                            <input class="h-10 flex-1 bg-transparent pr-3 text-sm text-ink-100 outline-none" value="shihab" />
+                            <span class="pr-3 text-xs text-emerald-400">✓ available</span>
+                        </span>
+                    </label>
+                    <label class="flex flex-col gap-1.5 sm:col-span-2">
+                        <span class="flex justify-between text-sm text-ink-300">Bio <span class="text-xs text-ink-600">42 / 160</span></span>
+                        <textarea rows="3" class="resize-none rounded-lg border border-ink-800 bg-ink-950 p-3 text-sm text-ink-100 outline-none focus:border-accent">Learning to touch type. Aiming for 100 wpm.</textarea>
+                    </label>
+                    <label class="flex flex-col gap-1.5">
+                        <span class="text-sm text-ink-300">Keyboard</span>
+                        <input class="<%= input %>" placeholder="e.g. Keychron Q1, Cherry Brown" />
+                    </label>
+                    <label class="flex flex-col gap-1.5">
+                        <span class="text-sm text-ink-300">Country</span>
+                        <select class="<%= input %>"><option>Bangladesh</option><option>India</option><option>United States</option></select>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Account -->
+            <section id="account" class="<%= card %> scroll-mt-28">
+                <h2 class="text-base font-medium text-ink-100">Account</h2>
+                <div class="mt-6 divide-y divide-ink-900">
+                    <% for (const [label, value, action] of [
+                        ["Email", "shihab@example.com · verified", "Change"],
+                        ["Password", "Last changed 3 months ago", "Update"],
+                        ["Two-factor authentication", "Not set up", "Enable"],
+                    ]) { %>
+                    <div class="flex flex-wrap items-center justify-between gap-3 py-4 first:pt-0 last:pb-0">
+                        <div>
+                            <p class="text-sm text-ink-100"><%= label %></p>
+                            <p class="text-xs text-ink-500"><%= value %></p>
+                        </div>
+                        <button class="rounded-lg border border-ink-800 px-3 py-1.5 text-sm text-ink-300 hover:bg-ink-900"><%= action %></button>
+                    </div>
+                    <% } %>
+                </div>
+            </section>
+
+            <!-- Privacy -->
+            <section id="privacy" class="<%= card %> scroll-mt-28">
+                <h2 class="text-base font-medium text-ink-100">Privacy</h2>
+                <div class="mt-6 flex flex-col gap-4">
+                    <% for (const [label, hint, on] of [
+                        ["Show me on the leaderboard", "Your best scores appear in public rankings.", true],
+                        ["Public profile", "Anyone with the link can see your stats.", true],
+                        ["Show typing history", "Let others see your past tests, not just your bests.", false],
+                    ]) { %>
+                    <label class="flex cursor-pointer items-center justify-between gap-4">
+                        <span>
+                            <span class="block text-sm text-ink-100"><%= label %></span>
+                            <span class="block text-xs text-ink-500"><%= hint %></span>
+                        </span>
+                        <span class="<%= toggle(on) %>"><span class="<%= knob(on) %>"></span></span>
+                    </label>
+                    <% } %>
+                </div>
+            </section>
+
+            <!-- Connections -->
+            <section id="connections" class="<%= card %> scroll-mt-28">
+                <h2 class="text-base font-medium text-ink-100">Connections</h2>
+                <div class="mt-6 flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <span class="grid size-9 place-items-center rounded-lg bg-ink-800 text-ink-100">
+                            <svg viewBox="0 0 24 24" class="size-4" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z" /></svg>
+                        </span>
+                        <div>
+                            <p class="text-sm text-ink-100">GitHub</p>
+                            <p class="text-xs text-ink-500">Connected as @mt-shihab26</p>
+                        </div>
+                    </div>
+                    <button class="rounded-lg border border-ink-800 px-3 py-1.5 text-sm text-ink-300 hover:bg-ink-900">Disconnect</button>
+                </div>
+            </section>
+
+            <!-- Danger -->
+            <section id="danger" class="scroll-mt-28 rounded-2xl border border-rose-500/20 bg-rose-500/5 p-6">
+                <h2 class="text-base font-medium text-rose-300">Delete account</h2>
+                <p class="mt-1 text-sm text-ink-400">Permanently deletes your profile, history and leaderboard entries. This can't be undone.</p>
+                <div class="mt-5 flex flex-wrap gap-2">
+                    <button class="rounded-lg border border-ink-800 px-4 py-2 text-sm text-ink-300 hover:bg-ink-900">Export my data</button>
+                    <button class="rounded-lg bg-rose-600 px-4 py-2 text-sm font-medium text-white hover:bg-rose-500">Delete account</button>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<%- include("../partials/footer") %>

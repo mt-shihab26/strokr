@@ -1,0 +1,64 @@
+<%- include("../partials/head", { title: "About" }) %>
+<%- include("../partials/header") %>
+
+<main class="flex flex-1 flex-col gap-16 pb-16">
+    <!-- Hero -->
+    <section class="flex flex-col items-center gap-6 pt-6 text-center">
+        <p class="font-mono text-xs text-accent">about strokr</p>
+        <h1 class="max-w-2xl text-4xl font-semibold text-balance text-ink-100 sm:text-5xl">Get faster at typing by seeing every keystroke.</h1>
+        <p class="max-w-xl text-ink-400">strokr checks each character as you type, shows you exactly where you slipped, and charts your speed and accuracy after every test — all without leaving the keyboard.</p>
+        <div class="flex gap-3">
+            <a href="index.html" class="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-ink-950 hover:opacity-90">Start typing</a>
+            <a href="https://github.com/mt-shihab26/strokr" class="rounded-lg border border-ink-800 px-5 py-2.5 text-sm text-ink-300 hover:bg-ink-900">View on GitHub</a>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <% for (const [icon, title, body] of [
+            ["⌨", "Keyboard first", "Every action has a shortcut. Restart, switch modes and open settings without touching the mouse."],
+            ["◉", "Per-character feedback", "Correct, wrong and extra characters are coloured as you type, so mistakes never hide."],
+            ["📈", "Charts after every test", "See wpm, raw speed and errors second by second, plus the keys you missed most."],
+            ["🕘", "Full history", "Every test is saved. Track personal bests and watch your average climb."],
+            ["🎯", "Targeted practice", "Drills built from your weakest keys and finger groups."],
+            ["🎨", "Themes", "Dark, light, nord, sepia and matrix — or follow your system."],
+        ]) { %>
+        <div class="lift rounded-2xl border border-ink-900 bg-ink-900/30 p-6">
+            <span class="grid size-10 place-items-center rounded-xl bg-accent/10 text-lg"><%= icon %></span>
+            <h2 class="mt-4 font-medium text-ink-100"><%= title %></h2>
+            <p class="mt-2 text-sm text-ink-500"><%= body %></p>
+        </div>
+        <% } %>
+    </section>
+
+    <!-- Numbers -->
+    <section class="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-900 bg-ink-900 md:grid-cols-4">
+        <% for (const [value, label] of [["2.4M", "tests taken"], ["48k", "typists"], ["+18", "avg wpm gained"], ["0", "ads"]]) { %>
+        <div class="bg-ink-950 p-6 text-center">
+            <p class="font-mono text-3xl font-bold text-accent"><%= value %></p>
+            <p class="mt-1 text-sm text-ink-500"><%= label %></p>
+        </div>
+        <% } %>
+    </section>
+
+    <!-- FAQ -->
+    <section class="mx-auto flex w-full max-w-2xl flex-col gap-3">
+        <h2 class="mb-2 text-center text-2xl font-semibold text-ink-100">Questions</h2>
+        <% for (const [q, a] of [
+            ["How is wpm calculated?", "Every 5 correct characters, spaces included, count as one word. Raw wpm counts all characters, including mistakes."],
+            ["Do I need an account?", "No. Tests are saved in your browser. Sign in only if you want to sync across devices or join the leaderboard."],
+            ["Is it free?", "Yes, and there are no ads."],
+            ["Can I type code?", "Yes. Paste any snippet into Custom text and turn on line breaks."],
+        ]) { %>
+        <details class="group rounded-xl border border-ink-900 bg-ink-900/30 px-5 open:bg-ink-900/60">
+            <summary class="flex cursor-pointer list-none items-center justify-between py-4 text-sm text-ink-100">
+                <%= q %>
+                <span class="text-ink-500 transition group-open:rotate-45">+</span>
+            </summary>
+            <div><p class="pb-4 text-sm text-ink-400"><%= a %></p></div>
+        </details>
+        <% } %>
+    </section>
+</main>
+
+<%- include("../partials/footer") %>

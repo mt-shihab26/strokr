@@ -1,0 +1,19 @@
+<%# Theme dropdown. Buttons use data-set-theme, handled by the script in head.ejs. %>
+<details class="group relative">
+    <summary aria-label="Theme" class="group/tip relative grid size-9 cursor-pointer list-none place-items-center rounded-lg text-ink-500 hover:bg-ink-900 hover:text-ink-100 group-open:bg-ink-900 group-open:text-accent">
+        <svg viewBox="0 0 24 24" class="size-[18px]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.55-2.5 5.55-5.55C21.97 6.01 17.46 2 12 2z"/></svg>
+        <span role="tooltip" class="pointer-events-none absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 translate-y-1 rounded-md border border-ink-800 bg-ink-900 px-2 py-1 text-xs whitespace-nowrap text-ink-100 opacity-0 shadow-lg transition group-hover/tip:translate-y-0 group-hover/tip:opacity-100 group-open:hidden">Theme</span>
+    </summary>
+    <div class="absolute right-0 z-40 mt-2 w-44 rounded-xl border border-ink-800 bg-ink-900 p-1 shadow-xl">
+        <% for (const name of ["system", "dark", "light", "nord", "sepia", "matrix"]) { %>
+        <button data-set-theme="<%= name %>" class="flex w-full items-center gap-2 rounded-lg border border-transparent px-2 py-1.5 text-left text-sm text-ink-300 hover:bg-ink-800">
+            <span data-theme="<%= name === 'system' ? 'dark' : name %>" class="flex gap-0.5 rounded bg-ink-950 p-1">
+                <span class="size-2 rounded-full bg-accent"></span>
+                <span class="size-2 rounded-full bg-ink-100"></span>
+                <span class="size-2 rounded-full bg-ink-600"></span>
+            </span>
+            <%= name %>
+        </button>
+        <% } %>
+    </div>
+</details>
