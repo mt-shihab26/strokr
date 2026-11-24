@@ -15,7 +15,7 @@ const getTodos = createServerFn({
 const createTodo = createServerFn({
     method: "POST",
 })
-    .inputValidator((data: { title: string }) => data)
+    .validator((data: { title: string }) => data)
     .handler(async ({ data }) => {
         await db.insert(todos).values({ title: data.title });
         return { success: true };
@@ -39,7 +39,7 @@ function DemoDrizzle() {
 
         try {
             await createTodo({ data: { title } });
-            router.invalidate();
+            await router.invalidate();
             (e.target as HTMLFormElement).reset();
         } catch (error) {
             console.error("Failed to create todo:", error);
