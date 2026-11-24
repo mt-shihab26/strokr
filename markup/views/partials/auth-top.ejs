@@ -1,17 +1,8 @@
-<%# Shell for sign-in style pages: no app header, just the logo and a centred card. Pair with auth-bottom. %>
+<%# Shell for sign-in style pages: the app header and a centred card. Pair with auth-bottom. %>
 <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
     <div class="absolute -top-40 left-1/2 size-[36rem] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl"></div>
 </div>
-<div class="flex items-center justify-between py-6">
-    <a href="index.html" class="group flex items-center gap-2.5 font-mono text-lg font-bold text-ink-100">
-        <span class="grid size-8 place-items-center rounded-lg bg-accent text-sm text-ink-950 transition group-hover:rotate-[-8deg]">s</span>
-        strokr
-    </a>
-    <div class="flex items-center gap-2">
-        <a href="index.html" class="text-sm text-ink-500 hover:text-ink-200">← Back to typing</a>
-        <%- include("theme-picker") %>
-    </div>
-</div>
+<%- include("header") %>
 <main class="flex flex-1 items-center justify-center py-10">
     <div class="w-full max-w-sm">
         <div class="mb-8 text-center">
