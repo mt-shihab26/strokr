@@ -50,6 +50,12 @@ export default defineConfig({
         singleAttributePerLine: false,
         htmlWhitespaceSensitivity: "css",
         ignorePatterns: ["src/tree.gen.ts"],
+        overrides: [
+            {
+                files: ["*.yml", "*.yaml"],
+                options: { tabWidth: 2 },
+            },
+        ],
         sortTailwindcss: { stylesheet: "src/main.css" },
     },
 });
