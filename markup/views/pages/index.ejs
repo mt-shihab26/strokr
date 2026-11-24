@@ -3,43 +3,43 @@
 
 <main class="flex flex-1 flex-col justify-center gap-10 pb-16">
     <!-- Mode bar -->
-    <div class="mx-auto flex flex-wrap items-center gap-1 rounded-lg bg-zinc-900 p-1 font-mono text-sm">
+    <div class="mx-auto flex flex-wrap items-center gap-1 rounded-lg bg-ink-900 p-1 font-mono text-sm">
         <button class="rounded-md px-3 py-1 text-accent">time</button>
-        <button class="rounded-md px-3 py-1 text-zinc-500 hover:text-zinc-200">words</button>
-        <span class="mx-2 h-4 w-px bg-zinc-800"></span>
+        <button class="rounded-md px-3 py-1 text-ink-500 hover:text-ink-200">words</button>
+        <span class="mx-2 h-4 w-px bg-ink-800"></span>
         <% for (const seconds of [15, 30, 60, 120]) { %>
-        <button class="rounded-md px-3 py-1 <%= seconds === 30 ? 'text-accent' : 'text-zinc-500 hover:text-zinc-200' %>"><%= seconds %></button>
+        <button class="rounded-md px-3 py-1 <%= seconds === 30 ? 'text-accent' : 'text-ink-500 hover:text-ink-200' %>"><%= seconds %></button>
         <% } %>
-        <span class="mx-2 h-4 w-px bg-zinc-800"></span>
-        <button class="rounded-md px-3 py-1 text-zinc-500 hover:text-zinc-200">punctuation</button>
-        <button class="rounded-md px-3 py-1 text-zinc-500 hover:text-zinc-200">numbers</button>
+        <span class="mx-2 h-4 w-px bg-ink-800"></span>
+        <button class="rounded-md px-3 py-1 text-ink-500 hover:text-ink-200">punctuation</button>
+        <button class="rounded-md px-3 py-1 text-ink-500 hover:text-ink-200">numbers</button>
     </div>
 
     <!-- Live stats: seconds left, live wpm and accuracy -->
     <div class="flex items-end justify-between font-mono">
         <div class="text-4xl font-bold text-accent">21</div>
-        <div class="flex gap-6 text-sm text-zinc-500">
-            <span><span class="text-zinc-200">68</span> wpm</span>
-            <span><span class="text-zinc-200">96%</span> acc</span>
+        <div class="flex gap-6 text-sm text-ink-500">
+            <span><span class="text-ink-200">68</span> wpm</span>
+            <span><span class="text-ink-200">96%</span> acc</span>
         </div>
     </div>
 
     <!--
         Typing area. Each character is a <span> in one of these states:
-          untyped    text-zinc-600
-          correct    text-zinc-100
+          untyped    text-ink-600
+          correct    text-ink-100
           incorrect  text-rose-500
           extra      text-rose-800 (typed past the end of a word)
         The caret is a blinking bar placed before the current character.
     -->
     <div class="font-mono text-2xl leading-relaxed tracking-wide select-none sm:text-3xl" tabindex="0">
-        <span class="text-zinc-100">the quick </span><span class="text-zinc-100">br</span><span class="text-rose-500">i</span><span class="text-zinc-100">wn fox jumps</span><span class="text-rose-800">s</span><span class="text-zinc-100"> over th</span><span class="caret inline-block h-[1.1em] w-0.5 translate-y-1 rounded bg-accent"></span><span class="text-zinc-600">e lazy dog while every keystroke is checked one character at a time so you can see exactly where your fingers slip and how your speed holds up over the full test</span>
+        <span class="text-ink-100">the quick </span><span class="text-ink-100">br</span><span class="text-rose-500">i</span><span class="text-ink-100">wn fox jumps</span><span class="text-rose-800">s</span><span class="text-ink-100"> over th</span><span class="caret inline-block h-[1.1em] w-0.5 translate-y-1 rounded bg-accent"></span><span class="text-ink-600">e lazy dog while every keystroke is checked one character at a time so you can see exactly where your fingers slip and how your speed holds up over the full test</span>
     </div>
 
     <!-- Restart -->
     <div class="flex flex-col items-center gap-4">
         <button
-            class="grid size-10 place-items-center rounded-md text-zinc-500 hover:bg-zinc-900 hover:text-zinc-200 focus-visible:outline-2 focus-visible:outline-accent"
+            class="grid size-10 place-items-center rounded-md text-ink-500 hover:bg-ink-900 hover:text-ink-200 focus-visible:outline-2 focus-visible:outline-accent"
             aria-label="Restart test"
         >
             <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -47,7 +47,7 @@
                 <path d="M3 3v5h5" />
             </svg>
         </button>
-        <p class="flex items-center gap-1.5 text-xs text-zinc-600">
+        <p class="flex items-center gap-1.5 text-xs text-ink-600">
             <%- include("../partials/kbd", { key: "tab" }) %> + <%- include("../partials/kbd", { key: "enter" }) %> restart
             <span class="mx-2">·</span>
             <%- include("../partials/kbd", { key: "esc" }) %> command menu

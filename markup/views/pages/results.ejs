@@ -6,27 +6,27 @@
     <section class="grid gap-8 md:grid-cols-[auto_1fr]">
         <div class="flex gap-10 md:flex-col md:gap-6">
             <div>
-                <p class="text-sm text-zinc-500">wpm</p>
+                <p class="text-sm text-ink-500">wpm</p>
                 <p class="font-mono text-6xl font-bold text-accent">74</p>
             </div>
             <div>
-                <p class="text-sm text-zinc-500">accuracy</p>
+                <p class="text-sm text-ink-500">accuracy</p>
                 <p class="font-mono text-6xl font-bold text-accent">97%</p>
             </div>
         </div>
 
         <!-- WPM and accuracy over the test -->
-        <div class="rounded-xl border border-zinc-900 bg-zinc-900/40 p-5">
+        <div class="rounded-xl border border-ink-900 bg-ink-900/40 p-5">
             <div class="mb-4 flex items-center justify-between text-sm">
-                <h2 class="font-medium text-zinc-200">Speed over time</h2>
-                <span class="font-mono text-zinc-500">30s · time</span>
+                <h2 class="font-medium text-ink-200">Speed over time</h2>
+                <span class="font-mono text-ink-500">30s · time</span>
             </div>
             <%- include("../partials/line-chart", {
                 height: 180,
                 max: 120,
                 series: [
-                    { label: "wpm", color: "oklch(0.82 0.16 80)", values: [52, 64, 70, 76, 73, 78, 75, 80, 77, 74] },
-                    { label: "raw", color: "#71717a", values: [58, 69, 75, 82, 80, 84, 81, 86, 82, 79] },
+                    { label: "wpm", color: "var(--accent)", values: [52, 64, 70, 76, 73, 78, 75, 80, 77, 74] },
+                    { label: "raw", color: "var(--ink-500)", values: [58, 69, 75, 82, 80, 84, 81, 86, 82, 79] },
                     { label: "errors", color: "#f43f5e", values: [0, 4, 0, 0, 8, 0, 4, 0, 0, 4] },
                 ],
             }) %>
@@ -34,7 +34,7 @@
     </section>
 
     <!-- Detail stats -->
-    <section class="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-zinc-900 bg-zinc-900 sm:grid-cols-4 lg:grid-cols-6">
+    <section class="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-ink-900 bg-ink-900 sm:grid-cols-4 lg:grid-cols-6">
         <% for (const [label, value, hint] of [
             ["test type", "time 30", "english"],
             ["raw", "79", "wpm before errors"],
@@ -43,34 +43,37 @@
             ["time", "30s", "no idle time"],
             ["personal best", "81", "+7 to beat it"],
         ]) { %>
-        <div class="bg-zinc-950 p-4">
-            <p class="text-xs text-zinc-500"><%= label %></p>
-            <p class="mt-1 font-mono text-xl text-zinc-100"><%= value %></p>
-            <p class="mt-1 text-xs text-zinc-600"><%= hint %></p>
+        <div class="bg-ink-950 p-4">
+            <p class="text-xs text-ink-500"><%= label %></p>
+            <p class="mt-1 font-mono text-xl text-ink-100"><%= value %></p>
+            <p class="mt-1 text-xs text-ink-600"><%= hint %></p>
         </div>
         <% } %>
     </section>
 
     <!-- Per-key errors -->
-    <section class="rounded-xl border border-zinc-900 p-5">
-        <h2 class="mb-4 text-sm font-medium text-zinc-200">Most missed keys</h2>
+    <section class="rounded-xl border border-ink-900 p-5">
+        <h2 class="mb-4 text-sm font-medium text-ink-200">Most missed keys</h2>
         <div class="flex flex-wrap gap-2 font-mono">
             <% for (const [key, misses] of [["e", 3], ["r", 2], ["o", 2], ["space", 1], ["t", 1]]) { %>
-            <span class="flex items-center gap-2 rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-sm">
-                <span class="text-zinc-100"><%= key %></span>
+            <span class="flex items-center gap-2 rounded-md border border-ink-800 bg-ink-900 px-3 py-1.5 text-sm">
+                <span class="text-ink-100"><%= key %></span>
                 <span class="text-rose-500">×<%= misses %></span>
             </span>
             <% } %>
+        </div>
+        <div class="mt-6">
+            <%- include("../partials/keyboard", { heat: { e: 0.9, r: 0.6, o: 0.6, t: 0.3 } }) %>
         </div>
     </section>
 
     <!-- Actions -->
     <div class="flex flex-wrap items-center justify-center gap-3">
-        <a href="index.html" class="rounded-md bg-accent px-4 py-2 text-sm font-medium text-zinc-950 hover:opacity-90">Next test</a>
-        <a href="index.html" class="rounded-md border border-zinc-800 px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-900">Repeat this test</a>
-        <a href="history.html" class="rounded-md border border-zinc-800 px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-900">View history</a>
+        <a href="index.html" class="rounded-md bg-accent px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Next test</a>
+        <a href="index.html" class="rounded-md border border-ink-800 px-4 py-2 text-sm text-ink-300 hover:bg-ink-900">Repeat this test</a>
+        <a href="history.html" class="rounded-md border border-ink-800 px-4 py-2 text-sm text-ink-300 hover:bg-ink-900">View history</a>
     </div>
-    <p class="flex items-center justify-center gap-1.5 text-xs text-zinc-600">
+    <p class="flex items-center justify-center gap-1.5 text-xs text-ink-600">
         <%- include("../partials/kbd", { key: "tab" }) %> next test
         <span class="mx-2">·</span>
         <%- include("../partials/kbd", { key: "r" }) %> repeat

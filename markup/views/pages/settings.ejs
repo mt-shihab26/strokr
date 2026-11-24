@@ -23,7 +23,6 @@ const groups = [
     {
         title: "Appearance",
         rows: [
-            { label: "Theme", hint: "Colour scheme.", options: ["dark", "light", "system"], active: "dark" },
             { label: "Font size", hint: "Size of the typing text.", options: ["small", "medium", "large"], active: "medium" },
             { label: "Caret", hint: "Shape of the cursor.", options: ["line", "block", "underline"], active: "line" },
         ],
@@ -33,23 +32,23 @@ const groups = [
 
 <main class="flex flex-1 flex-col gap-10 pb-16">
     <div>
-        <h1 class="text-2xl font-semibold text-zinc-100">Settings</h1>
-        <p class="mt-1 text-sm text-zinc-500">Saved in your browser. Changes apply to the next test.</p>
+        <h1 class="text-2xl font-semibold text-ink-100">Settings</h1>
+        <p class="mt-1 text-sm text-ink-500">Saved in your browser. Changes apply to the next test.</p>
     </div>
 
     <% for (const group of groups) { %>
     <section>
-        <h2 class="mb-3 text-xs font-medium tracking-wider text-zinc-500 uppercase"><%= group.title %></h2>
-        <div class="divide-y divide-zinc-900 rounded-xl border border-zinc-900">
+        <h2 class="mb-3 text-xs font-medium tracking-wider text-ink-500 uppercase"><%= group.title %></h2>
+        <div class="divide-y divide-ink-900 rounded-xl border border-ink-900">
             <% for (const row of group.rows) { %>
             <div class="flex flex-wrap items-center justify-between gap-4 p-4">
                 <div>
-                    <p class="text-sm text-zinc-100"><%= row.label %></p>
-                    <p class="text-xs text-zinc-500"><%= row.hint %></p>
+                    <p class="text-sm text-ink-100"><%= row.label %></p>
+                    <p class="text-xs text-ink-500"><%= row.hint %></p>
                 </div>
-                <div class="flex gap-1 rounded-lg bg-zinc-900 p-1 font-mono text-sm">
+                <div class="flex gap-1 rounded-lg bg-ink-900 p-1 font-mono text-sm">
                     <% for (const option of row.options) { %>
-                    <button class="rounded-md px-3 py-1 <%= option === row.active ? 'bg-zinc-800 text-accent' : 'text-zinc-500 hover:text-zinc-200' %>"><%= option %></button>
+                    <button class="rounded-md px-3 py-1 <%= option === row.active ? 'bg-ink-800 text-accent' : 'text-ink-500 hover:text-ink-200' %>"><%= option %></button>
                     <% } %>
                 </div>
             </div>
@@ -58,10 +57,33 @@ const groups = [
     </section>
     <% } %>
 
+    <!-- Theme picker. Each card sets its own data-theme, so it previews that theme's colours. -->
+    <section>
+        <h2 class="mb-3 text-xs font-medium tracking-wider text-ink-500 uppercase">Theme</h2>
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            <% for (const name of ["system", "dark", "light", "nord", "sepia", "matrix"]) { %>
+            <button data-set-theme="<%= name %>" class="flex flex-col gap-2 rounded-xl border-2 border-ink-900 p-1.5 text-left text-sm text-ink-400 hover:border-ink-700">
+                <% if (name === "system") { %>
+                <span class="grid h-16 grid-cols-2 overflow-hidden rounded-lg">
+                    <span data-theme="light" class="bg-ink-950 p-2"><span class="block h-1.5 w-8 rounded bg-accent"></span></span>
+                    <span data-theme="dark" class="bg-ink-950 p-2"><span class="block h-1.5 w-8 rounded bg-accent"></span></span>
+                </span>
+                <% } else { %>
+                <span data-theme="<%= name %>" class="flex h-16 flex-col justify-between rounded-lg bg-ink-950 p-2 font-mono text-[10px]">
+                    <span><span class="text-ink-100">the quick </span><span class="text-rose-500">b</span><span class="text-ink-600">rown fox</span></span>
+                    <span class="flex gap-1"><span class="h-1.5 w-8 rounded bg-accent"></span><span class="h-1.5 w-4 rounded bg-ink-700"></span></span>
+                </span>
+                <% } %>
+                <span class="px-1 pb-0.5"><%= name %></span>
+            </button>
+            <% } %>
+        </div>
+    </section>
+
     <!-- Keyboard shortcuts -->
     <section>
-        <h2 class="mb-3 text-xs font-medium tracking-wider text-zinc-500 uppercase">Keyboard shortcuts</h2>
-        <div class="grid gap-px overflow-hidden rounded-xl border border-zinc-900 bg-zinc-900 sm:grid-cols-2">
+        <h2 class="mb-3 text-xs font-medium tracking-wider text-ink-500 uppercase">Keyboard shortcuts</h2>
+        <div class="grid gap-px overflow-hidden rounded-xl border border-ink-900 bg-ink-900 sm:grid-cols-2">
             <% for (const [keys, action] of [
                 [["tab", "enter"], "Restart test"],
                 [["esc"], "Open command menu"],
@@ -70,8 +92,8 @@ const groups = [
                 [["ctrl", ","], "Open settings"],
                 [["?"], "Show all shortcuts"],
             ]) { %>
-            <div class="flex items-center justify-between bg-zinc-950 px-4 py-3 text-sm">
-                <span class="text-zinc-300"><%= action %></span>
+            <div class="flex items-center justify-between bg-ink-950 px-4 py-3 text-sm">
+                <span class="text-ink-300"><%= action %></span>
                 <span class="flex items-center gap-1">
                     <% for (const key of keys) { %><%- include("../partials/kbd", { key }) %><% } %>
                 </span>
@@ -83,8 +105,8 @@ const groups = [
     <!-- Danger zone -->
     <section class="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-rose-950 bg-rose-950/20 p-4">
         <div>
-            <p class="text-sm text-zinc-100">Clear history</p>
-            <p class="text-xs text-zinc-500">Deletes every saved test. This can't be undone.</p>
+            <p class="text-sm text-ink-100">Clear history</p>
+            <p class="text-xs text-ink-500">Deletes every saved test. This can't be undone.</p>
         </div>
         <button class="rounded-md border border-rose-900 px-4 py-2 text-sm text-rose-400 hover:bg-rose-950">Clear history</button>
     </section>

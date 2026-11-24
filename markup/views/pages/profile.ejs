@@ -1,0 +1,71 @@
+<%- include("../partials/head", { title: "Profile" }) %>
+<%- include("../partials/header") %>
+
+<%
+// Activity: tests per day for the last 26 weeks (fake data).
+const activity = Array.from({ length: 26 * 7 }, (_, i) => Math.max(0, Math.round(Math.sin(i * 0.37) * 3 + Math.cos(i * 0.11) * 2)));
+const level = (n) => ["bg-ink-900", "bg-accent/25", "bg-accent/50", "bg-accent/75", "bg-accent"][Math.min(n, 4)];
+%>
+
+<main class="flex flex-1 flex-col gap-10 pb-16">
+    <!-- Identity -->
+    <section class="flex flex-wrap items-center gap-5">
+        <div class="grid size-16 place-items-center rounded-full bg-ink-800 font-mono text-xl text-ink-100">SM</div>
+        <div class="flex-1">
+            <h1 class="text-2xl font-semibold text-ink-100">shihab</h1>
+            <p class="text-sm text-ink-500">Joined Nov 2026 · 14 day streak 🔥</p>
+        </div>
+        <button class="rounded-md border border-ink-800 px-4 py-2 text-sm text-ink-300 hover:bg-ink-900">Edit profile</button>
+    </section>
+
+    <!-- Summary -->
+    <section class="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <%- include("../partials/stat", { label: "tests completed", value: "128", hint: "143 started" }) %>
+        <%- include("../partials/stat", { label: "time typing", value: "4h 12m" }) %>
+        <%- include("../partials/stat", { label: "average wpm", value: "67", hint: "last 10: 72" }) %>
+        <%- include("../partials/stat", { label: "average accuracy", value: "95%", hint: "last 10: 96%" }) %>
+    </section>
+
+    <!-- Personal bests -->
+    <section>
+        <h2 class="mb-3 text-xs font-medium tracking-wider text-ink-500 uppercase">Personal bests</h2>
+        <div class="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-ink-900 bg-ink-900 md:grid-cols-4">
+            <% for (const [mode, wpm, acc, date] of [
+                ["time 15", 81, 96, "Nov 23"], ["time 30", 74, 97, "Nov 24"], ["time 60", 66, 94, "Nov 23"], ["time 120", "—", null, null],
+                ["words 10", 88, 100, "Nov 20"], ["words 25", 70, 97, "Nov 22"], ["words 50", 68, 98, "Nov 24"], ["words 100", "—", null, null],
+            ]) { %>
+            <div class="bg-ink-950 p-4 text-center">
+                <p class="text-xs text-ink-500"><%= mode %></p>
+                <p class="mt-1 font-mono text-3xl font-bold <%= acc ? 'text-ink-100' : 'text-ink-700' %>"><%= wpm %></p>
+                <p class="text-xs text-ink-600"><%= acc ? `${acc}% · ${date}` : "no tests yet" %></p>
+            </div>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Activity heatmap -->
+    <section class="rounded-xl border border-ink-900 p-5">
+        <div class="mb-4 flex items-center justify-between">
+            <h2 class="text-sm font-medium text-ink-200">Activity</h2>
+            <span class="text-xs text-ink-500">last 6 months</span>
+        </div>
+        <div class="grid grid-flow-col grid-rows-7 gap-1 overflow-x-auto">
+            <% for (const n of activity) { %><span class="size-3 rounded-sm <%= level(n) %>" title="<%= n %> tests"></span><% } %>
+        </div>
+        <div class="mt-3 flex items-center justify-end gap-1 text-xs text-ink-500">
+            less <% for (let n = 0; n <= 4; n++) { %><span class="size-3 rounded-sm <%= level(n) %>"></span><% } %> more
+        </div>
+    </section>
+
+    <!-- Key accuracy heatmap -->
+    <section class="rounded-xl border border-ink-900 p-5">
+        <div class="mb-6 flex items-center justify-between">
+            <h2 class="text-sm font-medium text-ink-200">Weak keys</h2>
+            <a href="practice.html" class="text-xs text-ink-500 hover:text-accent">Practice these →</a>
+        </div>
+        <%- include("../partials/keyboard", { heat: { e: 0.8, r: 0.5, o: 0.45, t: 0.3, i: 0.2, n: 0.15, b: 0.6, ";": 0.1, m: 0.35 } }) %>
+        <p class="mt-4 text-center text-xs text-ink-600">Redder keys are missed more often.</p>
+    </section>
+</main>
+
+<%- include("../partials/footer") %>

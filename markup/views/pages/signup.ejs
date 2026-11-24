@@ -1,0 +1,24 @@
+<%- include("../partials/head", { title: "Sign up" }) %>
+<%- include("../partials/header") %>
+
+<main class="flex flex-1 items-center justify-center pb-16">
+    <div class="w-full max-w-sm">
+        <div class="mb-8 text-center">
+            <h1 class="text-2xl font-semibold text-ink-100">Create an account</h1>
+            <p class="mt-1 text-sm text-ink-500">Keep your history across devices. Your local tests come with you.</p>
+        </div>
+        <form class="flex flex-col gap-4 rounded-xl border border-ink-900 bg-ink-900/40 p-6">
+            <%- include("../partials/field", { label: "Username", placeholder: "fastfingers" }) %>
+            <%- include("../partials/field", { label: "Email", type: "email", placeholder: "you@example.com" }) %>
+            <%- include("../partials/field", { label: "Password", type: "password", placeholder: "At least 8 characters", error: "Password must be at least 8 characters." }) %>
+            <label class="flex items-start gap-2 text-xs text-ink-500">
+                <input type="checkbox" class="mt-0.5 accent-amber-400" checked />
+                Show me on the public leaderboard
+            </label>
+            <button class="h-10 rounded-md bg-accent text-sm font-medium text-ink-950 hover:opacity-90">Create account</button>
+        </form>
+        <p class="mt-6 text-center text-sm text-ink-500">Already have one? <a href="login.html" class="text-accent hover:underline">Sign in</a></p>
+    </div>
+</main>
+
+<%- include("../partials/footer") %>

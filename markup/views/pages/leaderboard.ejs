@@ -1,0 +1,80 @@
+<%- include("../partials/head", { title: "Leaderboard" }) %>
+<%- include("../partials/header") %>
+
+<%
+const players = [
+    ["kestrel", 168, 99.1, 412],
+    ["mono_type", 161, 98.4, 1280],
+    ["qwertyuiop", 155, 97.9, 96],
+    ["lin.dev", 149, 98.8, 530],
+    ["fastfingers", 144, 96.5, 2210],
+    ["home_row", 139, 99.4, 77],
+    ["nora", 136, 97.2, 341],
+    ["tapdancer", 131, 98.0, 615],
+    ["capslock", 127, 95.8, 204],
+    ["shihab", 81, 96.0, 128],
+];
+const medal = ["text-amber-300", "text-ink-300", "text-orange-400"];
+%>
+
+<main class="flex flex-1 flex-col gap-8 pb-16">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-semibold text-ink-100">Leaderboard</h1>
+            <p class="mt-1 text-sm text-ink-500">Best wpm per person. Resets every Monday at 00:00 UTC.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+            <div class="flex gap-1 rounded-lg bg-ink-900 p-1 font-mono text-sm">
+                <% for (const [label, active] of [["time 15", false], ["time 60", true], ["words 50", false]]) { %>
+                <button class="rounded-md px-3 py-1 <%= active ? 'bg-ink-800 text-accent' : 'text-ink-500 hover:text-ink-200' %>"><%= label %></button>
+                <% } %>
+            </div>
+            <div class="flex gap-1 rounded-lg bg-ink-900 p-1 font-mono text-sm">
+                <% for (const [label, active] of [["daily", false], ["weekly", true], ["all time", false]]) { %>
+                <button class="rounded-md px-3 py-1 <%= active ? 'bg-ink-800 text-ink-100' : 'text-ink-500 hover:text-ink-200' %>"><%= label %></button>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Podium -->
+    <section class="grid gap-4 sm:grid-cols-3">
+        <% players.slice(0, 3).forEach(([name, wpm, acc], i) => { %>
+        <div class="rounded-xl border border-ink-900 bg-ink-900/40 p-5 <%= i === 0 ? 'sm:order-2 border-amber-400/40' : i === 1 ? 'sm:order-1' : 'sm:order-3' %>">
+            <p class="font-mono text-sm <%= medal[i] %>">#<%= i + 1 %></p>
+            <p class="mt-2 text-lg font-medium text-ink-100"><%= name %></p>
+            <p class="mt-3 font-mono text-4xl font-bold text-accent"><%= wpm %></p>
+            <p class="text-xs text-ink-500">wpm · <%= acc %>% acc</p>
+        </div>
+        <% }) %>
+    </section>
+
+    <!-- Table -->
+    <section class="overflow-x-auto rounded-xl border border-ink-900">
+        <table class="w-full text-left text-sm">
+            <thead class="border-b border-ink-900 text-xs text-ink-500">
+                <tr>
+                    <th class="w-12 px-4 py-3 font-medium">#</th>
+                    <th class="px-4 py-3 font-medium">name</th>
+                    <th class="px-4 py-3 text-right font-medium">wpm</th>
+                    <th class="px-4 py-3 text-right font-medium">accuracy</th>
+                    <th class="px-4 py-3 text-right font-medium">tests</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-ink-900 font-mono">
+                <% players.forEach(([name, wpm, acc, tests], i) => { const me = name === "shihab"; %>
+                <% if (me) { %><tr><td colspan="5" class="px-4 py-1 text-center text-xs text-ink-700">⋯</td></tr><% } %>
+                <tr class="<%= me ? 'bg-accent/10' : 'hover:bg-ink-900/50' %>">
+                    <td class="px-4 py-3 <%= medal[i] ?? 'text-ink-500' %>"><%= me ? 214 : i + 1 %></td>
+                    <td class="px-4 py-3 font-sans <%= me ? 'text-accent' : 'text-ink-100' %>"><%= name %><%= me ? " (you)" : "" %></td>
+                    <td class="px-4 py-3 text-right text-ink-100"><%= wpm %></td>
+                    <td class="px-4 py-3 text-right text-ink-400"><%= acc %>%</td>
+                    <td class="px-4 py-3 text-right text-ink-500"><%= tests %></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<%- include("../partials/footer") %>

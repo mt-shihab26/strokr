@@ -1,0 +1,212 @@
+<%- include("../partials/head", { title: "Custom text" }) %>
+<%- include("../partials/header") %>
+
+<%
+const text = "Programs must be written for people to read, and only incidentally for machines to execute. Any fool can write code that a computer can understand; good programmers write code that humans can understand.";
+const words = text.split(/\s+/).length;
+const chars = text.length;
+
+const starters = [
+    { icon: "❝", title: "Famous quotes", hint: "Short, punctuated lines", tint: "bg-amber-500/15 text-amber-400" },
+    { icon: "{}", title: "Code snippet", hint: "TypeScript, Python, Rust…", tint: "bg-sky-500/15 text-sky-400" },
+    { icon: "W", title: "Random article", hint: "A paragraph from Wikipedia", tint: "bg-violet-500/15 text-violet-400" },
+    { icon: "◎", title: "Your weak keys", hint: "Words heavy on e, r, o, b", tint: "bg-rose-500/15 text-rose-400" },
+];
+
+const options = [
+    { label: "Order", hint: "Keep the text as written or shuffle the words.", choices: ["as written", "shuffle"], active: "as written" },
+    { label: "Repeat", hint: "Stop at the end or loop until time runs out.", choices: ["once", "loop"], active: "once" },
+    { label: "Line breaks", hint: "Type a newline with enter, or treat it as a space.", choices: ["enter", "space"], active: "space" },
+];
+
+const toggles = [
+    { label: "Lowercase everything", on: false },
+    { label: "Strip punctuation", on: false },
+    { label: "Save to library", on: true },
+];
+
+const library = [
+    { name: "Abelson quote", tag: "quote", preview: "Programs must be written for people to read…", words: 35, best: 71, last: "2 days ago" },
+    { name: "fizzbuzz.ts", tag: "code", preview: "for (let i = 1; i <= 100; i++) { const out = …", words: 34, best: 48, last: "last week" },
+    { name: "Cover letter", tag: "prose", preview: "I'm writing to apply for the frontend role at…", words: 212, best: 64, last: "Nov 12" },
+    { name: "Bohemian Rhapsody", tag: "lyrics", preview: "Is this the real life? Is this just fantasy?…", words: 366, best: null, last: "never" },
+];
+const tagTint = { quote: "text-amber-400 bg-amber-500/10", code: "text-sky-400 bg-sky-500/10", prose: "text-violet-400 bg-violet-500/10", lyrics: "text-emerald-400 bg-emerald-500/10" };
+
+const toggle = (on) => `relative inline-flex h-5 w-9 shrink-0 rounded-full transition ${on ? "bg-accent" : "bg-ink-800"}`;
+const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow transition ${on ? "left-[1.125rem]" : "left-0.5"}`;
+%>
+
+<main class="flex flex-1 flex-col gap-10 pb-16">
+    <!-- Title -->
+    <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <p class="font-mono text-xs text-accent">custom mode</p>
+            <h1 class="mt-1 text-3xl font-semibold text-ink-100">Type your own text</h1>
+            <p class="mt-2 max-w-xl text-sm text-ink-500">Paste a paragraph, a code file or song lyrics and turn it into a test. Everything you type here stays in your browser.</p>
+        </div>
+        <div class="flex gap-1 rounded-lg bg-ink-900 p-1 text-sm">
+            <button class="rounded-md bg-ink-800 px-3 py-1.5 text-ink-100">Write</button>
+            <button class="rounded-md px-3 py-1.5 text-ink-500 hover:text-ink-200">Import</button>
+            <button class="rounded-md px-3 py-1.5 text-ink-500 hover:text-ink-200">Library <span class="ml-1 rounded bg-ink-800 px-1.5 font-mono text-xs"><%= library.length %></span></button>
+        </div>
+    </div>
+
+    <!-- Quick starts -->
+    <section class="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <% for (const s of starters) { %>
+        <button class="group flex items-center gap-3 rounded-xl border border-ink-900 bg-ink-900/40 p-3 text-left transition hover:-translate-y-0.5 hover:border-ink-700">
+            <span class="grid size-10 shrink-0 place-items-center rounded-lg font-mono text-sm font-bold <%= s.tint %>"><%= s.icon %></span>
+            <span class="min-w-0">
+                <span class="block text-sm text-ink-100"><%= s.title %></span>
+                <span class="block truncate text-xs text-ink-500"><%= s.hint %></span>
+            </span>
+        </button>
+        <% } %>
+    </section>
+
+    <div class="grid items-start gap-6 lg:grid-cols-[1fr_20rem]">
+        <!-- Editor -->
+        <section class="overflow-hidden rounded-2xl border border-ink-800 bg-ink-900/40 shadow-xl shadow-black/10 focus-within:border-accent/60">
+            <!-- Toolbar -->
+            <div class="flex flex-wrap items-center gap-2 border-b border-ink-800 px-4 py-3">
+                <input value="Abelson quote" class="min-w-0 flex-1 bg-transparent text-sm font-medium text-ink-100 outline-none placeholder:text-ink-600" placeholder="Untitled text" />
+                <div class="flex gap-1 font-mono text-xs">
+                    <% for (const tag of ["prose", "quote", "code", "lyrics"]) { %>
+                    <button class="rounded-md px-2 py-1 <%= tag === 'quote' ? tagTint.quote : 'text-ink-500 hover:bg-ink-800' %>"><%= tag %></button>
+                    <% } %>
+                </div>
+                <span class="h-5 w-px bg-ink-800"></span>
+                <button class="rounded-md px-2 py-1 text-xs text-ink-400 hover:bg-ink-800 hover:text-ink-100" title="Paste from clipboard">Paste</button>
+                <button class="rounded-md px-2 py-1 text-xs text-ink-400 hover:bg-ink-800 hover:text-ink-100" title="Open a .txt or code file">Open file</button>
+            </div>
+
+            <!-- Text area with line numbers -->
+            <div class="flex font-mono text-sm leading-7">
+                <div class="py-4 pr-3 pl-4 text-right text-ink-700 select-none">
+                    <% for (let n = 1; n <= 8; n++) { %><div><%= n %></div><% } %>
+                </div>
+                <textarea
+                    rows="8"
+                    class="flex-1 resize-none bg-transparent py-4 pr-4 text-ink-100 outline-none placeholder:text-ink-600"
+                    placeholder="Paste or type your text here…"
+                ><%= text %></textarea>
+            </div>
+
+            <!-- Warnings -->
+            <div class="mx-4 mb-4 flex items-start gap-2 rounded-lg border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-300">
+                <span>⚠</span>
+                <span>1 character isn't on a standard keyboard and will be replaced: <code class="rounded bg-ink-900 px-1 font-mono">—</code> → <code class="rounded bg-ink-900 px-1 font-mono">-</code></span>
+            </div>
+
+            <!-- Stats strip -->
+            <div class="grid grid-cols-2 border-t border-ink-800 text-xs sm:grid-cols-4">
+                <% for (const [label, value] of [
+                    ["words", words],
+                    ["characters", chars],
+                    ["about", `${Math.ceil((words / 67) * 60)}s at 67 wpm`],
+                    ["unique keys", 29],
+                ]) { %>
+                <div class="border-ink-800 px-4 py-3 not-last:border-r">
+                    <p class="text-ink-500"><%= label %></p>
+                    <p class="mt-0.5 font-mono text-sm text-ink-100"><%= value %></p>
+                </div>
+                <% } %>
+            </div>
+        </section>
+
+        <!-- Options -->
+        <aside class="flex flex-col gap-6 rounded-2xl border border-ink-900 p-5">
+            <div>
+                <div class="mb-2 flex items-center justify-between text-xs">
+                    <span class="text-ink-300">Difficulty</span>
+                    <span class="font-mono text-amber-400">medium</span>
+                </div>
+                <div class="flex gap-1">
+                    <% for (let i = 0; i < 5; i++) { %><span class="h-1.5 flex-1 rounded-full <%= i < 3 ? 'bg-amber-400' : 'bg-ink-800' %>"></span><% } %>
+                </div>
+                <p class="mt-2 text-xs text-ink-600">Long words, 6 punctuation marks, no numbers.</p>
+            </div>
+
+            <% for (const o of options) { %>
+            <div class="flex flex-col gap-2">
+                <div>
+                    <p class="text-sm text-ink-200"><%= o.label %></p>
+                    <p class="text-xs text-ink-600"><%= o.hint %></p>
+                </div>
+                <div class="flex gap-1 rounded-lg bg-ink-900 p-1 font-mono text-xs">
+                    <% for (const c of o.choices) { %>
+                    <button class="flex-1 rounded-md px-2 py-1.5 <%= c === o.active ? 'bg-ink-800 text-accent shadow' : 'text-ink-500 hover:text-ink-200' %>"><%= c %></button>
+                    <% } %>
+                </div>
+            </div>
+            <% } %>
+
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-ink-200">Word limit</span>
+                    <span class="font-mono text-xs text-ink-400">all (<%= words %>)</span>
+                </div>
+                <input type="range" min="10" max="<%= words %>" value="<%= words %>" class="w-full accent-[var(--accent)]" />
+            </div>
+
+            <div class="flex flex-col gap-3 border-t border-ink-900 pt-5">
+                <% for (const t of toggles) { %>
+                <label class="flex cursor-pointer items-center justify-between text-sm text-ink-300">
+                    <%= t.label %>
+                    <span class="<%= toggle(t.on) %>"><span class="<%= knob(t.on) %>"></span></span>
+                </label>
+                <% } %>
+            </div>
+
+            <a href="index.html" class="flex items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-ink-950 hover:opacity-90">
+                Start test
+                <span class="rounded bg-ink-950/15 px-1.5 font-mono text-xs">ctrl ↵</span>
+            </a>
+        </aside>
+    </div>
+
+    <!-- Preview -->
+    <section class="rounded-2xl border border-dashed border-ink-800 p-6">
+        <p class="mb-4 text-xs text-ink-500">Preview — how it will look in the test</p>
+        <p class="font-mono text-xl leading-relaxed text-ink-600"><span class="caret mr-px inline-block h-[1.1em] w-0.5 translate-y-1 rounded bg-accent"></span><%= text.slice(0, 140) %>…</p>
+    </section>
+
+    <!-- Library -->
+    <section>
+        <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <h2 class="text-lg font-medium text-ink-100">Library</h2>
+            <div class="flex gap-2">
+                <input class="h-9 w-52 rounded-md border border-ink-800 bg-ink-950 px-3 text-sm text-ink-100 outline-none placeholder:text-ink-600 focus:border-accent" placeholder="Search texts…" />
+                <button class="h-9 rounded-md border border-ink-800 px-3 text-sm text-ink-400 hover:bg-ink-900">Recent ▾</button>
+            </div>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-2">
+            <% for (const item of library) { %>
+            <article class="group flex flex-col gap-3 rounded-xl border border-ink-900 bg-ink-900/30 p-4 transition hover:border-ink-700">
+                <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                        <p class="text-sm font-medium text-ink-100"><%= item.name %></p>
+                        <p class="mt-1 truncate font-mono text-xs text-ink-500"><%= item.preview %></p>
+                    </div>
+                    <span class="shrink-0 rounded px-1.5 py-0.5 font-mono text-[10px] <%= tagTint[item.tag] %>"><%= item.tag %></span>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                    <span class="flex gap-3 font-mono text-ink-600">
+                        <span><%= item.words %> words</span>
+                        <span><%= item.best ? `best ${item.best} wpm` : "not typed yet" %></span>
+                        <span><%= item.last %></span>
+                    </span>
+                    <span class="flex gap-3 opacity-60 transition group-hover:opacity-100">
+                        <button class="text-ink-300 hover:text-accent">Type</button>
+                        <button class="text-ink-500 hover:text-ink-200">Edit</button>
+                        <button class="text-ink-600 hover:text-rose-400">Delete</button>
+                    </span>
+                </div>
+            </article>
+            <% } %>
+        </div>
+    </section>
+</main>
+
+<%- include("../partials/footer") %>
