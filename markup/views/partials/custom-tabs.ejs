@@ -1,0 +1,8 @@
+<%# Tabs for the custom text pages. Pass `tab`: "write", "import" or "library". %>
+<nav class="flex gap-1 rounded-lg bg-ink-900 p-1 text-sm">
+    <% for (const [id, label, href, count] of [["write", "Write", "custom.html"], ["import", "Import", "custom-import.html"], ["library", "Library", "custom.html#library", 4]]) { %>
+    <a href="<%= href %>" class="rounded-md px-3 py-1.5 <%= id === tab ? 'bg-ink-800 text-ink-100' : 'text-ink-500 hover:text-ink-200' %>">
+        <%= label %><% if (count) { %> <span class="ml-1 rounded bg-ink-800 px-1.5 font-mono text-xs"><%= count %></span><% } %>
+    </a>
+    <% } %>
+</nav>

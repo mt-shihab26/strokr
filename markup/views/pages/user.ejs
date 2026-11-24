@@ -1,0 +1,67 @@
+<%- include("../partials/head", { title: "kestrel" }) %>
+<%- include("../partials/header", { page: "leaderboard" }) %>
+
+<%# Public, read-only profile of another typist. Reached from leaderboard names. %>
+
+<main class="flex flex-1 flex-col gap-10 pb-16">
+    <a href="leaderboard.html" class="w-fit text-sm text-ink-500 hover:text-ink-200">← Leaderboard</a>
+
+    <!-- Identity -->
+    <section class="flex flex-wrap items-center gap-5">
+        <span class="grid size-20 place-items-center rounded-full bg-gradient-to-br from-amber-400 to-ink-700 font-mono text-2xl font-bold text-ink-950 ring-2 ring-amber-300 ring-offset-4 ring-offset-ink-950">KE</span>
+        <div class="flex-1">
+            <div class="flex items-center gap-2">
+                <h1 class="text-2xl font-semibold text-ink-100">kestrel</h1>
+                <span class="rounded-full bg-amber-500/15 px-2 py-0.5 text-xs text-amber-400">#1 this week</span>
+            </div>
+            <p class="mt-1 text-sm text-ink-500">Colemak · Keychron Q1 · Joined Mar 2025 · 🇯🇵</p>
+            <p class="mt-2 max-w-md text-sm text-ink-400">Switched to Colemak two years ago. Still chasing 170.</p>
+        </div>
+        <div class="flex gap-2">
+            <a href="race.html" class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Challenge to a race</a>
+            <button class="rounded-lg border border-ink-800 px-3 py-2 text-sm text-ink-300 hover:bg-ink-900" aria-label="Copy profile link">🔗</button>
+        </div>
+    </section>
+
+    <section class="stagger grid grid-cols-2 gap-4 md:grid-cols-4">
+        <%- include("../partials/stat", { label: "best wpm", value: "168", hint: "time 60" }) %>
+        <%- include("../partials/stat", { label: "average wpm", value: "151" }) %>
+        <%- include("../partials/stat", { label: "accuracy", value: "99.1%" }) %>
+        <%- include("../partials/stat", { label: "tests", value: "412", hint: "38h typing" }) %>
+    </section>
+
+    <!-- You vs them -->
+    <section class="rounded-2xl border border-ink-900 p-6">
+        <h2 class="mb-5 text-sm font-medium text-ink-200">You vs kestrel</h2>
+        <div class="flex flex-col gap-4">
+            <% for (const [label, you, them, max] of [["best wpm", 81, 168, 180], ["average wpm", 67, 151, 180], ["accuracy", 95, 99, 100]]) { %>
+            <div class="grid grid-cols-[6rem_1fr] items-center gap-4 text-xs">
+                <span class="text-ink-500"><%= label %></span>
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex items-center gap-2"><div class="bar h-2 rounded-full bg-accent" style="width: <%= (you / max) * 100 %>%"></div><span class="font-mono text-ink-300"><%= you %></span></div>
+                    <div class="flex items-center gap-2"><div class="bar h-2 rounded-full bg-ink-600" style="width: <%= (them / max) * 100 %>%"></div><span class="font-mono text-ink-500"><%= them %></span></div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="mt-4 flex gap-4 text-xs text-ink-500">
+            <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-accent"></span>you</span>
+            <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-ink-600"></span>kestrel</span>
+        </div>
+    </section>
+
+    <!-- Badges -->
+    <section>
+        <div class="mb-3 flex items-center justify-between">
+            <h2 class="text-xs font-medium tracking-wider text-ink-500 uppercase">Achievements</h2>
+            <span class="text-xs text-ink-600">18 of 24</span>
+        </div>
+        <div class="stagger flex flex-wrap gap-2">
+            <% for (const [icon, name] of [["⚡", "150 club"], ["🎯", "Perfectionist"], ["🔥", "100-day streak"], ["🏆", "Weekly champion"], ["⌨️", "Layout switcher"], ["🌙", "Night owl"]]) { %>
+            <span class="flex items-center gap-2 rounded-full border border-ink-800 bg-ink-900/50 px-3 py-1.5 text-sm text-ink-200"><%= icon %> <%= name %></span>
+            <% } %>
+        </div>
+    </section>
+</main>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,80 @@
+<%- include("../partials/head", { title: "Race" }) %>
+<%- include("../partials/header") %>
+
+<%# Multiplayer race. Top: lobby while waiting. Bottom: the race in progress. %>
+<%
+const racers = [
+    { name: "shihab", you: true, progress: 58, wpm: 76, colour: "bg-accent" },
+    { name: "nora", progress: 71, wpm: 92, colour: "bg-sky-500" },
+    { name: "tapdancer", progress: 44, wpm: 61, colour: "bg-violet-500" },
+    { name: "guest_4821", progress: 30, wpm: 43, colour: "bg-emerald-500" },
+];
+%>
+
+<main class="flex flex-1 flex-col gap-10 pb-16">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-semibold text-ink-100">Race</h1>
+            <p class="mt-1 text-sm text-ink-500">Type the same text against other people, live.</p>
+        </div>
+        <div class="flex gap-2">
+            <button class="rounded-lg border border-ink-800 px-4 py-2 text-sm text-ink-300 hover:bg-ink-900">Join with code</button>
+            <button class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Quick race</button>
+        </div>
+    </div>
+
+    <!-- Lobby -->
+    <section class="grid gap-6 lg:grid-cols-[1fr_18rem]">
+        <div class="rounded-2xl border border-ink-900 bg-ink-900/30 p-6">
+            <div class="mb-5 flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-ink-500">Private room</p>
+                    <p class="font-mono text-xl text-ink-100">KEYS-4821</p>
+                </div>
+                <button class="rounded-lg border border-ink-800 px-3 py-1.5 text-sm text-ink-300 hover:bg-ink-900">Copy invite link</button>
+            </div>
+            <ul class="stagger flex flex-col gap-2">
+                <% for (const r of racers) { %>
+                <li class="flex items-center gap-3 rounded-xl border border-ink-900 bg-ink-950 px-4 py-3">
+                    <span class="size-2.5 rounded-full <%= r.colour %>"></span>
+                    <span class="flex-1 text-sm <%= r.you ? 'text-accent' : 'text-ink-100' %>"><%= r.name %><%= r.you ? " (you)" : "" %></span>
+                    <span class="text-xs <%= r.name === 'guest_4821' ? 'text-ink-600' : 'text-emerald-400' %>"><%= r.name === "guest_4821" ? "joining…" : "✓ ready" %></span>
+                </li>
+                <% } %>
+                <li class="rounded-xl border border-dashed border-ink-800 px-4 py-3 text-center text-sm text-ink-600">Waiting for up to 2 more…</li>
+            </ul>
+        </div>
+        <aside class="flex flex-col items-center justify-center gap-4 rounded-2xl border border-accent/30 bg-accent/5 p-6 text-center">
+            <p class="text-xs text-ink-500">Starting in</p>
+            <p class="font-mono text-6xl font-bold text-accent">0:08</p>
+            <p class="text-xs text-ink-500">time 60 · english · 4 racers</p>
+            <button class="w-full rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">I'm ready</button>
+        </aside>
+    </section>
+
+    <!-- Race in progress -->
+    <section class="flex flex-col gap-6 rounded-2xl border border-ink-900 p-6">
+        <div class="flex items-center justify-between">
+            <h2 class="text-sm font-medium text-ink-200">Race in progress</h2>
+            <span class="font-mono text-2xl font-bold text-accent">0:34</span>
+        </div>
+        <div class="flex flex-col gap-3">
+            <% for (const r of racers) { %>
+            <div class="grid grid-cols-[7rem_1fr_3.5rem] items-center gap-3 text-sm">
+                <span class="truncate <%= r.you ? 'text-accent' : 'text-ink-300' %>"><%= r.name %></span>
+                <div class="relative h-8 rounded-lg bg-ink-900">
+                    <div class="bar absolute inset-y-0 left-0 rounded-lg <%= r.colour %> opacity-20" style="width: <%= r.progress %>%"></div>
+                    <span class="absolute top-1/2 grid size-6 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-md text-xs text-ink-950 transition-[left] duration-500 <%= r.colour %>" style="left: <%= r.progress %>%">⌨</span>
+                    <span class="absolute inset-y-0 right-2 grid place-items-center text-xs text-ink-700">🏁</span>
+                </div>
+                <span class="text-right font-mono text-ink-400"><%= r.wpm %></span>
+            </div>
+            <% } %>
+        </div>
+        <div class="rounded-xl bg-ink-900/40 p-4 font-mono text-xl leading-relaxed">
+            <span class="text-ink-100">the early bird might get the worm but the second </span><span class="caret inline-block h-[1.1em] w-0.5 translate-y-1 rounded bg-accent"></span><span class="text-ink-600">mouse gets the cheese so take your time and keep your fingers on the home row</span>
+        </div>
+    </section>
+</main>
+
+<%- include("../partials/footer") %>

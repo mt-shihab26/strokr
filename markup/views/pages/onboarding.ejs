@@ -1,0 +1,85 @@
+<%- include("../partials/head", { title: "Welcome" }) %>
+
+<%# First-visit flow. Shows step 2 of 4 (layout) as the active step; steps 3 and 4 are shown below for reference. %>
+<%
+const steps = ["Welcome", "Layout", "Goal", "Placement test"];
+const current = 1;
+const card = "rounded-2xl border border-ink-900 bg-ink-900/40 p-6";
+%>
+
+<main class="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-10 py-12">
+    <!-- Logo + skip -->
+    <div class="flex items-center justify-between">
+        <%- include("../partials/logo-wide") %>
+        <a href="index.html" class="text-sm text-ink-500 hover:text-ink-200">Skip setup →</a>
+    </div>
+
+    <!-- Stepper -->
+    <ol class="flex items-center gap-2">
+        <% steps.forEach((step, i) => { %>
+        <li class="flex flex-1 items-center gap-2">
+            <span class="grid size-7 shrink-0 place-items-center rounded-full font-mono text-xs <%= i < current ? 'bg-emerald-500 text-ink-950' : i === current ? 'bg-accent text-ink-950 ring-4 ring-accent/20' : 'bg-ink-800 text-ink-500' %>"><%= i < current ? "✓" : i + 1 %></span>
+            <span class="hidden text-sm sm:inline <%= i === current ? 'text-ink-100' : 'text-ink-500' %>"><%= step %></span>
+            <% if (i < steps.length - 1) { %><span class="h-px flex-1 <%= i < current ? 'bg-emerald-500/50' : 'bg-ink-800' %>"></span><% } %>
+        </li>
+        <% }) %>
+    </ol>
+
+    <!-- Step 2: layout -->
+    <section class="flex flex-col gap-6">
+        <div>
+            <h1 class="text-2xl font-semibold text-ink-100">Which keyboard layout do you use?</h1>
+            <p class="mt-1 text-sm text-ink-500">We'll match the on-screen keyboard and practice drills to it. You can change this later in settings.</p>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-3">
+            <% for (const [layout, hint] of [["qwerty", "Most common"], ["dvorak", "Vowels on home row"], ["colemak", "Fewer finger moves"]]) { %>
+            <button class="flex flex-col gap-2 rounded-2xl border-2 p-4 text-left <%= layout === 'qwerty' ? 'border-accent bg-accent/5' : 'border-ink-900 hover:border-ink-700' %>">
+                <span class="font-mono text-lg text-ink-100"><%= layout %></span>
+                <span class="text-xs text-ink-500"><%= hint %></span>
+            </button>
+            <% } %>
+        </div>
+        <div class="<%= card %>">
+            <%- include("../partials/keyboard", { layout: "qwerty", fingers: true }) %>
+        </div>
+        <div class="flex justify-between">
+            <button class="rounded-lg px-4 py-2 text-sm text-ink-500 hover:text-ink-200">← Back</button>
+            <button class="flex items-center gap-2 rounded-lg bg-accent px-5 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Continue <%- include("../partials/kbd", { key: "enter" }) %></button>
+        </div>
+    </section>
+
+    <hr class="border-ink-900" />
+    <p class="-mb-6 text-center font-mono text-xs text-ink-600">— reference: later steps —</p>
+
+    <!-- Step 3: goal -->
+    <section class="<%= card %> flex flex-col gap-5">
+        <div>
+            <h2 class="text-lg font-medium text-ink-100">Set a daily goal</h2>
+            <p class="text-sm text-ink-500">Small and steady beats long and rare.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <% for (const [mins, label] of [[5, "Casual"], [10, "Regular"], [20, "Serious"], [30, "Intense"]]) { %>
+            <button class="rounded-xl border-2 p-3 text-center <%= mins === 10 ? 'border-accent bg-accent/5' : 'border-ink-900 hover:border-ink-700' %>">
+                <span class="block font-mono text-xl text-ink-100"><%= mins %>m</span>
+                <span class="text-xs text-ink-500"><%= label %></span>
+            </button>
+            <% } %>
+        </div>
+        <label class="flex items-center justify-between text-sm text-ink-300">Target speed <span class="font-mono text-accent">80 wpm</span></label>
+        <input type="range" min="20" max="150" value="80" class="accent-[var(--accent)]" />
+    </section>
+
+    <!-- Step 4: placement -->
+    <section class="<%= card %> flex flex-col items-center gap-5 text-center">
+        <span class="grid size-12 place-items-center rounded-2xl bg-accent/10 text-2xl">⏱</span>
+        <div>
+            <h2 class="text-lg font-medium text-ink-100">A quick 30-second test</h2>
+            <p class="text-sm text-ink-500">So we know where you're starting. No pressure — it's not saved to the leaderboard.</p>
+        </div>
+        <a href="index.html" class="flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-ink-950 hover:opacity-90">Start placement test <%- include("../partials/kbd", { key: "enter" }) %></a>
+    </section>
+</main>
+
+        </div>
+    </body>
+</html>

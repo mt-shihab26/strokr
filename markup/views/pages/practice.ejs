@@ -20,8 +20,10 @@ const lessons = [
         <p class="mt-1 text-sm text-ink-500">Short drills that build one group of keys at a time.</p>
     </div>
 
+    <%- include("../partials/mobile-notice") %>
+
     <!-- Active drill -->
-    <section class="flex flex-col gap-8 rounded-xl border border-ink-900 bg-ink-900/40 p-6">
+    <section class="hidden flex-col gap-8 rounded-xl border border-ink-900 bg-ink-900/40 p-6 md:flex">
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
                 <p class="text-xs text-ink-500">Lesson 4 of 8</p>

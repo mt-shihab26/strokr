@@ -6,7 +6,17 @@ export const pagesDir = `${import.meta.dir}/views/pages`;
 const siteUrl = (process.env.SITE_URL ?? "https://strokr.app").replace(/\/$/, "");
 
 // Pages that should not appear in search results.
-const unlisted = new Set(["404", "reset-password", "verify-email", "profile-edit"]);
+const unlisted = new Set([
+    "404",
+    "500",
+    "reset-password",
+    "verify-email",
+    "profile-edit",
+    "onboarding",
+    "lesson-complete",
+    "empty-states",
+    "share",
+]);
 
 export const pages = () =>
     Array.from(new Bun.Glob("*.ejs").scanSync(pagesDir)).map((file) => file.replace(/\.ejs$/, ""));

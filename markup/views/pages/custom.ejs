@@ -45,11 +45,7 @@ const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow tra
             <h1 class="mt-1 text-3xl font-semibold text-ink-100">Type your own text</h1>
             <p class="mt-2 max-w-xl text-sm text-ink-500">Paste a paragraph, a code file or song lyrics and turn it into a test. Everything you type here stays in your browser.</p>
         </div>
-        <div class="flex gap-1 rounded-lg bg-ink-900 p-1 text-sm">
-            <button class="rounded-md bg-ink-800 px-3 py-1.5 text-ink-100">Write</button>
-            <button class="rounded-md px-3 py-1.5 text-ink-500 hover:text-ink-200">Import</button>
-            <button class="rounded-md px-3 py-1.5 text-ink-500 hover:text-ink-200">Library <span class="ml-1 rounded bg-ink-800 px-1.5 font-mono text-xs"><%= library.length %></span></button>
-        </div>
+        <%- include("../partials/custom-tabs", { tab: "write" }) %>
     </div>
 
     <!-- Quick starts -->
@@ -173,7 +169,7 @@ const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow tra
     </section>
 
     <!-- Library -->
-    <section>
+    <section id="library" class="scroll-mt-28">
         <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
             <h2 class="text-lg font-medium text-ink-100">Library</h2>
             <div class="flex gap-2">

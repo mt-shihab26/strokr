@@ -3,11 +3,13 @@
 //   heat:   { key: 0..1 } colours keys by error rate (red = more misses)
 //   active: a key to highlight as "press next"
 //   fingers: true colours keys by the finger that should press them
-const rows = [
-    ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-    ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
-    ["z", "x", "c", "v", "b", "n", "m", ",", ".", "/"],
-];
+//   layout: "qwerty" (default), "dvorak" or "colemak"
+const layouts = {
+    qwerty: ["qwertyuiop", "asdfghjkl;", "zxcvbnm,./"],
+    dvorak: ["',.pyfgcrl", "aoeuidhtns", ";qjkxbmwvz"],
+    colemak: ["qwfpgjluy;", "arstdhneio", "zxcvbkm,./"],
+};
+const rows = layouts[locals.layout ?? "qwerty"].map((row) => row.split(""));
 const heat = locals.heat ?? {};
 const active = locals.active;
 const fingers = locals.fingers ?? false;
@@ -26,7 +28,7 @@ const keyClass = (key, col) => {
     <% rows.forEach((row, r) => { %>
     <div class="flex gap-1.5" style="margin-left: <%= r * 0.75 %>rem">
         <% row.forEach((key, col) => { %>
-        <span class="grid size-10 place-items-center rounded-md border border-ink-800 <%= keyClass(key, col) %> <%= ['f', 'j'].includes(key) ? 'underline underline-offset-4' : '' %>"><%= key %></span>
+        <span class="grid size-10 place-items-center rounded-md border border-ink-800 <%= keyClass(key, col) %> <%= r === 1 && (col === 3 || col === 6) ? 'underline underline-offset-4' : '' %>"><%= key %></span>
         <% }) %>
     </div>
     <% }) %>

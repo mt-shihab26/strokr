@@ -1,0 +1,71 @@
+<%- include("../partials/head", { title: "Import text" }) %>
+<%- include("../partials/header", { page: "custom" }) %>
+
+<main class="flex flex-1 flex-col gap-10 pb-16">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <p class="font-mono text-xs text-accent">custom mode</p>
+            <h1 class="mt-1 text-3xl font-semibold text-ink-100">Import text</h1>
+            <p class="mt-2 max-w-xl text-sm text-ink-500">Bring in a file, a web page or a GitHub gist. We'll clean it up so it's ready to type.</p>
+        </div>
+        <%- include("../partials/custom-tabs", { tab: "import" }) %>
+    </div>
+
+    <!-- Drop zone -->
+    <label class="group flex cursor-pointer flex-col items-center gap-3 rounded-2xl border-2 border-dashed border-ink-800 bg-ink-900/30 px-6 py-14 text-center hover:border-accent/60 hover:bg-accent/5">
+        <span class="grid size-14 place-items-center rounded-2xl bg-ink-900 text-2xl transition group-hover:-translate-y-1">📄</span>
+        <span class="font-medium text-ink-100">Drop a file here, or click to choose</span>
+        <span class="text-sm text-ink-500">.txt, .md, .ts, .py, .rs, .go and other text files · up to 1 MB</span>
+        <input type="file" class="hidden" />
+    </label>
+
+    <!-- Other sources -->
+    <section class="grid gap-4 md:grid-cols-2">
+        <div class="flex flex-col gap-3 rounded-2xl border border-ink-900 p-5">
+            <p class="text-sm font-medium text-ink-100">From a web page</p>
+            <p class="text-xs text-ink-500">We pull out the main article text and skip menus and ads.</p>
+            <div class="flex gap-2">
+                <input class="h-10 flex-1 rounded-lg border border-ink-800 bg-ink-950 px-3 text-sm text-ink-100 outline-none placeholder:text-ink-600 focus:border-accent" placeholder="https://…" />
+                <button class="rounded-lg bg-ink-800 px-4 text-sm text-ink-100 hover:bg-ink-700">Fetch</button>
+            </div>
+        </div>
+        <div class="flex flex-col gap-3 rounded-2xl border border-ink-900 p-5">
+            <p class="text-sm font-medium text-ink-100">From a GitHub gist or file</p>
+            <p class="text-xs text-ink-500">Paste a gist or raw file link to practise typing real code.</p>
+            <div class="flex gap-2">
+                <input class="h-10 flex-1 rounded-lg border border-ink-800 bg-ink-950 px-3 text-sm text-ink-100 outline-none placeholder:text-ink-600 focus:border-accent" placeholder="gist.github.com/…" />
+                <button class="rounded-lg bg-ink-800 px-4 text-sm text-ink-100 hover:bg-ink-700">Fetch</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Import in progress / done -->
+    <section class="flex flex-col gap-3">
+        <h2 class="text-xs font-medium tracking-wider text-ink-500 uppercase">Recent imports</h2>
+        <div class="flex items-center gap-4 rounded-xl border border-ink-900 p-4">
+            <span class="grid size-10 place-items-center rounded-lg bg-sky-500/10 font-mono text-xs text-sky-400">.ts</span>
+            <div class="min-w-0 flex-1">
+                <div class="flex justify-between text-sm"><span class="text-ink-100">router.ts</span><span class="font-mono text-xs text-ink-500">64%</span></div>
+                <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-ink-800"><div class="h-full w-[64%] rounded-full bg-accent"></div></div>
+            </div>
+        </div>
+        <div class="flex items-center gap-4 rounded-xl border border-ink-900 p-4">
+            <span class="grid size-10 place-items-center rounded-lg bg-violet-500/10 font-mono text-xs text-violet-400">.md</span>
+            <div class="min-w-0 flex-1">
+                <p class="text-sm text-ink-100">README.md</p>
+                <p class="text-xs text-ink-500">412 words · 3 code blocks removed · 2 emoji replaced</p>
+            </div>
+            <a href="custom.html" class="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-ink-950 hover:opacity-90">Open in editor</a>
+        </div>
+        <div class="flex items-center gap-4 rounded-xl border border-rose-500/20 bg-rose-500/5 p-4">
+            <span class="grid size-10 place-items-center rounded-lg bg-rose-500/10 font-mono text-xs text-rose-400">.pdf</span>
+            <div class="min-w-0 flex-1">
+                <p class="text-sm text-ink-100">resume.pdf</p>
+                <p class="text-xs text-rose-400">PDFs aren't supported yet. Copy the text and paste it into the editor instead.</p>
+            </div>
+            <button class="text-xs text-ink-500 hover:text-ink-200">Dismiss</button>
+        </div>
+    </section>
+</main>
+
+<%- include("../partials/footer") %>

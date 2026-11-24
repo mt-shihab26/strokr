@@ -2,8 +2,10 @@
 <%- include("../partials/header") %>
 
 <main class="flex flex-1 flex-col justify-center gap-10 pb-16">
+    <%- include("../partials/mobile-notice") %>
+
     <!-- Mode bar -->
-    <div class="mx-auto flex flex-wrap items-center gap-1 rounded-lg bg-ink-900 p-1 font-mono text-sm">
+    <div data-hide-in-focus class="mx-auto hidden flex-wrap items-center gap-1 rounded-lg bg-ink-900 p-1 font-mono text-sm md:flex">
         <button class="rounded-md px-3 py-1 text-accent">time</button>
         <button class="rounded-md px-3 py-1 text-ink-500 hover:text-ink-200">words</button>
         <span class="mx-2 h-4 w-px bg-ink-800"></span>
@@ -16,7 +18,7 @@
     </div>
 
     <!-- Live stats: seconds left (with a draining bar), live wpm and accuracy -->
-    <div class="flex flex-col gap-3">
+    <div class="hidden flex-col gap-3 md:flex">
         <div class="flex items-end justify-between font-mono">
             <div class="flex items-baseline gap-3">
                 <span class="text-4xl font-bold text-accent tabular-nums">21</span>
@@ -47,7 +49,7 @@
         Before the test starts or when focus is lost, the text is blurred and this overlay shows.
         Add the "unfocused" class to the wrapper to see it.
     -->
-    <div class="group relative" tabindex="0">
+    <div class="group relative hidden md:block" tabindex="0">
     <p class="pointer-events-none absolute inset-0 z-10 hidden place-items-center text-sm text-ink-300 group-[.unfocused]:grid">
         <span class="flex items-center gap-2 rounded-full border border-ink-800 bg-ink-950/80 px-4 py-2 backdrop-blur">Click here or press any key to focus</span>
     </p>
@@ -57,7 +59,7 @@
     </div>
 
     <!-- Restart -->
-    <div class="flex flex-col items-center gap-4">
+    <div data-hide-in-focus class="hidden flex-col items-center gap-4 md:flex">
         <button
             class="grid size-10 place-items-center rounded-md text-ink-500 hover:bg-ink-900 hover:text-ink-200 focus-visible:outline-2 focus-visible:outline-accent"
             aria-label="Restart test"

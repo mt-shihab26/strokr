@@ -1,0 +1,27 @@
+<%- include("../partials/head", { title: "Empty states" }) %>
+<%- include("../partials/header") %>
+
+<%# What each page shows before there is any data. Use the `empty` partial in the real pages. %>
+
+<main class="flex flex-1 flex-col gap-10 pb-16">
+    <div>
+        <p class="font-mono text-xs text-accent">reference</p>
+        <h1 class="mt-2 text-2xl font-semibold text-ink-100">Empty states</h1>
+        <p class="mt-1 text-sm text-ink-500">What a brand-new user sees on each page before they have any data.</p>
+    </div>
+
+    <% for (const [page, props] of [
+        ["History", { icon: "🕘", title: "No tests yet", body: "Finish your first test and it will show up here with its speed, accuracy and chart.", action: ["Take a test", "index.html"], secondary: ["Try a drill", "practice.html"] }],
+        ["Custom text library", { icon: "📚", title: "Your library is empty", body: "Save a text from the editor and it'll be here next time, with your best speed on it.", action: ["Write a text", "custom.html"], secondary: ["Import a file", "custom-import.html"] }],
+        ["Leaderboard (no results this period)", { icon: "🏁", title: "Nobody's raced yet today", body: "Be the first on today's board. Results reset at 00:00 UTC.", action: ["Take a test", "index.html"] }],
+        ["Profile (signed out)", { icon: "👤", title: "Sign in to keep your progress", body: "Your tests are saved in this browser. Sign in to sync them, join the leaderboard and earn achievements.", action: ["Sign in", "login.html"], secondary: ["Create account", "signup.html"] }],
+        ["Search (no matches)", { icon: "🔍", title: "No commands match “zzz”", body: "Try a page name like history, or a setting like theme." }],
+    ]) { %>
+    <section class="flex flex-col gap-3">
+        <h2 class="text-xs font-medium tracking-wider text-ink-500 uppercase"><%= page %></h2>
+        <%- include("../partials/empty", props) %>
+    </section>
+    <% } %>
+</main>
+
+<%- include("../partials/footer") %>

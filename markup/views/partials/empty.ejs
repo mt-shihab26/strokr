@@ -1,0 +1,14 @@
+<%# Empty state. Pass: icon, title, body, action ([label, href]) optional, secondary ([label, href]) optional. %>
+<div class="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-ink-800 px-6 py-14 text-center">
+    <span class="grid size-14 place-items-center rounded-2xl bg-ink-900 text-2xl"><%= icon %></span>
+    <div>
+        <p class="font-medium text-ink-100"><%= title %></p>
+        <p class="mx-auto mt-1 max-w-sm text-sm text-ink-500"><%= body %></p>
+    </div>
+    <% if (locals.action) { %>
+    <div class="flex gap-2">
+        <a href="<%= action[1] %>" class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90"><%= action[0] %></a>
+        <% if (locals.secondary) { %><a href="<%= secondary[1] %>" class="rounded-lg border border-ink-800 px-4 py-2 text-sm text-ink-300 hover:bg-ink-900"><%= secondary[0] %></a><% } %>
+    </div>
+    <% } %>
+</div>

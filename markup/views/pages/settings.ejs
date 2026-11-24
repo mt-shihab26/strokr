@@ -10,6 +10,7 @@ const groups = [
             { label: "Duration", hint: "Seconds for time mode.", options: ["15", "30", "60", "120"], active: "30" },
             { label: "Word count", hint: "Words for words mode.", options: ["10", "25", "50", "100"], active: "50" },
             { label: "Language", hint: "Word list to draw from.", options: ["english", "english 1k", "code"], active: "english" },
+            { label: "Keyboard layout", hint: "Matches the on-screen keyboard and drills.", options: ["qwerty", "dvorak", "colemak"], active: "qwerty" },
         ],
     },
     {
@@ -18,6 +19,7 @@ const groups = [
             { label: "Stop on error", hint: "Block the next character until a mistake is fixed.", options: ["off", "letter", "word"], active: "off" },
             { label: "Quick restart", hint: "Key that restarts the test.", options: ["tab", "esc", "off"], active: "tab" },
             { label: "Live stats", hint: "Show wpm and accuracy while typing.", options: ["on", "off"], active: "on" },
+            { label: "Focus mode", hint: "Hide the header and footer while a test runs. Toggle any time with f.", options: ["auto", "always", "off"], active: "auto" },
         ],
     },
     {
@@ -25,6 +27,22 @@ const groups = [
         rows: [
             { label: "Font size", hint: "Size of the typing text.", options: ["small", "medium", "large"], active: "medium" },
             { label: "Caret", hint: "Shape of the cursor.", options: ["line", "block", "underline"], active: "line" },
+        ],
+    },
+    {
+        title: "Goals",
+        rows: [
+            { label: "Daily goal", hint: "Minutes of typing that keep your streak alive.", options: ["off", "5m", "10m", "20m", "30m"], active: "10m" },
+            { label: "Target speed", hint: "Shown as a line on your charts.", options: ["60", "80", "100", "120"], active: "80" },
+            { label: "Reminder", hint: "A browser notification if you haven't practised today.", options: ["off", "18:00", "21:00"], active: "21:00" },
+        ],
+    },
+    {
+        title: "Sound",
+        rows: [
+            { label: "Key sound", hint: "Play a click on every keystroke.", options: ["off", "soft", "click", "typewriter"], active: "soft" },
+            { label: "Error sound", hint: "A short tone when you hit the wrong key.", options: ["off", "on"], active: "off" },
+            { label: "Volume", hint: "Applies to all sounds.", options: ["25%", "50%", "75%", "100%"], active: "50%" },
         ],
     },
 ];

@@ -1,0 +1,33 @@
+<%# Keyboard shortcuts overlay. Opens on "?" or #shortcuts-help (handled in head.ejs). %>
+<%
+const groups = [
+    { title: "Test", items: [[["tab", "enter"], "Restart test"], [["esc"], "Command menu"], [["ctrl", "shift", "p"], "Change mode"], [["ctrl", "backspace"], "Delete word"]] },
+    { title: "Navigate", items: [[["ctrl", "k"], "Search"], [["g", "t"], "Typing test"], [["g", "p"], "Practice"], [["g", "h"], "History"], [["g", "l"], "Leaderboard"], [["ctrl", ","], "Settings"]] },
+    { title: "Results", items: [[["tab"], "Next test"], [["r"], "Repeat test"], [["s"], "Share result"]] },
+    { title: "General", items: [[["?"], "This list"], [["f"], "Focus mode"], [["t"], "Cycle theme"]] },
+];
+%>
+<div id="shortcuts-help" class="fixed inset-0 z-50 hidden items-center justify-center bg-ink-950/80 p-4 backdrop-blur-sm target:flex">
+    <a href="#" class="absolute inset-0" aria-label="Close shortcuts"></a>
+    <div class="relative w-full max-w-2xl rounded-2xl border border-ink-800 bg-ink-900 p-6 shadow-2xl">
+        <div class="mb-6 flex items-center justify-between">
+            <h2 class="text-lg font-medium text-ink-100">Keyboard shortcuts</h2>
+            <a href="#" class="flex items-center gap-1.5 text-xs text-ink-500 hover:text-ink-200">close <%- include("kbd", { key: "esc" }) %></a>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2">
+            <% for (const group of groups) { %>
+            <section>
+                <h3 class="mb-2 text-xs font-medium tracking-wider text-ink-500 uppercase"><%= group.title %></h3>
+                <ul class="flex flex-col gap-1">
+                    <% for (const [keys, action] of group.items) { %>
+                    <li class="flex items-center justify-between rounded-lg px-2 py-1.5 text-sm hover:bg-ink-800/50">
+                        <span class="text-ink-300"><%= action %></span>
+                        <span class="flex gap-1"><% for (const key of keys) { %><%- include("kbd", { key }) %><% } %></span>
+                    </li>
+                    <% } %>
+                </ul>
+            </section>
+            <% } %>
+        </div>
+    </div>
+</div>

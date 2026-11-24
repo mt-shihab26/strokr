@@ -74,6 +74,22 @@ const vars = (t) => [
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title><%= title %> — strokr</title>
+        <%
+        const og = {
+            title: `${title} — strokr`,
+            description: "A keyboard-first typing speed trainer with per-character feedback, charts and history.",
+            image: "https://strokr.app/og.png",
+            ...locals.og,
+        };
+        %>
+        <meta name="description" content="<%= og.description %>" />
+        <meta property="og:site_name" content="strokr" />
+        <meta property="og:title" content="<%= og.title %>" />
+        <meta property="og:description" content="<%= og.description %>" />
+        <meta property="og:image" content="<%= og.image %>" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
         <link id="favicon" rel="icon" type="image/svg+xml" href="favicon.svg" />
         <link rel="sitemap" type="application/xml" href="sitemap.xml" />
         <script>
@@ -108,6 +124,10 @@ const vars = (t) => [
                 } else if (event.key === "/" && !typing && !open) {
                     event.preventDefault();
                     location.hash = "command";
+                } else if (event.key === "?" && !typing) {
+                    location.hash = location.hash === "#shortcuts-help" ? "" : "shortcuts-help";
+                } else if (event.key.toLowerCase() === "f" && !typing && !event.ctrlKey && !event.metaKey) {
+                    document.body.classList.toggle("focus-mode");
                 }
             });
             // Focus the search field whenever the menu opens.
@@ -239,6 +259,18 @@ const vars = (t) => [
             }
             .caret {
                 animation: blink 1s step-end infinite;
+            }
+            /* Focus mode: hide everything but the test. Toggle with "f", or add .focus-mode to <body> while a test runs. */
+            body.focus-mode header,
+            body.focus-mode footer,
+            body.focus-mode [data-hide-in-focus] {
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 300ms;
+            }
+            body.focus-mode header:hover {
+                opacity: 1;
+                pointer-events: auto;
             }
             #command:target {
                 animation: fade 150ms ease-out both;

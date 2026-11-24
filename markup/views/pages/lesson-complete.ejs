@@ -1,0 +1,46 @@
+<%- include("../partials/head", { title: "Lesson complete" }) %>
+<%- include("../partials/header", { page: "practice" }) %>
+
+<main class="flex flex-1 flex-col items-center gap-10 pb-16">
+    <!-- Celebration -->
+    <section class="flex flex-col items-center gap-4 pt-6 text-center">
+        <div class="relative">
+            <span class="grid size-20 place-items-center rounded-3xl bg-emerald-500/15 text-4xl">🎉</span>
+            <span class="absolute -right-2 -bottom-2 grid size-8 place-items-center rounded-full bg-emerald-500 text-sm font-bold text-ink-950">✓</span>
+        </div>
+        <div>
+            <p class="font-mono text-xs text-emerald-400">lesson 4 of 8 · passed</p>
+            <h1 class="mt-2 text-3xl font-semibold text-ink-100">Bottom row unlocked</h1>
+            <p class="mt-2 text-sm text-ink-500">You hit the target on all 10 lines. z, x, c, v, n, m, comma and full stop are yours now.</p>
+        </div>
+    </section>
+
+    <!-- Score vs target -->
+    <section class="stagger grid w-full max-w-2xl grid-cols-3 gap-4">
+        <% for (const [label, value, target, ok] of [["wpm", 46, "target 40", true], ["accuracy", "95%", "target 94%", true], ["stars", "★★☆", "3 stars at 55 wpm", false]]) { %>
+        <div class="lift rounded-2xl border border-ink-900 bg-ink-900/40 p-5 text-center">
+            <p class="text-xs text-ink-500"><%= label %></p>
+            <p class="mt-1 font-mono text-3xl font-bold <%= label === 'stars' ? 'text-amber-400' : 'text-ink-100' %>"><%= value %></p>
+            <p class="mt-1 text-xs <%= ok ? 'text-emerald-400' : 'text-ink-600' %>"><%= ok ? "✓ " : "" %><%= target %></p>
+        </div>
+        <% } %>
+    </section>
+
+    <!-- Progress through course -->
+    <section class="w-full max-w-2xl rounded-2xl border border-ink-900 p-5">
+        <div class="mb-3 flex justify-between text-xs text-ink-500"><span>Course progress</span><span class="font-mono">4 / 8</span></div>
+        <div class="flex gap-1.5">
+            <% for (let i = 0; i < 8; i++) { %><span class="h-2 flex-1 rounded-full <%= i < 4 ? 'bg-emerald-500' : i === 4 ? 'bg-accent/40' : 'bg-ink-800' %>"></span><% } %>
+        </div>
+        <p class="mt-3 text-xs text-ink-500">Next up: <span class="text-ink-200">Common bigrams</span> — th, he, in, er, an, re</p>
+    </section>
+
+    <!-- Actions -->
+    <div class="flex flex-wrap justify-center gap-3">
+        <a href="practice.html" class="flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-ink-950 hover:opacity-90">Next lesson <%- include("../partials/kbd", { key: "enter" }) %></a>
+        <a href="practice.html" class="rounded-lg border border-ink-800 px-5 py-2.5 text-sm text-ink-300 hover:bg-ink-900">Retry for 3 stars</a>
+        <a href="practice.html" class="rounded-lg px-5 py-2.5 text-sm text-ink-500 hover:text-ink-200">All lessons</a>
+    </div>
+</main>
+
+<%- include("../partials/footer") %>

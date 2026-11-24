@@ -1,0 +1,55 @@
+<%- include("../partials/head", { title: "Share result", og: { title: "74 wpm on strokr", description: "97% accuracy on a 30 second test. Can you beat it?" } }) %>
+<%- include("../partials/header") %>
+
+<%# Share sheet for a result. The card is sized 1200x630 (scaled down) so it can also be rendered as the og:image. %>
+
+<main class="flex flex-1 flex-col items-center gap-8 pb-16">
+    <div class="text-center">
+        <h1 class="text-2xl font-semibold text-ink-100">Share your result</h1>
+        <p class="mt-1 text-sm text-ink-500">This is what people see when you post the link.</p>
+    </div>
+
+    <!-- Card (1200x630 ratio) -->
+    <div class="relative aspect-[1200/630] w-full max-w-2xl overflow-hidden rounded-2xl border border-ink-800 bg-ink-950 p-8 shadow-2xl sm:p-10">
+        <div class="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-accent/20 blur-3xl"></div>
+        <div class="relative flex h-full flex-col justify-between">
+            <div class="flex items-center justify-between">
+                <%- include("../partials/logo-wide", { size: "h-7 w-auto" }) %>
+                <span class="rounded-full border border-ink-800 px-3 py-1 font-mono text-xs text-ink-400">time 30 · english</span>
+            </div>
+            <div class="flex items-end gap-10">
+                <div>
+                    <p class="text-sm text-ink-500">wpm</p>
+                    <p class="font-mono text-7xl font-bold text-accent sm:text-8xl">74</p>
+                </div>
+                <div class="pb-3">
+                    <p class="text-sm text-ink-500">accuracy</p>
+                    <p class="font-mono text-4xl font-bold text-ink-100">97%</p>
+                </div>
+                <svg viewBox="0 0 200 60" class="mb-4 hidden h-14 flex-1 sm:block" preserveAspectRatio="none">
+                    <polyline class="draw" pathLength="1" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" points="0,40 22,30 44,24 66,18 88,21 110,14 132,17 154,10 176,13 200,15" />
+                </svg>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+                <span class="flex items-center gap-2 text-ink-300"><span class="grid size-7 place-items-center rounded-full bg-ink-800 font-mono text-xs">SM</span>shihab</span>
+                <span class="text-ink-500">Can you beat it? strokr.app</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share actions -->
+    <div class="flex w-full max-w-2xl flex-col gap-3">
+        <div class="flex items-center gap-2 rounded-xl border border-ink-800 bg-ink-900/40 p-1.5 pl-4">
+            <span class="flex-1 truncate font-mono text-sm text-ink-400">https://strokr.app/r/7f3a91c2</span>
+            <button class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Copy link</button>
+        </div>
+        <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <% for (const label of ["Post on X", "Share to Reddit", "Download image", "Copy as text"]) { %>
+            <button class="rounded-xl border border-ink-800 px-3 py-2.5 text-sm text-ink-300 hover:bg-ink-900"><%= label %></button>
+            <% } %>
+        </div>
+        <a href="results.html" class="mt-2 text-center text-sm text-ink-500 hover:text-ink-200">← Back to result</a>
+    </div>
+</main>
+
+<%- include("../partials/footer") %>
