@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+
+import { Dialog, DialogClose, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Kbd } from "./kbd";
 import { Keys } from "./keys";
 
@@ -44,21 +47,33 @@ const shortcutGroups: {
 ];
 
 export const KeyboardShortcuts = () => {
+    const [open, setOpen] = useState<boolean>(false);
+
+    useEffect(() => {
+        const onKeyDown = (event: KeyboardEvent) => {
+            const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((event.target as HTMLElement).tagName);
+            if (event.key === "?" && !typing) {
+                setOpen((value) => !value);
+            }
+        };
+        document.addEventListener("keydown", onKeyDown);
+        return () => document.removeEventListener("keydown", onKeyDown);
+    }, []);
+
     return (
-        <div
-            id="shortcuts-help"
-            className="fixed inset-0 z-50 hidden items-center justify-center bg-ink-950/80 p-4 backdrop-blur-sm target:flex"
-        >
-            <a href="#" className="absolute inset-0" aria-label="Close shortcuts" />
-            <div className="relative w-full max-w-2xl rounded-2xl border border-ink-800 bg-ink-900 p-6 shadow-2xl">
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogContent
+                showCloseButton={false}
+                overlayClassName="bg-ink-950/80 backdrop-blur-sm data-open:animate-none! data-closed:animate-none!"
+                className="block w-[calc(100%-2rem)] max-w-2xl gap-0 rounded-2xl border border-ink-800 bg-ink-900 p-6 text-ink-300 shadow-2xl ring-0 sm:max-w-2xl data-open:animate-none! data-closed:animate-none!"
+            >
                 <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-lg font-medium text-ink-100">Keyboard shortcuts</h2>
-                    <a
-                        href="#"
-                        className="flex items-center gap-1.5 text-xs text-ink-500 hover:text-ink-200"
-                    >
+                    <DialogTitle className="text-lg font-medium tracking-normal text-ink-100 normal-case">
+                        Keyboard shortcuts
+                    </DialogTitle>
+                    <DialogClose className="flex cursor-pointer items-center gap-1.5 text-xs text-ink-500 hover:text-ink-200">
                         close <Kbd>esc</Kbd>
-                    </a>
+                    </DialogClose>
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2">
                     {shortcutGroups.map((group) => (
@@ -80,7 +95,7 @@ export const KeyboardShortcuts = () => {
                         </section>
                     ))}
                 </div>
-            </div>
-        </div>
+            </DialogContent>
+        </Dialog>
     );
 };
