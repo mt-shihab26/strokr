@@ -16,6 +16,14 @@ const RootDocument = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
+const NotFound = () => {
+    return (
+        <main className="grid min-h-screen place-items-center">
+            <h1 className="text-4xl font-bold">Page not found</h1>
+        </main>
+    );
+};
+
 export const Route = createRootRoute({
     head: () => ({
         meta: [
@@ -26,4 +34,5 @@ export const Route = createRootRoute({
         links: [{ rel: "stylesheet", href: appCss }],
     }),
     shellComponent: RootDocument,
+    notFoundComponent: NotFound,
 });
