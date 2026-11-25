@@ -1,7 +1,7 @@
 import type { SubmitEvent } from "react";
 import type { TLoginErrors, TLoginInput } from "@/server/auth/login";
 
-import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { getText } from "@/lib/utils";
 import { login, validateLogin } from "@/server/auth/login";
@@ -17,6 +17,9 @@ import { PasswordField } from "@/components/elements/password-field";
 import { AuthLayout } from "@/components/layouts/auth-layout";
 
 export const Route = createFileRoute("/login")({
+    beforeLoad: ({ context }) => {
+        if (context.user) throw redirect({ to: "/" });
+    },
     head: () => ({ meta: [{ title: "Sign in — strokr" }] }),
     component: Login,
 });

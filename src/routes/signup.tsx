@@ -1,7 +1,7 @@
 import type { SubmitEvent } from "react";
 import type { TSignupErrors, TSignupInput } from "@/server/auth/signup";
 
-import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { cn, getText } from "@/lib/utils";
 import { signup, validateSignup } from "@/server/auth/signup";
@@ -18,6 +18,9 @@ import { PasswordField } from "@/components/elements/password-field";
 import { AuthLayout } from "@/components/layouts/auth-layout";
 
 export const Route = createFileRoute("/signup")({
+    beforeLoad: ({ context }) => {
+        if (context.user) throw redirect({ to: "/" });
+    },
     head: () => ({ meta: [{ title: "Sign up — strokr" }] }),
     component: Signup,
 });

@@ -19,8 +19,8 @@ export const headerLinks = [
 ];
 
 export const footerLinks = [
-    { href: "/login", label: "Sign in" },
-    { href: "/signup", label: "Sign up" },
+    { href: "/login", label: "Sign in", guest: true },
+    { href: "/signup", label: "Sign up", guest: true },
     { href: "/about", label: "About" },
     { href: "/privacy", label: "Privacy" },
     { href: "/terms", label: "Terms" },
