@@ -5,7 +5,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { cn, getText } from "@/lib/utils";
 import { signup, validateSignup } from "@/server/auth/signup";
-import { getStrength, isTooShort, strengthColors } from "@/lib/password";
+import { getStrength, isTooShort, minPasswordLength, strengthColors } from "@/lib/password";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -86,12 +86,14 @@ function Signup() {
                 <div className="flex flex-col gap-2">
                     <PasswordField
                         autoComplete="new-password"
-                        placeholder="At least 8 characters"
+                        placeholder={`At least ${minPasswordLength} characters`}
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                         error={
                             errors.password ??
-                            (tooShort ? "Password must be at least 8 characters." : undefined)
+                            (tooShort
+                                ? `Password must be at least ${minPasswordLength} characters.`
+                                : undefined)
                         }
                     />
                     <div className="flex gap-1">
