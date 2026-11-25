@@ -1,5 +1,4 @@
 {
-    "name": "strokr",
     "private": true,
     "type": "module",
     "scripts": {
@@ -9,7 +8,11 @@
         "preview": "vp preview",
         "test": "vp test run",
         "lint": "tsc --noEmit && vp check --no-fmt",
-        "format": "vp format"
+        "format": "vp format",
+        "db:generate": "drizzle-kit generate",
+        "db:migrate": "drizzle-kit migrate",
+        "db:push": "drizzle-kit push",
+        "db:studio": "drizzle-kit studio"
     },
     "dependencies": {
         "@base-ui/react": "^1.9.0",
@@ -22,6 +25,8 @@
         "cmdk": "^1.1.1",
         "cn": "^0.5.2",
         "date-fns": "^4.4.0",
+        "dotenv": "^18.0.10",
+        "drizzle-orm": "^1.0.0-rc.6",
         "embla-carousel-react": "^8.6.0",
         "input-otp": "^1.5.0",
         "lucide-react": "^1.79.0",
@@ -42,6 +47,7 @@
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "@vitejs/plugin-react": "^6.3.0",
+        "drizzle-kit": "^1.0.0-rc.6",
         "nitro": "^3.0.261103-rc",
         "tailwindcss": "^4.3.5",
         "typescript": "^7.0.2",
