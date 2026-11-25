@@ -2,9 +2,7 @@ import mainCss from "@/styles/main.css?url";
 
 import { createRootRoute } from "@tanstack/react-router";
 
-import { NotFound } from "@/components/screens/errors/not-found";
 import { SiteLayout } from "@/components/layouts/site-layout";
-import { ServerError } from "@/components/screens/errors/server-error";
 
 const site = {
     name: "strokr",
@@ -36,6 +34,4 @@ export const Route = createRootRoute({
         ],
     }),
     shellComponent: SiteLayout,
-    notFoundComponent: NotFound,
-    errorComponent: ServerError,
 });
