@@ -4,6 +4,9 @@ import { tanstackStartCookies } from "better-auth/tanstack-start";
 import { db } from "./db";
 import { envServer } from "./env-server";
 import { minPasswordLength } from "./password";
+import { enqueue } from "./queue";
+import { verificationEmail } from "@/mails/verification";
+import { resetPasswordEmail } from "@/mails/reset-password";
 
 import * as schema from "@/schemas";
 
@@ -18,6 +21,15 @@ export const authServer = betterAuth({
     emailAndPassword: {
         enabled: true,
         minPasswordLength,
+        sendResetPassword: async ({ user, url }) => {
+            await enqueue("email", resetPasswordEmail(user.email, url));
+        },
+    },
+    emailVerification: {
+        sendOnSignUp: true,
+        sendVerificationEmail: async ({ user, url }) => {
+            await enqueue("email", verificationEmail(user.email, url));
+        },
     },
     user: {
         fields: {
