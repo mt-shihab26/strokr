@@ -8,6 +8,8 @@ import { forgotPassword, validateForgotPassword } from "@/server/auth/forgot-pas
 import { Button } from "@/components/ui/button";
 
 import { EmailField } from "@/components/elements/email-field";
+import { CheckIcon } from "@/components/icons/check-icon";
+import { KeyIcon } from "@/components/icons/key-icon";
 import { AuthLayout } from "@/components/layouts/auth-layout";
 
 export const Route = createFileRoute("/_auth/forgot-password")({
@@ -43,7 +45,7 @@ function ForgotPassword() {
 
     return (
         <AuthLayout
-            icon="🔑"
+            icon={<KeyIcon className="size-6 text-primary" stroke="currentColor" />}
             heading="Forgot your password?"
             subheading="Enter your email and we'll send you a link to reset it."
         >
@@ -72,7 +74,10 @@ function ForgotPassword() {
                     role="status"
                     className="mt-4 flex items-start gap-3 rounded-xl border border-success/30 bg-success/10 p-4 text-sm text-ink-300"
                 >
-                    <span className="text-success">✓</span>
+                    <CheckIcon
+                        className="mt-0.5 size-4 shrink-0 text-success"
+                        stroke="currentColor"
+                    />
                     <p>
                         If an account exists for that email, a reset link is on its way. It expires
                         in 30 minutes.

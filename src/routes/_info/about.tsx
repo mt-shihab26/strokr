@@ -1,34 +1,41 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { githubUrl } from "@/lib/links";
 
+import { ChartIcon } from "@/components/icons/chart-icon";
+import { HistoryIcon } from "@/components/icons/history-icon";
+import { KeyboardIcon } from "@/components/icons/keyboard-icon";
+import { PaletteIcon } from "@/components/icons/palette-icon";
+import { TargetIcon } from "@/components/icons/target-icon";
+import { TextIcon } from "@/components/icons/text-icon";
+
 const features = [
     {
-        icon: "⌨",
+        icon: KeyboardIcon,
         title: "Keyboard first",
         body: "Every action has a shortcut. Restart, switch modes and open settings without touching the mouse.",
     },
     {
-        icon: "◉",
+        icon: TextIcon,
         title: "Per-character feedback",
         body: "Correct, wrong and extra characters are coloured as you type, so mistakes never hide.",
     },
     {
-        icon: "📈",
+        icon: ChartIcon,
         title: "Charts after every test",
         body: "See wpm, raw speed and errors second by second, plus the keys you missed most.",
     },
     {
-        icon: "🕘",
+        icon: HistoryIcon,
         title: "Full history",
         body: "Every test is saved. Track personal bests and watch your average climb.",
     },
     {
-        icon: "🎯",
+        icon: TargetIcon,
         title: "Targeted practice",
         body: "Drills built from your weakest keys and finger groups.",
     },
     {
-        icon: "🎨",
+        icon: PaletteIcon,
         title: "Themes",
         body: "Dark, light, nord, sepia and matrix — or follow your system.",
     },
@@ -100,8 +107,8 @@ function About() {
                         key={feature.title}
                         className="rounded-2xl border border-ink-900 bg-ink-900/30 p-6"
                     >
-                        <span className="grid size-10 place-items-center rounded-xl bg-primary/10 text-lg">
-                            {feature.icon}
+                        <span className="grid size-10 place-items-center rounded-xl bg-primary/10">
+                            <feature.icon className="size-5 text-primary" stroke="currentColor" />
                         </span>
                         <h2 className="mt-4 font-medium text-ink-100">{feature.title}</h2>
                         <p className="mt-2 text-sm text-ink-500">{feature.body}</p>

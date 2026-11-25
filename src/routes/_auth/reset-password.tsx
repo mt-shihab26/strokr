@@ -11,6 +11,7 @@ import { resetPassword, validateResetPassword } from "@/server/auth/reset-passwo
 import { Button } from "@/components/ui/button";
 
 import { PasswordField } from "@/components/elements/password-field";
+import { LockIcon } from "@/components/icons/lock-icon";
 import { AuthLayout } from "@/components/layouts/auth-layout";
 
 export const Route = createFileRoute("/_auth/reset-password")({
@@ -71,7 +72,7 @@ function ResetPassword() {
 
     return (
         <AuthLayout
-            icon="🔒"
+            icon={<LockIcon className="size-6 text-primary" stroke="currentColor" />}
             heading="Choose a new password"
             subheading="Pick something you haven't used here before."
         >

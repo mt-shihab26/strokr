@@ -5,6 +5,7 @@ import { useLogout } from "@/hooks/use-logout";
 import { resendVerification } from "@/server/auth/verify-email";
 
 import { Button } from "@/components/ui/button";
+import { MailIcon } from "@/components/icons/mail-icon";
 import { AuthLayout } from "@/components/layouts/auth-layout";
 
 export const Route = createFileRoute("/_auth/verify-email")({
@@ -60,7 +61,7 @@ function VerifyEmail() {
 
     return (
         <AuthLayout
-            icon="✉️"
+            icon={<MailIcon className="size-6 text-primary" stroke="currentColor" />}
             heading="Check your inbox"
             subheading={
                 <>
