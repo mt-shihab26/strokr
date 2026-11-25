@@ -1,7 +1,7 @@
 import type { SubmitEvent } from "react";
 import type { TSignupErrors, TSignupInput } from "@/server/auth/signup";
 
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { cn, getText } from "@/lib/utils";
 import { signup, validateSignup } from "@/server/auth/signup";
@@ -23,6 +23,7 @@ export const Route = createFileRoute("/signup")({
 });
 
 function Signup() {
+    const router = useRouter();
     const navigate = useNavigate();
 
     const [password, setPassword] = useState("");
@@ -52,6 +53,7 @@ function Signup() {
         try {
             const result = await signup({ data: input });
             if (result.ok) {
+                await router.invalidate();
                 await navigate({ to: "/" });
                 return;
             }

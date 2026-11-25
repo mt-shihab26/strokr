@@ -1,7 +1,7 @@
 import type { SubmitEvent } from "react";
 import type { TLoginErrors, TLoginInput } from "@/server/auth/login";
 
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { getText } from "@/lib/utils";
 import { login, validateLogin } from "@/server/auth/login";
@@ -22,6 +22,7 @@ export const Route = createFileRoute("/login")({
 });
 
 function Login() {
+    const router = useRouter();
     const navigate = useNavigate();
 
     const [errors, setErrors] = useState<TLoginErrors>({});
@@ -44,6 +45,7 @@ function Login() {
         try {
             const result = await login({ data: input });
             if (result.ok) {
+                await router.invalidate();
                 await navigate({ to: "/" });
                 return;
             }

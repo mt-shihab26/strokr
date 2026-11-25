@@ -8,18 +8,16 @@ import {
 } from "@/components/ui/card";
 
 import { createFileRoute } from "@tanstack/react-router";
-import { getUser } from "@/server/auth/session";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
-    loader: () => getUser(),
     component: App,
 });
 
 function App() {
-    const user = Route.useLoaderData();
+    const { user } = Route.useRouteContext();
 
     return (
         <main className="grid place-items-center p-4">

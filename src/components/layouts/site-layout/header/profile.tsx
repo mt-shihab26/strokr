@@ -1,9 +1,21 @@
-import { useLocation } from "@tanstack/react-router";
+import { useLocation, useRouteContext } from "@tanstack/react-router";
 import { Tip, focusTip } from "./tip";
-import { cn } from "@/lib/utils";
+import { cn, getInitials } from "@/lib/utils";
 
 export const Profile = () => {
     const { pathname } = useLocation();
+    const { user } = useRouteContext({ from: "__root__" });
+
+    if (!user) {
+        return (
+            <a
+                href="/login"
+                className="rounded-lg px-3 py-1.5 text-sm text-ink-300 hover:bg-ink-900 hover:text-ink-100"
+            >
+                Sign in
+            </a>
+        );
+    }
 
     return (
         <a
@@ -14,8 +26,8 @@ export const Profile = () => {
                 pathname === "/profile" ? "ring-primary" : "ring-transparent hover:ring-ink-700",
             )}
         >
-            SM
-            <Tip className={focusTip}>Profile</Tip>
+            {getInitials(user.name)}
+            <Tip className={focusTip}>{user.name}</Tip>
         </a>
     );
 };

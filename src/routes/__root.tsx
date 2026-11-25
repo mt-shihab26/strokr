@@ -1,6 +1,7 @@
 import mainCss from "@/styles/main.css?url";
 
 import { createRootRoute } from "@tanstack/react-router";
+import { getUser } from "@/server/auth/session";
 
 import { SiteLayout } from "@/components/layouts/site-layout";
 
@@ -34,4 +35,7 @@ export const Route = createRootRoute({
         ],
     }),
     shellComponent: SiteLayout,
+    beforeLoad: async () => ({
+        user: await getUser(), //
+    }),
 });
