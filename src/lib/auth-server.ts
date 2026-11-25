@@ -22,13 +22,13 @@ export const authServer = betterAuth({
         enabled: true,
         minPasswordLength,
         sendResetPassword: async ({ user, url }) => {
-            await enqueue("email", resetPasswordEmail(user.email, url));
+            await enqueue("email", await resetPasswordEmail(user.email, url));
         },
     },
     emailVerification: {
         sendOnSignUp: true,
         sendVerificationEmail: async ({ user, url }) => {
-            await enqueue("email", verificationEmail(user.email, url));
+            await enqueue("email", await verificationEmail(user.email, url));
         },
     },
     user: {
