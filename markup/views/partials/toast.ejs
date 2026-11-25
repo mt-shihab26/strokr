@@ -15,7 +15,7 @@ const s = styles[locals.type ?? "info"];
     <div class="min-w-0 flex-1">
         <p class="text-sm text-ink-100"><%= title %></p>
         <% if (locals.body) { %><p class="mt-0.5 text-xs text-ink-500"><%= body %></p><% } %>
-        <% if (locals.action) { %><a href="<%= action[1] %>" class="mt-2 inline-block text-xs text-accent hover:underline"><%= action[0] %></a><% } %>
+        <% if (locals.action) { %><a href="<%= action[1] %>" class="mt-2 inline-block text-xs text-primary hover:underline"><%= action[0] %></a><% } %>
     </div>
     <button class="text-ink-600 hover:text-ink-200" aria-label="Dismiss">✕</button>
 </div>

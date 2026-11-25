@@ -9,11 +9,6 @@
 /* Scan the EJS views for class names. */
 @source "./views";
 
-/* In the markup, "accent" means the brand colour (--primary). The app keeps shadcn's meaning (hover background). */
-@theme inline {
-    --color-accent: var(--primary);
-}
-
 /*
  * Icons are SVG files in public/icons, shown through a mask so they take the text colour:
  *   <span class="icon size-5" style="--icon: url(icons/search.svg)"></span>

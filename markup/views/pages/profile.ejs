@@ -4,7 +4,7 @@
 <%
 // Activity: tests per day for the last 26 weeks (fake data).
 const activity = Array.from({ length: 26 * 7 }, (_, i) => Math.max(0, Math.round(Math.sin(i * 0.37) * 3 + Math.cos(i * 0.11) * 2)));
-const level = (n) => ["bg-ink-900", "bg-accent/25", "bg-accent/50", "bg-accent/75", "bg-accent"][Math.min(n, 4)];
+const level = (n) => ["bg-ink-900", "bg-primary/25", "bg-primary/50", "bg-primary/75", "bg-primary"][Math.min(n, 4)];
 %>
 
 <main id="main" class="flex flex-1 flex-col gap-10 pb-16">
@@ -46,12 +46,12 @@ const level = (n) => ["bg-ink-900", "bg-accent/25", "bg-accent/50", "bg-accent/7
             <div>
                 <p class="text-sm text-ink-100">Today's goal</p>
                 <p class="font-mono text-xs text-ink-500">7 of 10 minutes</p>
-                <a href="index.html" class="mt-2 inline-block text-xs text-accent hover:underline">Finish it →</a>
+                <a href="index.html" class="mt-2 inline-block text-xs text-primary hover:underline">Finish it →</a>
             </div>
         </div>
         <a href="achievements.html" class="lift flex items-center gap-4 rounded-2xl border border-ink-900 bg-ink-900/40 p-5">
             <div class="flex -space-x-2">
-                <% for (const icon of ["⚡", "🎯", "🔥"]) { %><span class="grid size-10 place-items-center rounded-full border-2 border-ink-950 bg-accent/15 text-lg"><%= icon %></span><% } %>
+                <% for (const icon of ["⚡", "🎯", "🔥"]) { %><span class="grid size-10 place-items-center rounded-full border-2 border-ink-950 bg-primary/15 text-lg"><%= icon %></span><% } %>
             </div>
             <div>
                 <p class="text-sm text-ink-100">Achievements</p>
@@ -95,7 +95,7 @@ const level = (n) => ["bg-ink-900", "bg-accent/25", "bg-accent/50", "bg-accent/7
     <section class="rounded-xl border border-ink-900 p-5">
         <div class="mb-6 flex items-center justify-between">
             <h2 class="text-sm font-medium text-ink-200">Weak keys</h2>
-            <a href="practice.html" class="text-xs text-ink-500 hover:text-accent">Practice these →</a>
+            <a href="practice.html" class="text-xs text-ink-500 hover:text-primary">Practice these →</a>
         </div>
         <%- include("../partials/keyboard", { heat: { e: 0.8, r: 0.5, o: 0.45, t: 0.3, i: 0.2, n: 0.15, b: 0.6, ";": 0.1, m: 0.35 } }) %>
         <p class="mt-4 text-center text-xs text-ink-600">Redder keys are missed more often.</p>

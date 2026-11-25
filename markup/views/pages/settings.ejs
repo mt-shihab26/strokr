@@ -69,7 +69,7 @@ const groups = [
                 </div>
                 <div class="flex gap-1 rounded-lg bg-ink-900 p-1 font-mono text-sm">
                     <% for (const option of row.options) { %>
-                    <button class="rounded-md px-3 py-1 <%= option === row.active ? 'bg-ink-800 text-accent' : 'text-ink-500 hover:text-ink-200' %>"><%= option %></button>
+                    <button class="rounded-md px-3 py-1 <%= option === row.active ? 'bg-ink-800 text-primary' : 'text-ink-500 hover:text-ink-200' %>"><%= option %></button>
                     <% } %>
                 </div>
             </div>
@@ -86,13 +86,13 @@ const groups = [
             <button data-set-theme="<%= name %>" class="flex flex-col gap-2 rounded-xl border-2 border-ink-900 p-1.5 text-left text-sm text-ink-400 hover:border-ink-700">
                 <% if (name === "system") { %>
                 <span class="grid h-16 grid-cols-2 overflow-hidden rounded-lg">
-                    <span data-theme="light" class="bg-ink-950 p-2"><span class="block h-1.5 w-8 rounded bg-accent"></span></span>
-                    <span data-theme="dark" class="bg-ink-950 p-2"><span class="block h-1.5 w-8 rounded bg-accent"></span></span>
+                    <span data-theme="light" class="bg-ink-950 p-2"><span class="block h-1.5 w-8 rounded bg-primary"></span></span>
+                    <span data-theme="dark" class="bg-ink-950 p-2"><span class="block h-1.5 w-8 rounded bg-primary"></span></span>
                 </span>
                 <% } else { %>
                 <span data-theme="<%= name %>" class="flex h-16 flex-col justify-between rounded-lg bg-ink-950 p-2 font-mono text-[10px]">
                     <span><span class="text-ink-100">the quick </span><span class="text-rose-500">b</span><span class="text-ink-600">rown fox</span></span>
-                    <span class="flex gap-1"><span class="h-1.5 w-8 rounded bg-accent"></span><span class="h-1.5 w-4 rounded bg-ink-700"></span></span>
+                    <span class="flex gap-1"><span class="h-1.5 w-8 rounded bg-primary"></span><span class="h-1.5 w-4 rounded bg-ink-700"></span></span>
                 </span>
                 <% } %>
                 <span class="px-1 pb-0.5"><%= name %></span>

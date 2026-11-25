@@ -31,18 +31,18 @@ const extras = [
     <div data-hide-in-focus class="mx-auto hidden flex-wrap items-center justify-center gap-2 md:flex">
         <div class="flex items-center gap-0.5 rounded-xl border border-ink-900 bg-ink-900/60 p-1 text-sm">
             <% for (const m of modes) { %>
-            <button class="flex items-center gap-1.5 rounded-lg px-3 py-1.5 <%= m.active ? 'bg-ink-800 text-accent shadow-sm' : 'text-ink-500 hover:text-ink-200' %>"><span class="icon size-3.5" style="--icon: url(icons/<%= m.icon %>.svg)"></span><%= m.label %></button>
+            <button class="flex items-center gap-1.5 rounded-lg px-3 py-1.5 <%= m.active ? 'bg-ink-800 text-primary shadow-sm' : 'text-ink-500 hover:text-ink-200' %>"><span class="icon size-3.5" style="--icon: url(icons/<%= m.icon %>.svg)"></span><%= m.label %></button>
             <% } %>
         </div>
         <div class="flex items-center gap-0.5 rounded-xl border border-ink-900 bg-ink-900/60 p-1 font-mono text-sm">
             <% for (const s of [15, 30, 60, 120]) { %>
-            <button class="min-w-11 rounded-lg px-2.5 py-1.5 <%= s === 30 ? 'bg-ink-800 text-accent shadow-sm' : 'text-ink-500 hover:text-ink-200' %>"><%= s %></button>
+            <button class="min-w-11 rounded-lg px-2.5 py-1.5 <%= s === 30 ? 'bg-ink-800 text-primary shadow-sm' : 'text-ink-500 hover:text-ink-200' %>"><%= s %></button>
             <% } %>
             <button class="rounded-lg px-2.5 py-1.5 text-ink-500 hover:text-ink-200" aria-label="Custom duration"><span class="icon size-3.5" style="--icon: url(icons/pencil.svg)"></span></button>
         </div>
         <div class="flex items-center gap-0.5 rounded-xl border border-ink-900 bg-ink-900/60 p-1 text-sm">
             <% for (const e of extras) { %>
-            <button aria-pressed="<%= e.on %>" class="flex items-center gap-1.5 rounded-lg px-3 py-1.5 <%= e.on ? 'bg-ink-800 text-accent shadow-sm' : 'text-ink-500 hover:text-ink-200' %>"><span class="font-mono text-xs opacity-70"><%= e.short %></span><%= e.label %></button>
+            <button aria-pressed="<%= e.on %>" class="flex items-center gap-1.5 rounded-lg px-3 py-1.5 <%= e.on ? 'bg-ink-800 text-primary shadow-sm' : 'text-ink-500 hover:text-ink-200' %>"><span class="font-mono text-xs opacity-70"><%= e.short %></span><%= e.label %></button>
             <% } %>
         </div>
     </div>
@@ -50,7 +50,7 @@ const extras = [
     <!-- Test card -->
     <section class="relative hidden md:block">
         <!-- Soft glow behind the card -->
-        <div class="pointer-events-none absolute inset-x-10 -inset-y-6 -z-10 rounded-[3rem] bg-accent/5 blur-3xl"></div>
+        <div class="pointer-events-none absolute inset-x-10 -inset-y-6 -z-10 rounded-[3rem] bg-primary/5 blur-3xl"></div>
 
         <div class="rounded-3xl border border-ink-900 bg-ink-900/30 p-8 shadow-sm">
             <!-- Live stats -->
@@ -62,7 +62,7 @@ const extras = [
                             <circle cx="18" cy="18" r="16" fill="none" stroke="var(--ink-800)" stroke-width="2.5" />
                             <circle cx="18" cy="18" r="16" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" pathLength="1" stroke-dasharray="0.7 1" class="transition-[stroke-dasharray] duration-1000 ease-linear" />
                         </svg>
-                        <span class="font-mono text-lg font-bold text-accent tabular-nums">21</span>
+                        <span class="font-mono text-lg font-bold text-primary tabular-nums">21</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-xs text-ink-500">seconds left</span>

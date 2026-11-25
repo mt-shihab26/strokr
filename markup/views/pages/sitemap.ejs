@@ -67,11 +67,11 @@ const groups = [
     <%- include("../partials/info-tabs") %>
     <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
-            <p class="font-mono text-xs text-accent">sitemap</p>
+            <p class="font-mono text-xs text-primary">sitemap</p>
             <h1 class="mt-2 text-3xl font-semibold text-ink-100">Every page on strokr</h1>
             <p class="mt-2 text-sm text-ink-500">Lost? Everything is one click away.</p>
         </div>
-        <a href="sitemap.xml" class="flex items-center gap-2 rounded-lg border border-ink-800 px-3 py-2 font-mono text-sm text-ink-300 hover:border-accent hover:text-accent">
+        <a href="sitemap.xml" class="flex items-center gap-2 rounded-lg border border-ink-800 px-3 py-2 font-mono text-sm text-ink-300 hover:border-primary hover:text-primary">
             <span class="rounded bg-ink-900 px-1.5 text-xs">XML</span>
             sitemap.xml
         </a>
@@ -86,10 +86,10 @@ const groups = [
                 <li>
                     <a href="<%= href %>" class="group flex items-center justify-between gap-4 rounded-lg px-3 py-2.5 hover:bg-ink-900">
                         <span>
-                            <span class="block text-sm text-ink-100 group-hover:text-accent"><%= label %></span>
+                            <span class="block text-sm text-ink-100 group-hover:text-primary"><%= label %></span>
                             <span class="block text-xs text-ink-500"><%= hint %></span>
                         </span>
-                        <span class="text-ink-700 transition group-hover:translate-x-0.5 group-hover:text-accent">→</span>
+                        <span class="text-ink-700 transition group-hover:translate-x-0.5 group-hover:text-primary">→</span>
                     </a>
                 </li>
                 <% } %>

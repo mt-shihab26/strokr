@@ -15,7 +15,7 @@ const active = locals.active;
 const fingers = locals.fingers ?? false;
 const fingerColour = ["bg-rose-500/20", "bg-orange-500/20", "bg-amber-500/20", "bg-lime-500/20", "bg-lime-500/20", "bg-sky-500/20", "bg-sky-500/20", "bg-violet-500/20", "bg-fuchsia-500/20", "bg-pink-500/20"];
 const keyClass = (key, col) => {
-    if (key === active) return "bg-accent text-ink-950 ring-2 ring-accent/40";
+    if (key === active) return "bg-primary text-ink-950 ring-2 ring-primary/40";
     if (key in heat) {
         const v = heat[key];
         return v > 0.6 ? "bg-rose-500/70 text-white" : v > 0.3 ? "bg-rose-500/35 text-ink-100" : "bg-rose-500/15 text-ink-200";
@@ -32,5 +32,5 @@ const keyClass = (key, col) => {
         <% }) %>
     </div>
     <% }) %>
-    <span class="mt-1 grid h-10 w-72 place-items-center rounded-md border border-ink-800 <%= active === 'space' ? 'bg-accent text-ink-950' : 'bg-ink-900 text-ink-500' %>">space</span>
+    <span class="mt-1 grid h-10 w-72 place-items-center rounded-md border border-ink-800 <%= active === 'space' ? 'bg-primary text-ink-950' : 'bg-ink-900 text-ink-500' %>">space</span>
 </div>

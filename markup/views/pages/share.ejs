@@ -11,7 +11,7 @@
 
     <!-- Card (1200x630 ratio) -->
     <div class="relative aspect-[1200/630] w-full max-w-2xl overflow-hidden rounded-2xl border border-ink-800 bg-ink-950 p-8 shadow-2xl sm:p-10">
-        <div class="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-accent/20 blur-3xl"></div>
+        <div class="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-primary/20 blur-3xl"></div>
         <div class="relative flex h-full flex-col justify-between">
             <div class="flex items-center justify-between">
                 <%- include("../partials/logo-wide", { size: "h-7 w-auto" }) %>
@@ -20,7 +20,7 @@
             <div class="flex items-end gap-10">
                 <div>
                     <p class="text-sm text-ink-500">wpm</p>
-                    <p class="font-mono text-7xl font-bold text-accent sm:text-8xl">74</p>
+                    <p class="font-mono text-7xl font-bold text-primary sm:text-8xl">74</p>
                 </div>
                 <div class="pb-3">
                     <p class="text-sm text-ink-500">accuracy</p>
@@ -41,7 +41,7 @@
     <div class="flex w-full max-w-2xl flex-col gap-3">
         <div class="flex items-center gap-2 rounded-xl border border-ink-800 bg-ink-900/40 p-1.5 pl-4">
             <span class="flex-1 truncate font-mono text-sm text-ink-400">https://strokr.app/r/7f3a91c2</span>
-            <button class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Copy link</button>
+            <button class="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Copy link</button>
         </div>
         <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
             <% for (const label of ["Post on X", "Share to Reddit", "Download image", "Copy as text"]) { %>

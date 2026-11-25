@@ -1,13 +1,13 @@
 <%# Shell for sign-in style pages: the app header and a centred card. Pair with auth-bottom. %>
 <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-    <div class="absolute -top-40 left-1/2 size-[36rem] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl"></div>
+    <div class="absolute -top-40 left-1/2 size-[36rem] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl"></div>
 </div>
 <%- include("header") %>
 <main id="main" class="flex flex-1 items-center justify-center py-10">
     <div class="w-full max-w-sm">
         <div class="mb-8 text-center">
             <% if (locals.icon) { %>
-            <span class="mx-auto mb-4 grid size-12 place-items-center rounded-2xl bg-accent/10 text-2xl"><%= icon %></span>
+            <span class="mx-auto mb-4 grid size-12 place-items-center rounded-2xl bg-primary/10 text-2xl"><%= icon %></span>
             <% } %>
             <h1 class="text-2xl font-semibold text-ink-100"><%= heading %></h1>
             <p class="mt-2 text-sm text-ink-500"><%- subheading %></p>

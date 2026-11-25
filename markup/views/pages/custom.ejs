@@ -33,7 +33,7 @@ const library = [
 ];
 const tagTint = { quote: "text-amber-400 bg-amber-500/10", code: "text-sky-400 bg-sky-500/10", prose: "text-violet-400 bg-violet-500/10", lyrics: "text-emerald-400 bg-emerald-500/10" };
 
-const toggle = (on) => `relative inline-flex h-5 w-9 shrink-0 rounded-full transition ${on ? "bg-accent" : "bg-ink-800"}`;
+const toggle = (on) => `relative inline-flex h-5 w-9 shrink-0 rounded-full transition ${on ? "bg-primary" : "bg-ink-800"}`;
 const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow transition ${on ? "left-[1.125rem]" : "left-0.5"}`;
 %>
 
@@ -41,7 +41,7 @@ const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow tra
     <!-- Title -->
     <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
-            <p class="font-mono text-xs text-accent">custom mode</p>
+            <p class="font-mono text-xs text-primary">custom mode</p>
             <h1 class="mt-1 text-3xl font-semibold text-ink-100">Type your own text</h1>
             <p class="mt-2 max-w-xl text-sm text-ink-500">Paste a paragraph, a code file or song lyrics and turn it into a test. Everything you type here stays in your browser.</p>
         </div>
@@ -63,7 +63,7 @@ const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow tra
 
     <div class="grid items-start gap-6 lg:grid-cols-[1fr_20rem]">
         <!-- Editor -->
-        <section class="overflow-hidden rounded-2xl border border-ink-800 bg-ink-900/40 shadow-xl shadow-black/10 focus-within:border-accent/60">
+        <section class="overflow-hidden rounded-2xl border border-ink-800 bg-ink-900/40 shadow-xl shadow-black/10 focus-within:border-primary/60">
             <!-- Toolbar -->
             <div class="flex flex-wrap items-center gap-2 border-b border-ink-800 px-4 py-3">
                 <input value="Abelson quote" class="min-w-0 flex-1 bg-transparent text-sm font-medium text-ink-100 outline-none placeholder:text-ink-600" placeholder="Untitled text" />
@@ -132,7 +132,7 @@ const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow tra
                 </div>
                 <div class="flex gap-1 rounded-lg bg-ink-900 p-1 font-mono text-xs">
                     <% for (const c of o.choices) { %>
-                    <button class="flex-1 rounded-md px-2 py-1.5 <%= c === o.active ? 'bg-ink-800 text-accent shadow' : 'text-ink-500 hover:text-ink-200' %>"><%= c %></button>
+                    <button class="flex-1 rounded-md px-2 py-1.5 <%= c === o.active ? 'bg-ink-800 text-primary shadow' : 'text-ink-500 hover:text-ink-200' %>"><%= c %></button>
                     <% } %>
                 </div>
             </div>
@@ -155,7 +155,7 @@ const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow tra
                 <% } %>
             </div>
 
-            <a href="index.html" class="flex items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-ink-950 hover:opacity-90">
+            <a href="index.html" class="flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-ink-950 hover:opacity-90">
                 Start test
                 <span class="rounded bg-ink-950/15 px-1.5 font-mono text-xs">ctrl ↵</span>
             </a>
@@ -165,7 +165,7 @@ const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow tra
     <!-- Preview -->
     <section class="rounded-2xl border border-dashed border-ink-800 p-6">
         <p class="mb-4 text-xs text-ink-500">Preview — how it will look in the test</p>
-        <p class="font-mono text-xl leading-relaxed text-ink-600"><span class="caret mr-px inline-block h-[1.1em] w-0.5 translate-y-1 rounded bg-accent"></span><%= text.slice(0, 140) %>…</p>
+        <p class="font-mono text-xl leading-relaxed text-ink-600"><span class="caret mr-px inline-block h-[1.1em] w-0.5 translate-y-1 rounded bg-primary"></span><%= text.slice(0, 140) %>…</p>
     </section>
 
     <!-- Library -->
@@ -173,7 +173,7 @@ const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow tra
         <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
             <h2 class="text-lg font-medium text-ink-100">Library</h2>
             <div class="flex gap-2">
-                <input class="h-9 w-52 rounded-md border border-ink-800 bg-ink-950 px-3 text-sm text-ink-100 outline-none placeholder:text-ink-600 focus:border-accent" placeholder="Search texts…" />
+                <input class="h-9 w-52 rounded-md border border-ink-800 bg-ink-950 px-3 text-sm text-ink-100 outline-none placeholder:text-ink-600 focus:border-primary" placeholder="Search texts…" />
                 <button class="h-9 rounded-md border border-ink-800 px-3 text-sm text-ink-400 hover:bg-ink-900">Recent ▾</button>
             </div>
         </div>
@@ -194,7 +194,7 @@ const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow tra
                         <span><%= item.last %></span>
                     </span>
                     <span class="flex gap-3 opacity-60 transition group-hover:opacity-100">
-                        <button class="text-ink-300 hover:text-accent">Type</button>
+                        <button class="text-ink-300 hover:text-primary">Type</button>
                         <button class="text-ink-500 hover:text-ink-200">Edit</button>
                         <a href="#confirm-delete-text" class="text-ink-600 hover:text-rose-400">Delete</a>
                     </span>

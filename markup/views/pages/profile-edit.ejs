@@ -9,10 +9,10 @@ const sections = [
     ["connections", "Connections"],
     ["danger", "Delete account"],
 ];
-const toggle = (on) => `relative inline-flex h-5 w-9 shrink-0 rounded-full ${on ? "bg-accent" : "bg-ink-800"}`;
+const toggle = (on) => `relative inline-flex h-5 w-9 shrink-0 rounded-full ${on ? "bg-primary" : "bg-ink-800"}`;
 const knob = (on) => `absolute top-0.5 size-4 rounded-full bg-ink-950 shadow transition ${on ? "left-[1.125rem]" : "left-0.5"}`;
 const card = "rounded-2xl border border-ink-900 bg-ink-900/30 p-6";
-const input = "h-10 rounded-lg border border-ink-800 bg-ink-950 px-3 text-sm text-ink-100 outline-none placeholder:text-ink-600 focus:border-accent";
+const input = "h-10 rounded-lg border border-ink-800 bg-ink-950 px-3 text-sm text-ink-100 outline-none placeholder:text-ink-600 focus:border-primary";
 %>
 
 <main id="main" class="flex flex-1 flex-col gap-8 pb-16">
@@ -23,7 +23,7 @@ const input = "h-10 rounded-lg border border-ink-800 bg-ink-950 px-3 text-sm tex
         </div>
         <div class="flex gap-2">
             <a href="profile.html" class="rounded-lg border border-ink-800 px-4 py-2 text-sm text-ink-300 hover:bg-ink-900">Cancel</a>
-            <button class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Save changes</button>
+            <button class="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Save changes</button>
         </div>
     </div>
 
@@ -42,7 +42,7 @@ const input = "h-10 rounded-lg border border-ink-800 bg-ink-950 px-3 text-sm tex
                 <p class="mt-1 text-sm text-ink-500">This is what other people see on the leaderboard.</p>
                 <div class="mt-6 flex flex-wrap items-center gap-5">
                     <div class="group relative">
-                        <span class="grid size-20 place-items-center rounded-full bg-gradient-to-br from-accent/80 to-ink-700 font-mono text-2xl font-bold text-ink-950">SM</span>
+                        <span class="grid size-20 place-items-center rounded-full bg-gradient-to-br from-primary/80 to-ink-700 font-mono text-2xl font-bold text-ink-950">SM</span>
                         <button class="absolute inset-0 grid place-items-center rounded-full bg-ink-950/70 text-xs text-ink-100 opacity-0 group-hover:opacity-100">Change</button>
                     </div>
                     <div class="flex gap-2">
@@ -57,7 +57,7 @@ const input = "h-10 rounded-lg border border-ink-800 bg-ink-950 px-3 text-sm tex
                     </label>
                     <label class="flex flex-col gap-1.5">
                         <span class="text-sm text-ink-300">Username</span>
-                        <span class="flex items-center rounded-lg border border-ink-800 bg-ink-950 focus-within:border-accent">
+                        <span class="flex items-center rounded-lg border border-ink-800 bg-ink-950 focus-within:border-primary">
                             <span class="pl-3 text-sm text-ink-600">strokr.app/</span>
                             <input class="h-10 flex-1 bg-transparent pr-3 text-sm text-ink-100 outline-none" value="shihab" />
                             <span class="pr-3 text-xs text-emerald-400">✓ available</span>
@@ -65,7 +65,7 @@ const input = "h-10 rounded-lg border border-ink-800 bg-ink-950 px-3 text-sm tex
                     </label>
                     <label class="flex flex-col gap-1.5 sm:col-span-2">
                         <span class="flex justify-between text-sm text-ink-300">Bio <span class="text-xs text-ink-600">42 / 160</span></span>
-                        <textarea rows="3" class="resize-none rounded-lg border border-ink-800 bg-ink-950 p-3 text-sm text-ink-100 outline-none focus:border-accent">Learning to touch type. Aiming for 100 wpm.</textarea>
+                        <textarea rows="3" class="resize-none rounded-lg border border-ink-800 bg-ink-950 p-3 text-sm text-ink-100 outline-none focus:border-primary">Learning to touch type. Aiming for 100 wpm.</textarea>
                     </label>
                     <label class="flex flex-col gap-1.5">
                         <span class="text-sm text-ink-300">Keyboard</span>

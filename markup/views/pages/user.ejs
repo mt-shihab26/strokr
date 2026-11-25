@@ -18,7 +18,7 @@
             <p class="mt-2 max-w-md text-sm text-ink-400">Switched to Colemak two years ago. Still chasing 170.</p>
         </div>
         <div class="flex gap-2">
-            <a href="race.html" class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Challenge to a race</a>
+            <a href="race.html" class="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-ink-950 hover:opacity-90">Challenge to a race</a>
             <button class="rounded-lg border border-ink-800 px-3 py-2 text-sm text-ink-300 hover:bg-ink-900" aria-label="Copy profile link">🔗</button>
         </div>
     </section>
@@ -38,14 +38,14 @@
             <div class="grid grid-cols-[6rem_1fr] items-center gap-4 text-xs">
                 <span class="text-ink-500"><%= label %></span>
                 <div class="flex flex-col gap-1.5">
-                    <div class="flex items-center gap-2"><div class="bar h-2 rounded-full bg-accent" style="width: <%= (you / max) * 100 %>%"></div><span class="font-mono text-ink-300"><%= you %></span></div>
+                    <div class="flex items-center gap-2"><div class="bar h-2 rounded-full bg-primary" style="width: <%= (you / max) * 100 %>%"></div><span class="font-mono text-ink-300"><%= you %></span></div>
                     <div class="flex items-center gap-2"><div class="bar h-2 rounded-full bg-ink-600" style="width: <%= (them / max) * 100 %>%"></div><span class="font-mono text-ink-500"><%= them %></span></div>
                 </div>
             </div>
             <% } %>
         </div>
         <div class="mt-4 flex gap-4 text-xs text-ink-500">
-            <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-accent"></span>you</span>
+            <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-primary"></span>you</span>
             <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-ink-600"></span>kestrel</span>
         </div>
     </section>

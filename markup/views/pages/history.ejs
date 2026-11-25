@@ -75,11 +75,11 @@ const tests = [
                 <tr class="hover:bg-ink-900/50">
                     <td class="px-4 py-3 text-ink-400"><%= date %></td>
                     <td class="px-4 py-3 text-ink-400"><%= mode %></td>
-                    <td class="px-4 py-3 text-right text-ink-100"><%= wpm %><% if (wpm === 81) { %> <span class="text-accent">★</span><% } %></td>
+                    <td class="px-4 py-3 text-right text-ink-100"><%= wpm %><% if (wpm === 81) { %> <span class="text-primary">★</span><% } %></td>
                     <td class="px-4 py-3 text-right <%= acc < 95 ? 'text-rose-400' : 'text-ink-300' %>"><%= acc %>%</td>
                     <td class="px-4 py-3 text-right text-ink-500"><%= raw %></td>
                     <td class="px-4 py-3 text-right text-ink-500"><%= cons %>%</td>
-                    <td class="px-4 py-3 text-right"><a href="results.html" class="font-sans text-xs text-ink-500 hover:text-accent">details →</a></td>
+                    <td class="px-4 py-3 text-right"><a href="results.html" class="font-sans text-xs text-ink-500 hover:text-primary">details →</a></td>
                 </tr>
                 <% } %>
             </tbody>

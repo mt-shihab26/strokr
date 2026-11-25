@@ -6,11 +6,11 @@
 
     <!-- Hero -->
     <section class="flex flex-col items-center gap-6 pt-6 text-center">
-        <p class="font-mono text-xs text-accent">about strokr</p>
+        <p class="font-mono text-xs text-primary">about strokr</p>
         <h1 class="max-w-2xl text-4xl font-semibold text-balance text-ink-100 sm:text-5xl">Get faster at typing by seeing every keystroke.</h1>
         <p class="max-w-xl text-ink-400">strokr checks each character as you type, shows you exactly where you slipped, and charts your speed and accuracy after every test — all without leaving the keyboard.</p>
         <div class="flex gap-3">
-            <a href="index.html" class="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-ink-950 hover:opacity-90">Start typing</a>
+            <a href="index.html" class="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-ink-950 hover:opacity-90">Start typing</a>
             <a href="https://github.com/mt-shihab26/strokr" class="rounded-lg border border-ink-800 px-5 py-2.5 text-sm text-ink-300 hover:bg-ink-900">View on GitHub</a>
         </div>
     </section>
@@ -26,7 +26,7 @@
             ["🎨", "Themes", "Dark, light, nord, sepia and matrix — or follow your system."],
         ]) { %>
         <div class="lift rounded-2xl border border-ink-900 bg-ink-900/30 p-6">
-            <span class="grid size-10 place-items-center rounded-xl bg-accent/10 text-lg"><%= icon %></span>
+            <span class="grid size-10 place-items-center rounded-xl bg-primary/10 text-lg"><%= icon %></span>
             <h2 class="mt-4 font-medium text-ink-100"><%= title %></h2>
             <p class="mt-2 text-sm text-ink-500"><%= body %></p>
         </div>
@@ -37,7 +37,7 @@
     <section class="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-900 bg-ink-900 md:grid-cols-4">
         <% for (const [value, label] of [["2.4M", "tests taken"], ["48k", "typists"], ["+18", "avg wpm gained"], ["0", "ads"]]) { %>
         <div class="bg-ink-950 p-6 text-center">
-            <p class="font-mono text-3xl font-bold text-accent"><%= value %></p>
+            <p class="font-mono text-3xl font-bold text-primary"><%= value %></p>
             <p class="mt-1 text-sm text-ink-500"><%= label %></p>
         </div>
         <% } %>
