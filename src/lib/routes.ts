@@ -8,6 +8,8 @@ export const routes: { path: string; access: TAccess; verified?: boolean }[] = [
     { path: "/sitemap", access: "protected" },
     { path: "/login", access: "guest" },
     { path: "/signup", access: "guest" },
+    { path: "/forgot-password", access: "guest" },
+    { path: "/reset-password", access: "guest" },
     { path: "/verify-email", access: "private" },
 ];
 

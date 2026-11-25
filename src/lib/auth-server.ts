@@ -21,6 +21,8 @@ export const authServer = betterAuth({
     emailAndPassword: {
         enabled: true,
         minPasswordLength,
+        resetPasswordTokenExpiresIn: 30 * 60,
+        revokeSessionsOnPasswordReset: true,
         sendResetPassword: async ({ user, url }) => {
             await enqueue("email", await resetPasswordEmail(user.email, url));
         },
