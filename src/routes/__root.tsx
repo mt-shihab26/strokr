@@ -1,22 +1,9 @@
 import mainCss from "@/styles/main.css?url";
 
-import type { ReactNode } from "react";
-
 import { createRootRoute } from "@tanstack/react-router";
-import { defaultTheme, themeKey } from "@/lib/themes";
 
-import { HeadContent, Scripts } from "@tanstack/react-router";
 import { NotFound } from "@/components/screens/errors/not-found";
-import { Header } from "@/components/screens/site-layout/header";
-import { Footer } from "@/components/screens/site-layout/footer";
-import { TooltipProvider } from "@/components/ui/tooltip";
-
-const themeScript = `(() => {
-    const choice = localStorage.getItem(${JSON.stringify(themeKey)}) ?? ${JSON.stringify(defaultTheme)};
-    const light = matchMedia("(prefers-color-scheme: light)").matches;
-    document.documentElement.dataset.theme = choice === "system" ? (light ? "light" : "dark") : choice;
-    document.documentElement.dataset.themeChoice = choice;
-})();`;
+import { SiteLayout } from "@/components/layouts/site-layout";
 
 const site = {
     name: "strokr",
@@ -45,30 +32,6 @@ export const Route = createRootRoute({
             { id: "favicon", rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
         ],
     }),
-    shellComponent: ({ children }: { children: ReactNode }) => {
-        return (
-            <html lang="en" data-theme="dark" suppressHydrationWarning>
-                <head>
-                    <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-                    <HeadContent />
-                </head>
-                <body className="min-h-screen bg-ink-950 font-sans text-ink-300 antialiased transition-colors">
-                    <TooltipProvider>
-                        <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-6">
-                            <Header />
-                            <main
-                                id="main"
-                                className="flex flex-1 flex-col justify-center gap-8 pb-16"
-                            >
-                                {children}
-                            </main>
-                            <Footer />
-                        </div>
-                    </TooltipProvider>
-                    <Scripts />
-                </body>
-            </html>
-        );
-    },
+    shellComponent: SiteLayout,
     notFoundComponent: NotFound,
 });
