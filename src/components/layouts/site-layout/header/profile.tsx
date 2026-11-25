@@ -2,7 +2,6 @@ import { useLocation } from "@tanstack/react-router";
 import { Tip, focusTip } from "./tip";
 import { cn } from "@/lib/utils";
 
-
 export const Profile = () => {
     const { pathname } = useLocation();
 

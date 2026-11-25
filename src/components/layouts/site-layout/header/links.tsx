@@ -3,7 +3,6 @@ import { Tip, focusTip } from "./tip";
 import { cn } from "@/lib/utils";
 import { headerLinks } from "@/lib/links";
 
-
 export const Links = () => {
     const { pathname } = useLocation();
 
