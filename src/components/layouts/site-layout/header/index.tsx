@@ -3,6 +3,7 @@ import { Links } from "./links";
 import { Commands } from "./commands";
 import { ThemePicker } from "./theme-picker";
 import { Profile } from "./profile";
+import { VerifyEmailBar } from "./verify-email-bar";
 
 export const Header = () => {
     return (
@@ -13,6 +14,7 @@ export const Header = () => {
             >
                 Skip to content
             </a>
+            <VerifyEmailBar />
             <header className="sticky top-0 z-30 -mx-6 mb-4 px-6 py-4 backdrop-blur-md">
                 <div className="flex items-center justify-between gap-4 rounded-2xl border border-ink-900 bg-ink-950/70 px-3 py-2 shadow-sm shadow-black/5">
                     <Logo />

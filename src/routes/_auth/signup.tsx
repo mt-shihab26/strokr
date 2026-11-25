@@ -54,7 +54,7 @@ function Signup() {
             const result = await signup({ data: input });
             if (result.ok) {
                 await router.invalidate();
-                await navigate({ to: "/" });
+                await navigate({ to: "/verify-email" });
                 return;
             }
             setErrors(result.errors);

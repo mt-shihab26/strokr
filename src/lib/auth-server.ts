@@ -27,6 +27,8 @@ export const authServer = betterAuth({
     },
     emailVerification: {
         sendOnSignUp: true,
+        autoSignInAfterVerification: true,
+        expiresIn: 24 * 60 * 60,
         sendVerificationEmail: async ({ user, url }) => {
             await enqueue("email", await verificationEmail(user.email, url));
         },
@@ -77,7 +79,5 @@ export const authServer = betterAuth({
             expiresAt: "expires_at",
         },
     },
-    plugins: [
-        tanstackStartCookies(), //
-    ],
+    plugins: [tanstackStartCookies()],
 });

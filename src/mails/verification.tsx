@@ -13,7 +13,8 @@ export const verificationEmail = (to: string, url: string) => {
                 action="Verify email"
                 url={url}
             >
-                Confirm this address to finish setting up your strokr account.
+                Confirm this address to finish setting up your strokr account. The link expires in
+                24 hours.
             </Layout>
         ),
     });

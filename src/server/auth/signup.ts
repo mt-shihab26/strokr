@@ -47,6 +47,7 @@ export const signup = createServerFn({ method: "POST" })
                     email: data.email,
                     password: data.password,
                     showOnLeaderboard: data.showOnLeaderboard,
+                    callbackURL: "/verify-email",
                 },
                 headers: getRequestHeaders(),
             });
