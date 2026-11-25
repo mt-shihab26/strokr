@@ -18,7 +18,8 @@ const stuckAfterMs = 5 * 60 * 1000;
 const retryDelayMs = (attempts: number) => 30_000 * 4 ** (attempts - 1);
 
 export const enqueue = async <K extends keyof TJobs>(type: K, payload: TJobs[K]) => {
-    await db.insert(jobs).values({ type, payload });
+    const [job] = await db.insert(jobs).values({ type, payload }).returning({ id: jobs.id });
+    console.info(`[queue] job ${job.id} (${type}) queued`);
 };
 
 const claimNext = async () => {
@@ -39,11 +40,16 @@ const runNext = async () => {
     const job = await claimNext();
     if (!job) return false;
 
+    const label = `job ${job.id} (${job.type})`;
+    const startedAt = Date.now();
+    console.info(`[queue] ${label} started, attempt ${job.attempts}`);
+
     try {
         const handler = handlers[job.type as keyof TJobs];
         if (!handler) throw new Error(`No handler for job type "${job.type}"`);
         await handler(job.payload as TJobs[keyof TJobs]);
         await db.update(jobs).set({ status: "done", last_error: null }).where(eq(jobs.id, job.id));
+        console.info(`[queue] ${label} finished in ${Date.now() - startedAt}ms`);
     } catch (error) {
         const failed = job.attempts >= maxAttempts;
         await db
@@ -54,7 +60,12 @@ const runNext = async () => {
                 last_error: error instanceof Error ? error.message : String(error),
             })
             .where(eq(jobs.id, job.id));
-        console.error(`[queue] job ${job.id} (${job.type}) attempt ${job.attempts} failed`, error);
+        console.error(
+            failed
+                ? `[queue] ${label} failed after ${job.attempts} attempts, giving up`
+                : `[queue] ${label} attempt ${job.attempts} failed, retrying in ${retryDelayMs(job.attempts) / 1000}s`,
+            error,
+        );
     }
 
     return true;
