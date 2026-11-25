@@ -1,5 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequestHeaders } from "@tanstack/react-start/server";
+import { APIError } from "better-auth/api";
 import { z } from "zod";
+import { authServer } from "@/lib/auth-server";
 
 export const loginSchema = z.object({
     email: z
@@ -31,6 +34,17 @@ export const validateLogin = (input: TLoginInput) => {
 
 export const login = createServerFn({ method: "POST" })
     .validator(loginSchema)
-    .handler(async (): Promise<TLoginResult> => {
-        return { ok: false, errors: { form: "Sign in isn't available yet." } };
+    .handler(async ({ data }): Promise<TLoginResult> => {
+        try {
+            await authServer.api.signInEmail({
+                body: { email: data.email, password: data.password, rememberMe: data.remember },
+                headers: getRequestHeaders(),
+            });
+            return { ok: true };
+        } catch (error) {
+            if (error instanceof APIError && error.status === "UNAUTHORIZED") {
+                return { ok: false, errors: { form: "Invalid email or password." } };
+            }
+            throw error;
+        }
     });

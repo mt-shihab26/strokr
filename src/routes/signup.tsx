@@ -3,7 +3,7 @@ import type { TSignupErrors, TSignupInput } from "@/server/auth/signup";
 
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn, getText } from "@/lib/utils";
 import { signup, validateSignup } from "@/server/auth/signup";
 import { getStrength, isTooShort, strengthColors } from "@/lib/password";
 
@@ -38,9 +38,9 @@ function Signup() {
         const form = new FormData(event.currentTarget);
 
         const input: TSignupInput = {
-            username: String(form.get("username") ?? "").trim(),
-            email: String(form.get("email") ?? "").trim(),
-            password: String(form.get("password") ?? ""),
+            username: getText(form, "username").trim(),
+            email: getText(form, "email").trim(),
+            password: getText(form, "password"),
             showOnLeaderboard: form.get("showOnLeaderboard") !== null,
         };
 

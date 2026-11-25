@@ -1,8 +1,8 @@
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { drizzle } from "drizzle-orm/node-sqlite";
-import { env } from "./env";
+import { envServer } from "./env-server";
 
-mkdirSync(dirname(env.DB_FILE_NAME), { recursive: true });
+mkdirSync(dirname(envServer.DB_FILE_NAME), { recursive: true });
 
-export const db = drizzle(env.DB_FILE_NAME);
+export const db = drizzle(envServer.DB_FILE_NAME);

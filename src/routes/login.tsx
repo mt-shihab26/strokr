@@ -3,6 +3,7 @@ import type { TLoginErrors, TLoginInput } from "@/server/auth/login";
 
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { getText } from "@/lib/utils";
 import { login, validateLogin } from "@/server/auth/login";
 
 import { Button } from "@/components/ui/button";
@@ -30,8 +31,8 @@ function Login() {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
         const input: TLoginInput = {
-            email: String(form.get("email") ?? ""),
-            password: String(form.get("password") ?? ""),
+            email: getText(form, "email"),
+            password: getText(form, "password"),
             remember: form.get("remember") !== null,
         };
 

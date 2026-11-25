@@ -1,11 +1,17 @@
 export const minPasswordLength = 8;
 
-export const strengthColors = ["bg-rose-500", "bg-amber-500", "bg-lime-500", "bg-emerald-500"];
+export const strengthColors = [
+    "bg-rose-500",
+    "bg-amber-500",
+    "bg-lime-500", //
+    "bg-emerald-500",
+];
 
-export const isTooShort = (password: string) =>
-    password.length > 0 && password.length < minPasswordLength;
+export const isTooShort = (password: string): boolean => {
+    return password.length > 0 && password.length < minPasswordLength;
+};
 
-export const getStrength = (password: string) => {
+export const getStrength = (password: string): number => {
     if (!password) return 0;
     const checks = [
         password.length >= minPasswordLength,

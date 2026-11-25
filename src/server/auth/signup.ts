@@ -1,5 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequestHeaders } from "@tanstack/react-start/server";
+import { APIError } from "better-auth/api";
 import { z } from "zod";
+import { authServer } from "@/lib/auth-server";
 import { minPasswordLength } from "@/lib/password";
 
 export const signupSchema = z.object({
@@ -36,6 +39,22 @@ export const validateSignup = (input: TSignupInput) => {
 
 export const signup = createServerFn({ method: "POST" })
     .validator(signupSchema)
-    .handler(async (): Promise<TSignupResult> => {
-        return { ok: false, errors: { form: "Sign up isn't available yet." } };
+    .handler(async ({ data }): Promise<TSignupResult> => {
+        try {
+            await authServer.api.signUpEmail({
+                body: {
+                    name: data.username,
+                    email: data.email,
+                    password: data.password,
+                    showOnLeaderboard: data.showOnLeaderboard,
+                },
+                headers: getRequestHeaders(),
+            });
+            return { ok: true };
+        } catch (error) {
+            if (error instanceof APIError && error.body?.code?.startsWith("USER_ALREADY_EXISTS")) {
+                return { ok: false, errors: { email: "An account with this email already exists." } };
+            }
+            throw error;
+        }
     });
