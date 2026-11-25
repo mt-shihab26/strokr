@@ -17,6 +17,7 @@ import { Route as AuthSignupRouteImport } from './routes/_auth/signup'
 import { Route as InfoAboutRouteImport } from './routes/_info/about'
 import { Route as InfoPrivacyRouteImport } from './routes/_info/privacy'
 import { Route as InfoSitemapRouteImport } from './routes/_info/sitemap'
+import { Route as InfoSitemapDotxmlRouteImport } from './routes/_info/sitemap[.]xml'
 import { Route as InfoTermsRouteImport } from './routes/_info/terms'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
@@ -58,6 +59,11 @@ const InfoSitemapRoute = InfoSitemapRouteImport.update({
   path: '/sitemap',
   getParentRoute: () => InfoRouteRoute,
 } as any)
+const InfoSitemapDotxmlRoute = InfoSitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => InfoRouteRoute,
+} as any)
 const InfoTermsRoute = InfoTermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof InfoAboutRoute
   '/privacy': typeof InfoPrivacyRoute
   '/sitemap': typeof InfoSitemapRoute
+  '/sitemap.xml': typeof InfoSitemapDotxmlRoute
   '/terms': typeof InfoTermsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/about': typeof InfoAboutRoute
   '/privacy': typeof InfoPrivacyRoute
   '/sitemap': typeof InfoSitemapRoute
+  '/sitemap.xml': typeof InfoSitemapDotxmlRoute
   '/terms': typeof InfoTermsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -99,6 +107,7 @@ export interface FileRoutesById {
   '/_info/about': typeof InfoAboutRoute
   '/_info/privacy': typeof InfoPrivacyRoute
   '/_info/sitemap': typeof InfoSitemapRoute
+  '/_info/sitemap.xml': typeof InfoSitemapDotxmlRoute
   '/_info/terms': typeof InfoTermsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/privacy'
     | '/sitemap'
+    | '/sitemap.xml'
     | '/terms'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/privacy'
     | '/sitemap'
+    | '/sitemap.xml'
     | '/terms'
     | '/api/auth/$'
   id:
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/_info/about'
     | '/_info/privacy'
     | '/_info/sitemap'
+    | '/_info/sitemap.xml'
     | '/_info/terms'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
@@ -202,6 +214,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InfoSitemapRouteImport
       parentRoute: typeof InfoRouteRoute
     }
+    '/_info/sitemap.xml': {
+      id: '/_info/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof InfoSitemapDotxmlRouteImport
+      parentRoute: typeof InfoRouteRoute
+    }
     '/_info/terms': {
       id: '/_info/terms'
       path: '/terms'
@@ -237,6 +256,7 @@ interface InfoRouteRouteChildren {
   InfoAboutRoute: typeof InfoAboutRoute
   InfoPrivacyRoute: typeof InfoPrivacyRoute
   InfoSitemapRoute: typeof InfoSitemapRoute
+  InfoSitemapDotxmlRoute: typeof InfoSitemapDotxmlRoute
   InfoTermsRoute: typeof InfoTermsRoute
 }
 
@@ -244,6 +264,7 @@ const InfoRouteRouteChildren: InfoRouteRouteChildren = {
   InfoAboutRoute: InfoAboutRoute,
   InfoPrivacyRoute: InfoPrivacyRoute,
   InfoSitemapRoute: InfoSitemapRoute,
+  InfoSitemapDotxmlRoute: InfoSitemapDotxmlRoute,
   InfoTermsRoute: InfoTermsRoute,
 }
 
