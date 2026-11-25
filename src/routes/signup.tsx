@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { getStrength, strengthColors } from "@/lib/password";
+import { getStrength, isTooShort, strengthColors } from "@/lib/password";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -21,8 +21,9 @@ export const Route = createFileRoute("/signup")({
 
 function Signup() {
     const [password, setPassword] = useState("");
+
     const strength = getStrength(password);
-    const tooShort = password.length > 0 && password.length < 8;
+    const tooShort = isTooShort(password);
 
     return (
         <AuthLayout
@@ -31,7 +32,12 @@ function Signup() {
         >
             <form className="flex flex-col gap-4 rounded-2xl border border-ink-900 bg-ink-900/40 p-6 shadow-sm">
                 <GitHubButton />
-                <Field label="Username" name="username" autoComplete="username" placeholder="fastfingers" />
+                <Field
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
+                    placeholder="fastfingers"
+                />
                 <EmailField />
                 <div className="flex flex-col gap-2">
                     <PasswordField
