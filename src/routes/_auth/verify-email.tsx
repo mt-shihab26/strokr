@@ -12,6 +12,7 @@ export const Route = createFileRoute("/_auth/verify-email")({
     beforeLoad: ({ context }) => {
         if (!context.user) throw redirect({ to: "/login" });
         if (context.user.emailVerified) throw redirect({ to: "/" });
+        return { user: context.user };
     },
     head: () => ({ meta: [{ title: "Verify email — strokr" }] }),
     component: VerifyEmail,
@@ -65,7 +66,7 @@ function VerifyEmail() {
             subheading={
                 <>
                     We sent a verification link to{" "}
-                    <span className="text-ink-300">{user?.email}</span>
+                    <span className="text-ink-300">{user.email}</span>
                 </>
             }
         >
