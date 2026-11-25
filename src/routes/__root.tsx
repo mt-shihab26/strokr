@@ -1,7 +1,8 @@
 import mainCss from "@/styles/main.css?url";
 
-import { createRootRoute } from "@tanstack/react-router";
+import { createRootRoute, redirect } from "@tanstack/react-router";
 import { getUser } from "@/server/auth/session";
+import { getRoute } from "@/lib/routes";
 
 import { SiteLayout } from "@/components/layouts/site-layout";
 
@@ -35,7 +36,12 @@ export const Route = createRootRoute({
         ],
     }),
     shellComponent: SiteLayout,
-    beforeLoad: async () => ({
-        user: await getUser(), //
-    }),
+    beforeLoad: async ({ location }) => {
+        const user = await getUser();
+        const route = getRoute(location.pathname);
+        if (user && route?.access === "guest") throw redirect({ to: "/" });
+        if (!user && route?.access === "private") throw redirect({ to: "/login" });
+        if (user && route?.verified && !user.emailVerified) throw redirect({ to: "/verify-email" });
+        return { user };
+    },
 });

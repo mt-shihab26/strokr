@@ -10,8 +10,7 @@ import { AuthLayout } from "@/components/layouts/auth-layout";
 export const Route = createFileRoute("/_auth/verify-email")({
     validateSearch: z.object({ error: z.string().optional() }),
     beforeLoad: ({ context }) => {
-        if (!context.user) throw redirect({ to: "/login" });
-        if (context.user.emailVerified) throw redirect({ to: "/" });
+        if (!context.user || context.user.emailVerified) throw redirect({ to: "/" });
         return { user: context.user };
     },
     head: () => ({ meta: [{ title: "Verify email — strokr" }] }),
