@@ -20,7 +20,7 @@ function App() {
     const { user } = Route.useRouteContext();
 
     return (
-        <main className="grid place-items-center p-4">
+        <div className="grid place-items-center p-4">
             <Card className="w-full max-w-sm">
                 <CardHeader>
                     <Badge variant="secondary">strokr</Badge>
@@ -45,6 +45,6 @@ function App() {
                     <Button className="w-full">Start typing</Button>
                 </CardFooter>
             </Card>
-        </main>
+        </div>
     );
 }
