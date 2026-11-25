@@ -7,9 +7,10 @@ import { createRootRoute } from "@tanstack/react-router";
 import { HeadContent, Scripts } from "@tanstack/react-router";
 import { NotFound } from "@/components/screens/errors/not-found";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { defaultTheme, themeKey } from "@/components/screens/site-layout/header/theme-picker";
 
 const themeScript = `(() => {
-    const choice = localStorage.getItem("theme") ?? "system";
+    const choice = localStorage.getItem(${JSON.stringify(themeKey)}) ?? ${JSON.stringify(defaultTheme)};
     const light = matchMedia("(prefers-color-scheme: light)").matches;
     document.documentElement.dataset.theme = choice === "system" ? (light ? "light" : "dark") : choice;
     document.documentElement.dataset.themeChoice = choice;

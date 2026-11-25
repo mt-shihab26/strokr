@@ -14,6 +14,9 @@ import { FaviconIcon } from "@/components/icons/favicon-icon";
 import { PaletteIcon } from "@/components/icons/palette-icon";
 import { Tip } from "./tip";
 
+export const themeKey = "theme";
+export const defaultTheme = "system";
+
 const applyTheme = (choice: string) => {
     const root = document.documentElement;
     const light = matchMedia("(prefers-color-scheme: light)").matches;
@@ -33,16 +36,16 @@ const applyTheme = (choice: string) => {
 };
 
 export const setTheme = (choice: string) => {
-    localStorage.setItem("theme", choice);
+    localStorage.setItem(themeKey, choice);
     applyTheme(choice);
 };
 
 export const ThemePicker = () => {
     useEffect(() => {
-        const id = setTimeout(() => applyTheme(localStorage.getItem("theme") ?? "system"));
+        const id = setTimeout(() => applyTheme(localStorage.getItem(themeKey) ?? defaultTheme));
         const media = matchMedia("(prefers-color-scheme: light)");
         const onChange = () => {
-            if ((localStorage.getItem("theme") ?? "system") === "system") applyTheme("system");
+            if ((localStorage.getItem(themeKey) ?? defaultTheme) === "system") applyTheme("system");
         };
         media.addEventListener("change", onChange);
         return () => {
