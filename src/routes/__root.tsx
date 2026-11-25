@@ -7,9 +7,10 @@ import { SiteLayout } from "@/components/layouts/site-layout";
 
 const site = {
     name: "strokr",
-    description:
-        "A keyboard-first typing speed trainer with per-character feedback, charts and history.",
-    image: "https://strokr.app/og.png",
+    title: "strokr — typing speed trainer",
+    desc: "A keyboard-first typing speed trainer with per-character feedback, charts and history.",
+    url: "https://strokr.developershihab.com",
+    image: "https://strokr.developershihab.com/og.png",
 };
 
 export const Route = createRootRoute({
@@ -17,11 +18,12 @@ export const Route = createRootRoute({
         meta: [
             { charSet: "utf-8" },
             { name: "viewport", content: "width=device-width, initial-scale=1" },
-            { title: site.name },
-            { name: "description", content: site.description },
+            { title: site.title },
+            { name: "description", content: site.desc },
             { property: "og:site_name", content: site.name },
-            { property: "og:title", content: site.name },
-            { property: "og:description", content: site.description },
+            { property: "og:url", content: site.url },
+            { property: "og:title", content: site.title },
+            { property: "og:description", content: site.desc },
             { property: "og:image", content: site.image },
             { property: "og:image:width", content: "1200" },
             { property: "og:image:height", content: "630" },
