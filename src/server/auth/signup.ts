@@ -53,7 +53,10 @@ export const signup = createServerFn({ method: "POST" })
             return { ok: true };
         } catch (error) {
             if (error instanceof APIError && error.body?.code?.startsWith("USER_ALREADY_EXISTS")) {
-                return { ok: false, errors: { email: "An account with this email already exists." } };
+                return {
+                    ok: false,
+                    errors: { email: "An account with this email already exists." },
+                };
             }
             throw error;
         }

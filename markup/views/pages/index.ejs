@@ -60,13 +60,13 @@ const extras = [
                     <div class="relative grid size-14 place-items-center">
                         <svg viewBox="0 0 36 36" class="absolute inset-0 -rotate-90">
                             <circle cx="18" cy="18" r="16" fill="none" stroke="var(--ink-800)" stroke-width="2.5" />
-                            <circle cx="18" cy="18" r="16" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" pathLength="1" stroke-dasharray="0.7 1" class="transition-[stroke-dasharray] duration-1000 ease-linear" />
+                            <circle cx="18" cy="18" r="16" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" pathLength="1" stroke-dasharray="0.7 1" class="" />
                         </svg>
                         <span class="font-mono text-lg font-bold text-primary tabular-nums">21</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-xs text-ink-500">seconds left</span>
-                        <span class="flex items-center gap-1.5 text-xs text-ink-400"><span class="size-1.5 animate-pulse rounded-full bg-emerald-400"></span>english · time 30</span>
+                        <span class="flex items-center gap-1.5 text-xs text-ink-400"><span class="size-1.5 rounded-full bg-emerald-400"></span>english · time 30</span>
                     </div>
                 </div>
                 <div class="flex gap-2 font-mono">
@@ -104,7 +104,7 @@ const extras = [
     <div data-hide-in-focus class="hidden flex-col items-center gap-5 md:flex">
         <div class="flex items-center gap-2">
             <button class="group/tip relative grid size-11 place-items-center rounded-xl border border-ink-900 text-ink-400 hover:border-ink-700 hover:bg-ink-900 hover:text-ink-100" aria-label="Restart test">
-                <span class="icon size-5 transition group-hover/tip:-rotate-90" style="--icon: url(icons/restart.svg)"></span>
+                <span class="icon size-5 group-hover/tip:-rotate-90" style="--icon: url(icons/restart.svg)"></span>
             </button>
             <button class="grid size-11 place-items-center rounded-xl border border-ink-900 text-ink-400 hover:border-ink-700 hover:bg-ink-900 hover:text-ink-100" aria-label="Next test">
                 <span class="icon size-5" style="--icon: url(icons/chevron-right.svg)"></span>
@@ -122,7 +122,7 @@ const extras = [
     </div>
 
     <!-- Suggestion -->
-    <a data-hide-in-focus href="practice.html" class="lift mx-auto hidden max-w-md items-center gap-3 rounded-2xl border border-ink-900 bg-ink-900/30 px-4 py-3 text-sm md:flex">
+    <a data-hide-in-focus href="practice.html" class="mx-auto hidden max-w-md items-center gap-3 rounded-2xl border border-ink-900 bg-ink-900/30 px-4 py-3 text-sm md:flex">
         <span class="grid size-9 shrink-0 place-items-center rounded-xl bg-rose-500/10 font-mono text-rose-400">e</span>
         <span class="flex-1 text-ink-400">You miss <span class="font-mono text-ink-100">e</span> and <span class="font-mono text-ink-100">r</span> most. A 2-minute drill helps.</span>
         <span class="text-ink-600">→</span>

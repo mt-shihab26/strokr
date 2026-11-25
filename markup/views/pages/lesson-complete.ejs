@@ -16,9 +16,9 @@
     </section>
 
     <!-- Score vs target -->
-    <section class="stagger grid w-full max-w-2xl grid-cols-3 gap-4">
+    <section class="grid w-full max-w-2xl grid-cols-3 gap-4">
         <% for (const [label, value, target, ok] of [["wpm", 46, "target 40", true], ["accuracy", "95%", "target 94%", true], ["stars", "★★☆", "3 stars at 55 wpm", false]]) { %>
-        <div class="lift rounded-2xl border border-ink-900 bg-ink-900/40 p-5 text-center">
+        <div class="rounded-2xl border border-ink-900 bg-ink-900/40 p-5 text-center">
             <p class="text-xs text-ink-500"><%= label %></p>
             <p class="mt-1 font-mono text-3xl font-bold <%= label === 'stars' ? 'text-amber-400' : 'text-ink-100' %>"><%= value %></p>
             <p class="mt-1 text-xs <%= ok ? 'text-emerald-400' : 'text-ink-600' %>"><%= ok ? "✓ " : "" %><%= target %></p>

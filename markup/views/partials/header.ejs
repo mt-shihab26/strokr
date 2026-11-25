@@ -11,7 +11,7 @@ const links = [
 
 // Tooltip shown under an icon button on hover or keyboard focus.
 const tip = (label) =>
-    `<span role="tooltip" class="pointer-events-none absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 translate-y-1 rounded-md border border-ink-800 bg-ink-900 px-2 py-1 text-xs whitespace-nowrap text-ink-100 opacity-0 shadow-lg transition group-hover/tip:translate-y-0 group-hover/tip:opacity-100 group-focus-visible/tip:translate-y-0 group-focus-visible/tip:opacity-100">${label}</span>`;
+    `<span role="tooltip" class="pointer-events-none absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 translate-y-1 rounded-md border border-ink-800 bg-ink-900 px-2 py-1 text-xs whitespace-nowrap text-ink-100 opacity-0 shadow-lg group-hover/tip:translate-y-0 group-hover/tip:opacity-100 group-focus-visible/tip:translate-y-0 group-focus-visible/tip:opacity-100">${label}</span>`;
 
 const themeNames = ["system", "dark", "light", "nord", "sepia", "tokyo-night", "matrix"];
 
@@ -94,7 +94,7 @@ const shortcutGroups = [
             <details class="group relative">
                 <summary aria-label="Theme" class="group/tip relative grid size-9 cursor-pointer list-none place-items-center rounded-lg text-ink-500 hover:bg-ink-900 hover:text-ink-100 group-open:bg-ink-900 group-open:text-primary">
                     <span class="icon size-[18px]" style="--icon: url(icons/palette.svg)"></span>
-                    <span role="tooltip" class="pointer-events-none absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 translate-y-1 rounded-md border border-ink-800 bg-ink-900 px-2 py-1 text-xs whitespace-nowrap text-ink-100 opacity-0 shadow-lg transition group-hover/tip:translate-y-0 group-hover/tip:opacity-100 group-open:hidden">Theme</span>
+                    <span role="tooltip" class="pointer-events-none absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 translate-y-1 rounded-md border border-ink-800 bg-ink-900 px-2 py-1 text-xs whitespace-nowrap text-ink-100 opacity-0 shadow-lg group-hover/tip:translate-y-0 group-hover/tip:opacity-100 group-open:hidden">Theme</span>
                 </summary>
                 <div class="absolute right-0 z-40 mt-2 w-44 rounded-xl border border-ink-800 bg-ink-900 p-1 shadow-xl">
                     <% for (const name of themeNames) { %>

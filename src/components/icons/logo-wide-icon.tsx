@@ -13,7 +13,7 @@ export const LogoWideIcon: TIcon = ({ className, ...props }) => {
             aria-label="strokr"
             {...props}
         >
-            <g className="origin-[16px_16px] transition group-hover:rotate-[-8deg]">
+            <g className="origin-[16px_16px] group-hover:rotate-[-8deg]">
                 <LogoMarkIcon width={32} height={32} aria-hidden="true" />
             </g>
             <text
@@ -27,15 +27,7 @@ export const LogoWideIcon: TIcon = ({ className, ...props }) => {
             >
                 strok<tspan fill="var(--primary)">r</tspan>
             </text>
-            <rect
-                className="caret"
-                x={115}
-                y={8}
-                width="2.5"
-                height={17}
-                rx="1.25"
-                fill="var(--primary)"
-            />
+            <rect x={115} y={8} width="2.5" height={17} rx="1.25" fill="var(--primary)" />
         </svg>
     );
 };

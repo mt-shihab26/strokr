@@ -22,7 +22,7 @@ export const SiteLayout = ({ children }: { children: ReactNode }) => {
                 <script dangerouslySetInnerHTML={{ __html: themeScript }} />
                 <HeadContent />
             </head>
-            <body className="min-h-screen bg-ink-950 font-sans text-ink-300 antialiased transition-colors">
+            <body className="min-h-screen bg-ink-950 font-sans text-ink-300 antialiased">
                 <TooltipProvider>
                     <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-6">
                         <Header />

@@ -27,13 +27,13 @@ const done = badges.filter((b) => b.done).length;
             <p class="mt-1 text-sm text-ink-500"><%= done %> of <%= badges.length %> unlocked</p>
         </div>
         <div class="w-56">
-            <div class="h-2 overflow-hidden rounded-full bg-ink-900"><div class="bar h-full rounded-full bg-primary" style="width: <%= (done / badges.length) * 100 %>%"></div></div>
+            <div class="h-2 overflow-hidden rounded-full bg-ink-900"><div class="h-full rounded-full bg-primary" style="width: <%= (done / badges.length) * 100 %>%"></div></div>
         </div>
     </div>
 
-    <section class="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <section class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <% for (const b of badges) { %>
-        <div class="lift flex items-center gap-4 rounded-2xl border p-4 <%= b.done ? 'border-primary/30 bg-primary/5' : 'border-ink-900 bg-ink-900/20' %>">
+        <div class="flex items-center gap-4 rounded-2xl border p-4 <%= b.done ? 'border-primary/30 bg-primary/5' : 'border-ink-900 bg-ink-900/20' %>">
             <span class="grid size-12 shrink-0 place-items-center rounded-xl text-2xl <%= b.done ? 'bg-primary/15' : 'bg-ink-900 opacity-40 grayscale' %>"><%= b.icon %></span>
             <div class="min-w-0 flex-1">
                 <p class="text-sm font-medium <%= b.done ? 'text-ink-100' : 'text-ink-400' %>"><%= b.name %></p>
@@ -41,7 +41,7 @@ const done = badges.filter((b) => b.done).length;
                 <% if (b.done) { %>
                 <p class="mt-1 text-xs text-emerald-400">✓ <%= b.date %></p>
                 <% } else if (!b.secret) { %>
-                <div class="mt-2 h-1 overflow-hidden rounded-full bg-ink-800"><div class="bar h-full rounded-full bg-ink-500" style="width: <%= b.progress %>%"></div></div>
+                <div class="mt-2 h-1 overflow-hidden rounded-full bg-ink-800"><div class="h-full rounded-full bg-ink-500" style="width: <%= b.progress %>%"></div></div>
                 <% } %>
             </div>
         </div>

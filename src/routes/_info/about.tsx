@@ -94,11 +94,11 @@ function About() {
                 </div>
             </section>
 
-            <section className="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {features.map((feature) => (
                     <div
                         key={feature.title}
-                        className="lift rounded-2xl border border-ink-900 bg-ink-900/30 p-6"
+                        className="rounded-2xl border border-ink-900 bg-ink-900/30 p-6"
                     >
                         <span className="grid size-10 place-items-center rounded-xl bg-primary/10 text-lg">
                             {feature.icon}
@@ -127,7 +127,7 @@ function About() {
                     >
                         <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-sm text-ink-100">
                             {item.question}
-                            <span className="text-ink-500 transition group-open:rotate-45">+</span>
+                            <span className="text-ink-500 group-open:rotate-45">+</span>
                         </summary>
                         <div>
                             <p className="pb-4 text-sm text-ink-400">{item.answer}</p>

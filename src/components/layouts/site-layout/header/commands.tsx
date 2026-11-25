@@ -107,8 +107,8 @@ export const Commands = () => {
             </DialogTrigger>
             <DialogContent
                 showCloseButton={false}
-                overlayClassName="bg-ink-950/80 backdrop-blur-sm duration-150 ease-out data-closed:animate-none!"
-                className="top-[15vh] block w-[calc(100%-2rem)] max-w-lg translate-y-0 gap-0 overflow-hidden rounded-xl border border-ink-800 bg-ink-900 p-0 text-ink-300 shadow-2xl ring-0 duration-180 ease-[cubic-bezier(0.2,0.8,0.2,1)] sm:max-w-lg data-open:slide-in-from-top-[6px]! data-open:zoom-in-98! data-closed:animate-none!"
+                overlayClassName="bg-ink-950/80 backdrop-blur-sm"
+                className="top-[15vh] block w-[calc(100%-2rem)] max-w-lg translate-y-0 gap-0 overflow-hidden rounded-xl border border-ink-800 bg-ink-900 p-0 text-ink-300 shadow-2xl ring-0 sm:max-w-lg"
             >
                 <DialogTitle className="sr-only">Command menu</DialogTitle>
                 <Command className="bg-transparent text-ink-300">

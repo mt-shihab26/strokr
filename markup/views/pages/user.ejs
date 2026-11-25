@@ -23,7 +23,7 @@
         </div>
     </section>
 
-    <section class="stagger grid grid-cols-2 gap-4 md:grid-cols-4">
+    <section class="grid grid-cols-2 gap-4 md:grid-cols-4">
         <%- include("../partials/stat", { label: "best wpm", value: "168", hint: "time 60" }) %>
         <%- include("../partials/stat", { label: "average wpm", value: "151" }) %>
         <%- include("../partials/stat", { label: "accuracy", value: "99.1%" }) %>
@@ -38,8 +38,8 @@
             <div class="grid grid-cols-[6rem_1fr] items-center gap-4 text-xs">
                 <span class="text-ink-500"><%= label %></span>
                 <div class="flex flex-col gap-1.5">
-                    <div class="flex items-center gap-2"><div class="bar h-2 rounded-full bg-primary" style="width: <%= (you / max) * 100 %>%"></div><span class="font-mono text-ink-300"><%= you %></span></div>
-                    <div class="flex items-center gap-2"><div class="bar h-2 rounded-full bg-ink-600" style="width: <%= (them / max) * 100 %>%"></div><span class="font-mono text-ink-500"><%= them %></span></div>
+                    <div class="flex items-center gap-2"><div class="h-2 rounded-full bg-primary" style="width: <%= (you / max) * 100 %>%"></div><span class="font-mono text-ink-300"><%= you %></span></div>
+                    <div class="flex items-center gap-2"><div class="h-2 rounded-full bg-ink-600" style="width: <%= (them / max) * 100 %>%"></div><span class="font-mono text-ink-500"><%= them %></span></div>
                 </div>
             </div>
             <% } %>
@@ -56,7 +56,7 @@
             <h2 class="text-xs font-medium tracking-wider text-ink-500 uppercase">Achievements</h2>
             <span class="text-xs text-ink-600">18 of 24</span>
         </div>
-        <div class="stagger flex flex-wrap gap-2">
+        <div class="flex flex-wrap gap-2">
             <% for (const [icon, name] of [["⚡", "150 club"], ["🎯", "Perfectionist"], ["🔥", "100-day streak"], ["🏆", "Weekly champion"], ["⌨️", "Layout switcher"], ["🌙", "Night owl"]]) { %>
             <span class="flex items-center gap-2 rounded-full border border-ink-800 bg-ink-900/50 px-3 py-1.5 text-sm text-ink-200"><%= icon %> <%= name %></span>
             <% } %>

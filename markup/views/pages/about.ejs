@@ -16,7 +16,7 @@
     </section>
 
     <!-- Features -->
-    <section class="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <% for (const [icon, title, body] of [
             ["⌨", "Keyboard first", "Every action has a shortcut. Restart, switch modes and open settings without touching the mouse."],
             ["◉", "Per-character feedback", "Correct, wrong and extra characters are coloured as you type, so mistakes never hide."],
@@ -25,7 +25,7 @@
             ["🎯", "Targeted practice", "Drills built from your weakest keys and finger groups."],
             ["🎨", "Themes", "Dark, light, nord, sepia and matrix — or follow your system."],
         ]) { %>
-        <div class="lift rounded-2xl border border-ink-900 bg-ink-900/30 p-6">
+        <div class="rounded-2xl border border-ink-900 bg-ink-900/30 p-6">
             <span class="grid size-10 place-items-center rounded-xl bg-primary/10 text-lg"><%= icon %></span>
             <h2 class="mt-4 font-medium text-ink-100"><%= title %></h2>
             <p class="mt-2 text-sm text-ink-500"><%= body %></p>
@@ -55,7 +55,7 @@
         <details class="group rounded-xl border border-ink-900 bg-ink-900/30 px-5 open:bg-ink-900/60">
             <summary class="flex cursor-pointer list-none items-center justify-between py-4 text-sm text-ink-100">
                 <%= q %>
-                <span class="text-ink-500 transition group-open:rotate-45">+</span>
+                <span class="text-ink-500 group-open:rotate-45">+</span>
             </summary>
             <div><p class="pb-4 text-sm text-ink-400"><%= a %></p></div>
         </details>

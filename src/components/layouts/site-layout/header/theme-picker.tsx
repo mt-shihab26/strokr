@@ -59,7 +59,7 @@ export const ThemePicker = () => {
             <DropdownMenuContent
                 align="end"
                 sideOffset={8}
-                className="z-40 w-44 min-w-0 rounded-xl border border-ink-800 bg-ink-900 p-1 text-ink-300 shadow-xl ring-0 data-open:animate-none! data-closed:animate-none!"
+                className="z-40 w-44 min-w-0 rounded-xl border border-ink-800 bg-ink-900 p-1 text-ink-300 shadow-xl ring-0"
             >
                 {themes.map((theme) => (
                     <DropdownMenuItem

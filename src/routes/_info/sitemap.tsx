@@ -25,7 +25,7 @@ function Sitemap() {
                     sitemap.xml
                 </a>
             </div>
-            <div className="stagger grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2">
                 {sitemapGroups.map((group) => (
                     <section
                         key={group.title}
@@ -49,7 +49,7 @@ function Sitemap() {
                                                 {link.hint}
                                             </span>
                                         </span>
-                                        <span className="text-ink-700 transition group-hover:translate-x-0.5 group-hover:text-primary">
+                                        <span className="text-ink-700 group-hover:text-primary">
                                             →
                                         </span>
                                     </a>

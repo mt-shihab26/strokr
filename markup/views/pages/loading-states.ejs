@@ -3,7 +3,7 @@
 
 <%# Reference: skeletons shown while data loads, and every toast the app uses. %>
 <%# Grey placeholder block shown while content loads. `c` sets its size/shape, e.g. "h-4 w-32". %>
-<% const sk = (c) => `<span class="block animate-pulse rounded-md bg-ink-900 ${c}" aria-hidden="true"></span>`; %>
+<% const sk = (c) => `<span class="block rounded-md bg-ink-900 ${c}" aria-hidden="true"></span>`; %>
 
 <main id="main" class="flex flex-1 flex-col gap-12 pb-16">
     <div>
@@ -51,7 +51,7 @@
             <% for (let i = 0; i < 8; i++) { %><div class="flex flex-col items-center gap-2 bg-ink-900/30 p-4"><%- sk("h-3 w-14") %><%- sk("h-8 w-12") %></div><% } %>
         </div>
         <div class="grid grid-flow-col grid-rows-7 gap-1 overflow-hidden">
-            <% for (let i = 0; i < 26 * 7; i++) { %><span class="size-3 animate-pulse rounded-sm bg-ink-900"></span><% } %>
+            <% for (let i = 0; i < 26 * 7; i++) { %><span class="size-3 rounded-sm bg-ink-900"></span><% } %>
         </div>
     </section>
 

@@ -58,8 +58,8 @@ export const KeyboardShortcuts = () => {
                 ref={popupRef}
                 initialFocus={popupRef}
                 showCloseButton={false}
-                overlayClassName="bg-ink-950/80 backdrop-blur-sm data-open:animate-none! data-closed:animate-none!"
-                className="block w-[calc(100%-2rem)] max-w-2xl gap-0 rounded-2xl border border-ink-800 bg-ink-900 p-6 text-ink-300 shadow-2xl ring-0 sm:max-w-2xl data-open:animate-none! data-closed:animate-none!"
+                overlayClassName="bg-ink-950/80 backdrop-blur-sm"
+                className="block w-[calc(100%-2rem)] max-w-2xl gap-0 rounded-2xl border border-ink-800 bg-ink-900 p-6 text-ink-300 shadow-2xl ring-0 sm:max-w-2xl"
             >
                 <div className="mb-6 flex items-center justify-between">
                     <DialogTitle className="text-lg font-medium tracking-normal text-ink-100 normal-case">
