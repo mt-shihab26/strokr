@@ -11,6 +11,7 @@ import { cn, getInitials } from "@/lib/utils";
 import { useLogout } from "@/hooks/use-logout";
 
 import { Tip } from "./tip";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const itemClassName =
     "flex w-full cursor-pointer items-center rounded-lg px-2 py-1.5 text-left text-sm font-normal tracking-normal text-ink-300 normal-case hover:bg-ink-800 focus:bg-ink-800 focus:text-ink-100";
@@ -37,13 +38,18 @@ export const Profile = () => {
             <DropdownMenuTrigger
                 aria-label="Account"
                 className={cn(
-                    "group/tip relative grid size-9 cursor-pointer place-items-center rounded-full bg-linear-to-br from-primary/80 to-ink-700 font-mono text-xs font-bold text-ink-950 ring-2 ring-offset-2 ring-offset-ink-950 data-popup-open:ring-primary",
+                    "group/tip relative cursor-pointer rounded-full ring-2 ring-offset-2 ring-offset-ink-950 data-popup-open:ring-primary",
                     pathname === "/profile"
                         ? "ring-primary"
                         : "ring-transparent hover:ring-ink-700",
                 )}
             >
-                {getInitials(user.name)}
+                <Avatar className="size-9 after:hidden">
+                    {user.image && <AvatarImage src={user.image} alt={user.name} />}
+                    <AvatarFallback className="bg-linear-to-br from-primary/80 to-ink-700 font-mono text-xs font-bold text-ink-950">
+                        {getInitials(user.name)}
+                    </AvatarFallback>
+                </Avatar>
                 <Tip className="group-data-popup-open/tip:hidden">{user.name}</Tip>
             </DropdownMenuTrigger>
             <DropdownMenuContent
