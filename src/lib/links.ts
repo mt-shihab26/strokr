@@ -7,6 +7,7 @@ import { TextIcon } from "@/components/icons/text-icon";
 import { TrophyIcon } from "@/components/icons/trophy-icon";
 
 export const githubUrl = "https://github.com/mt-shihab26/strokr";
+export const issuesUrl = `${githubUrl}/issues`;
 
 export const headerLinks = [
     { href: "/leaderboard", label: "Leaderboard", icon: TrophyIcon },

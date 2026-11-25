@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { githubUrl } from "@/lib/links";
+import { issuesUrl } from "@/lib/links";
 
 import { ProseLayout } from "@/components/layouts/prose-layout";
 
@@ -51,7 +51,7 @@ function Privacy() {
                     body: [
                         <>
                             Questions? Open an issue on{" "}
-                            <a href={githubUrl} className="text-primary hover:underline">
+                            <a href={issuesUrl} className="text-primary hover:underline">
                                 GitHub
                             </a>
                             .
