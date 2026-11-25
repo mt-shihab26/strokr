@@ -69,6 +69,7 @@ function Signup() {
             subheading="Keep your history across devices. Tests you've already taken come with you."
         >
             <form
+                method="post"
                 noValidate
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-4 rounded-2xl border border-ink-900 bg-ink-900/40 p-6 shadow-sm"

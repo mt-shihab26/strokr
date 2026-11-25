@@ -60,6 +60,7 @@ function Login() {
             subheading="Sign in to sync your history and join the leaderboard."
         >
             <form
+                method="post"
                 noValidate
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-4 rounded-2xl border border-ink-900 bg-ink-900/40 p-6 shadow-sm"
