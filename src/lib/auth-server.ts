@@ -8,7 +8,7 @@ import { minPasswordLength } from "./password";
 import * as schema from "@/schemas";
 
 export const authServer = betterAuth({
-    secret: envServer.BETTER_AUTH_SECRET,
+    secret: envServer.AUTH_SECRET,
     baseURL: envServer.BASE_URL,
     database: drizzleAdapter(db, {
         provider: "sqlite",
