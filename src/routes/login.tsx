@@ -3,11 +3,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 
 import { EmailField } from "@/components/elements/email-field";
+import { ForgotPasswordLink } from "@/components/screens/auth/shared/forgot-password-link";
+import { GitHubButton } from "@/components/screens/auth/shared/github-button";
 import { PasswordField } from "@/components/elements/password-field";
-import { GitHubIcon } from "@/components/icons/github-icon";
 import { AuthLayout } from "@/components/layouts/auth-layout";
 
 export const Route = createFileRoute("/login")({
@@ -22,27 +22,9 @@ function Login() {
             subheading="Sign in to sync your history and join the leaderboard."
         >
             <form className="flex flex-col gap-4 rounded-2xl border border-ink-900 bg-ink-900/40 p-6 shadow-sm">
-                <Button
-                    type="button"
-                    variant="outline"
-                    className="h-10 gap-2 rounded-lg border-ink-800 bg-ink-950 text-sm font-normal tracking-normal text-ink-200 normal-case hover:border-ink-700 hover:bg-ink-900 hover:text-ink-200 dark:hover:bg-ink-900"
-                >
-                    <GitHubIcon className="size-4" fill="currentColor" aria-hidden="true" />
-                    Continue with GitHub
-                </Button>
-                <div className="flex items-center gap-3 text-xs text-ink-600">
-                    <Separator className="flex-1 bg-ink-800 data-horizontal:w-auto" />
-                    or
-                    <Separator className="flex-1 bg-ink-800 data-horizontal:w-auto" />
-                </div>
+                <GitHubButton />
                 <EmailField />
-                <PasswordField
-                    aside={
-                        <a href="/forgot-password" className="text-xs text-ink-500 hover:text-primary">
-                            Forgot?
-                        </a>
-                    }
-                />
+                <PasswordField aside={<ForgotPasswordLink />} />
                 <Label className="font-normal tracking-normal text-ink-500 normal-case">
                     <Checkbox
                         defaultChecked
