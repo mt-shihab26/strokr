@@ -11,8 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
+import { Route as InfoRouteRouteImport } from './routes/_info/route'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AuthSignupRouteImport } from './routes/_auth/signup'
+import { Route as InfoAboutRouteImport } from './routes/_info/about'
+import { Route as InfoPrivacyRouteImport } from './routes/_info/privacy'
+import { Route as InfoSitemapRouteImport } from './routes/_info/sitemap'
+import { Route as InfoTermsRouteImport } from './routes/_info/terms'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -22,6 +27,10 @@ const IndexRoute = IndexRouteImport.update({
 } as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/_auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InfoRouteRoute = InfoRouteRouteImport.update({
+  id: '/_info',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
@@ -34,6 +43,26 @@ const AuthSignupRoute = AuthSignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const InfoAboutRoute = InfoAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => InfoRouteRoute,
+} as any)
+const InfoPrivacyRoute = InfoPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => InfoRouteRoute,
+} as any)
+const InfoSitemapRoute = InfoSitemapRouteImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
+  getParentRoute: () => InfoRouteRoute,
+} as any)
+const InfoTermsRoute = InfoTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => InfoRouteRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -44,39 +73,74 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
+  '/about': typeof InfoAboutRoute
+  '/privacy': typeof InfoPrivacyRoute
+  '/sitemap': typeof InfoSitemapRoute
+  '/terms': typeof InfoTermsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
+  '/about': typeof InfoAboutRoute
+  '/privacy': typeof InfoPrivacyRoute
+  '/sitemap': typeof InfoSitemapRoute
+  '/terms': typeof InfoTermsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
+  '/_info': typeof InfoRouteRouteWithChildren
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/signup': typeof AuthSignupRoute
+  '/_info/about': typeof InfoAboutRoute
+  '/_info/privacy': typeof InfoPrivacyRoute
+  '/_info/sitemap': typeof InfoSitemapRoute
+  '/_info/terms': typeof InfoTermsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/signup' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/about'
+    | '/privacy'
+    | '/sitemap'
+    | '/terms'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/api/auth/$'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/about'
+    | '/privacy'
+    | '/sitemap'
+    | '/terms'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
     | '/_auth'
+    | '/_info'
     | '/_auth/login'
     | '/_auth/signup'
+    | '/_info/about'
+    | '/_info/privacy'
+    | '/_info/sitemap'
+    | '/_info/terms'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  InfoRouteRoute: typeof InfoRouteRouteWithChildren
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -96,6 +160,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_info': {
+      id: '/_info'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof InfoRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_auth/login': {
       id: '/_auth/login'
       path: '/login'
@@ -109,6 +180,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/signup'
       preLoaderRoute: typeof AuthSignupRouteImport
       parentRoute: typeof AuthRouteRoute
+    }
+    '/_info/about': {
+      id: '/_info/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof InfoAboutRouteImport
+      parentRoute: typeof InfoRouteRoute
+    }
+    '/_info/privacy': {
+      id: '/_info/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof InfoPrivacyRouteImport
+      parentRoute: typeof InfoRouteRoute
+    }
+    '/_info/sitemap': {
+      id: '/_info/sitemap'
+      path: '/sitemap'
+      fullPath: '/sitemap'
+      preLoaderRoute: typeof InfoSitemapRouteImport
+      parentRoute: typeof InfoRouteRoute
+    }
+    '/_info/terms': {
+      id: '/_info/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof InfoTermsRouteImport
+      parentRoute: typeof InfoRouteRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -134,9 +233,28 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
+interface InfoRouteRouteChildren {
+  InfoAboutRoute: typeof InfoAboutRoute
+  InfoPrivacyRoute: typeof InfoPrivacyRoute
+  InfoSitemapRoute: typeof InfoSitemapRoute
+  InfoTermsRoute: typeof InfoTermsRoute
+}
+
+const InfoRouteRouteChildren: InfoRouteRouteChildren = {
+  InfoAboutRoute: InfoAboutRoute,
+  InfoPrivacyRoute: InfoPrivacyRoute,
+  InfoSitemapRoute: InfoSitemapRoute,
+  InfoTermsRoute: InfoTermsRoute,
+}
+
+const InfoRouteRouteWithChildren = InfoRouteRoute._addFileChildren(
+  InfoRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
+  InfoRouteRoute: InfoRouteRouteWithChildren,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

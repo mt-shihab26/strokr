@@ -1,0 +1,64 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { githubUrl } from "@/lib/links";
+
+import { ProseLayout } from "@/components/layouts/prose-layout";
+
+export const Route = createFileRoute("/_info/privacy")({
+    head: () => ({ meta: [{ title: "Privacy — strokr" }] }),
+    component: Privacy,
+});
+
+function Privacy() {
+    return (
+        <ProseLayout
+            kicker="legal"
+            heading="Privacy policy"
+            updated="November 24, 2026"
+            sections={[
+                {
+                    title: "Summary",
+                    body: [
+                        "strokr collects as little as it can. Without an account, your tests stay in your browser and never reach our servers.",
+                    ],
+                },
+                {
+                    title: "What we store",
+                    body: [
+                        "If you sign in, we store your email, username and the results of tests you finish: speed, accuracy, mode and date.",
+                        "We don't store the text you type in Custom mode unless you save it to your library.",
+                    ],
+                },
+                {
+                    title: "Cookies",
+                    body: [
+                        "We use one cookie to keep you signed in. No advertising or tracking cookies.",
+                    ],
+                },
+                {
+                    title: "Your choices",
+                    body: [
+                        <>
+                            You can export or delete all your data from{" "}
+                            <a href="/profile-edit#danger" className="text-primary hover:underline">
+                                account settings
+                            </a>{" "}
+                            at any time.
+                        </>,
+                    ],
+                },
+                {
+                    title: "Contact",
+                    body: [
+                        <>
+                            Questions? Open an issue on{" "}
+                            <a href={githubUrl} className="text-primary hover:underline">
+                                GitHub
+                            </a>
+                            .
+                        </>,
+                    ],
+                },
+            ]}
+        />
+    );
+}
