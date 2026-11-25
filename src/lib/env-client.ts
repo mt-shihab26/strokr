@@ -1,3 +1,3 @@
 export const envClient = {
-    BASE_URL: import.meta.env.VITE_BASE_URL as string,
+    APP_URL: import.meta.env.VITE_APP_URL as string,
 } as const;

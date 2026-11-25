@@ -13,12 +13,12 @@ export type TEmail = {
 };
 
 const transporter = nodemailer.createTransport({
-    host: envServer.SMTP_HOST,
-    port: envServer.SMTP_PORT,
-    secure: envServer.SMTP_PORT === 465,
+    host: envServer.MAIL_HOST,
+    port: envServer.MAIL_PORT,
+    secure: envServer.MAIL_PORT === 465,
     auth: {
-        user: envServer.SMTP_USER,
-        pass: envServer.SMTP_PASS,
+        user: envServer.MAIL_USERNAME,
+        pass: envServer.MAIL_PASSWORD,
     },
 });
 
@@ -38,5 +38,8 @@ export const renderEmail = async ({
 });
 
 export const sendEmail = async (email: TEmail) => {
-    await transporter.sendMail({ from: envServer.MAIL_FROM, ...email });
+    await transporter.sendMail({
+        from: { name: envServer.MAIL_FROM_NAME, address: envServer.MAIL_FROM_ADDRESS },
+        ...email,
+    });
 };

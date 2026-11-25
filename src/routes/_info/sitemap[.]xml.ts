@@ -10,7 +10,7 @@ export const Route = createFileRoute("/_info/sitemap.xml")({
                     .filter((group) => group.indexed !== false)
                     .flatMap((group) => group.links)
                     .filter((link) => !link.href.endsWith(".xml"))
-                    .map((link) => `    <url><loc>${envServer.BASE_URL}${link.href}</loc></url>`);
+                    .map((link) => `    <url><loc>${envServer.APP_URL}${link.href}</loc></url>`);
 
                 const xml = [
                     '<?xml version="1.0" encoding="UTF-8"?>',

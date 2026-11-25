@@ -12,7 +12,7 @@ import * as schema from "@/schemas";
 
 export const authServer = betterAuth({
     secret: envServer.AUTH_SECRET,
-    baseURL: envServer.BASE_URL,
+    baseURL: envServer.APP_URL,
     database: drizzleAdapter(db, {
         provider: "sqlite",
         schema,
