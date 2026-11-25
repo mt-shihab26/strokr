@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/command";
 
 import { useEffect, useState } from "react";
+import { useRouteContext } from "@tanstack/react-router";
+import { useLogout } from "@/hooks/use-logout";
 import { Tip, focusTip } from "./tip";
 import { setTheme, themes } from "@/lib/themes";
 
@@ -24,6 +26,7 @@ const commandGroups: {
         keys: string[];
         theme?: string;
         href?: string;
+        logout?: boolean;
     }[];
 }[] = [
     {
@@ -57,6 +60,15 @@ const commandGroups: {
 
 export const Commands = () => {
     const [open, setOpen] = useState<boolean>(false);
+    const { user } = useRouteContext({ from: "__root__" });
+    const logout = useLogout();
+
+    const groups = user
+        ? [
+              ...commandGroups,
+              { title: "Account", items: [{ label: "Log out", keys: [], logout: true }] },
+          ]
+        : commandGroups;
 
     useEffect(() => {
         const onKeyDown = (event: KeyboardEvent) => {
@@ -111,7 +123,7 @@ export const Commands = () => {
                     </CommandInput>
                     <CommandList className="max-h-80 p-2">
                         <CommandEmpty className="text-ink-500">No results.</CommandEmpty>
-                        {commandGroups.map((group) => (
+                        {groups.map((group) => (
                             <CommandGroup
                                 key={group.title}
                                 heading={group.title}
@@ -125,6 +137,10 @@ export const Commands = () => {
                                         onSelect={() => {
                                             if (item.theme) setTheme(item.theme);
                                             if (item.href) window.location.assign(item.href);
+                                            if (item.logout) {
+                                                setOpen(false);
+                                                void logout();
+                                            }
                                         }}
                                         className="cursor-pointer justify-between rounded-md px-2 py-2 text-left text-ink-300 in-data-[slot=dialog-content]:rounded-md data-selected:bg-ink-800 data-selected:text-ink-100"
                                     >
