@@ -5,7 +5,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
-import { Field } from "@/components/elements/field";
+import { EmailField } from "@/components/elements/email-field";
+import { PasswordField } from "@/components/elements/password-field";
 import { GitHubIcon } from "@/components/icons/github-icon";
 import { AuthLayout } from "@/components/layouts/auth-layout";
 
@@ -34,11 +35,8 @@ function Login() {
                     or
                     <Separator className="flex-1 bg-ink-800 data-horizontal:w-auto" />
                 </div>
-                <Field label="Email" type="email" placeholder="you@example.com" />
-                <Field
-                    label="Password"
-                    type="password"
-                    placeholder="••••••••"
+                <EmailField />
+                <PasswordField
                     aside={
                         <a href="/forgot-password" className="text-xs text-ink-500 hover:text-primary">
                             Forgot?
