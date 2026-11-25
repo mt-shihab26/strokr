@@ -8,22 +8,14 @@ import {
 import { useEffect } from "react";
 import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
-import { themes } from "@/lib/themes";
+import { applyTheme, getTheme, setTheme, themes } from "@/lib/themes";
 
 import { FaviconIcon } from "@/components/icons/favicon-icon";
 import { PaletteIcon } from "@/components/icons/palette-icon";
 import { Tip } from "./tip";
 
-export const themeKey = "theme";
-export const defaultTheme = "system";
-
-const applyTheme = (choice: string) => {
-    const root = document.documentElement;
-    const light = matchMedia("(prefers-color-scheme: light)").matches;
-    root.dataset.theme = choice === "system" ? (light ? "light" : "dark") : choice;
-    root.dataset.themeChoice = choice;
-
-    const style = getComputedStyle(root);
+const updateFavicon = () => {
+    const style = getComputedStyle(document.documentElement);
     const brand = style.getPropertyValue("--primary").trim();
     const ink = style.getPropertyValue("--background").trim();
     const link = document.getElementById("favicon") as HTMLLinkElement | null;
@@ -35,21 +27,22 @@ const applyTheme = (choice: string) => {
     favicon.unmount();
 };
 
-export const setTheme = (choice: string) => {
-    localStorage.setItem(themeKey, choice);
-    applyTheme(choice);
-};
-
 export const ThemePicker = () => {
     useEffect(() => {
-        const id = setTimeout(() => applyTheme(localStorage.getItem(themeKey) ?? defaultTheme));
+        const observer = new MutationObserver(updateFavicon);
+        observer.observe(document.documentElement, { attributeFilter: ["data-theme"] });
+        const id = setTimeout(() => {
+            applyTheme(getTheme());
+            updateFavicon();
+        });
         const media = matchMedia("(prefers-color-scheme: light)");
         const onChange = () => {
-            if ((localStorage.getItem(themeKey) ?? defaultTheme) === "system") applyTheme("system");
+            if (getTheme() === "system") applyTheme("system");
         };
         media.addEventListener("change", onChange);
         return () => {
             clearTimeout(id);
+            observer.disconnect();
             media.removeEventListener("change", onChange);
         };
     }, []);

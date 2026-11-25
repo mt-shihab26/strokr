@@ -7,7 +7,7 @@ import { createRootRoute } from "@tanstack/react-router";
 import { HeadContent, Scripts } from "@tanstack/react-router";
 import { NotFound } from "@/components/screens/errors/not-found";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { defaultTheme, themeKey } from "@/components/screens/site-layout/header/theme-picker";
+import { defaultTheme, themeKey } from "@/lib/themes";
 
 const themeScript = `(() => {
     const choice = localStorage.getItem(${JSON.stringify(themeKey)}) ?? ${JSON.stringify(defaultTheme)};

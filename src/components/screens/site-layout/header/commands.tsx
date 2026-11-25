@@ -10,8 +10,7 @@ import {
 
 import { useEffect, useState } from "react";
 import { Tip, focusTip } from "./tip";
-import { themes } from "@/lib/themes";
-import { setTheme } from "./theme-picker";
+import { setTheme, themes } from "@/lib/themes";
 
 import { SearchIcon } from "@/components/icons/search-icon";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
